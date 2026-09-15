@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX SHOP</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f5f5f5}
+header{background:#000;padding:10px 15px;display:flex;align-items:center;justify-content:space-between}
+.logo img{height:38px;background:#fff;border-radius:8px;padding:2px 6px}
+.top-right{color:#fff;font-size:14px}
+.search-wrap{padding:10px 15px;background:#000;display:flex}
+.search-wrap input{flex:1;padding:12px;border:none;border-radius:10px 0 0 10px;outline:none}
+.search-wrap button{background:#ffcc00;border:none;padding:12px 18px;border-radius:0 10px 10px 0;font-weight:bold}
+.slider-container{position:relative;border-radius:16px;overflow:hidden;margin:15px;height:130px}
+.slider-track{position:relative;height:100%}
+.slide{position:absolute;inset:0;padding:20px;color:#fff;display:flex;flex-direction:column;justify-content:center;opacity:0;transform:translateX(100%);transition:all 0.6s ease}
+.slide.active{opacity:1;transform:translateX(0)}
+.slide h2{font-size:20px;font-weight:800;margin-bottom:6px}
+.slide p{font-size:13px;opacity:0.9}
+.dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.5)}
+.dot.active{background:#ffcc00;width:20px;border-radius:10px}
+.filters{display:flex;gap:10px;padding:0 15px;overflow-x:auto;margin-bottom:10px}
+.filter{white-space:nowrap;background:#fff;padding:8px 16px;border-radius:20px;border:1px solid #ddd;font-weight:600}
+.section-head{display:flex;justify-content:space-between;padding:10px 15px;align-items:center}
+.hot{font-weight:800}
+.tap{color:red;font-size:12px;font-weight:800}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 15px 20px}
+.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.card img{width:100%;height:180px;object-fit:cover}
+.card-body{padding:10px}
+.badge{position:absolute;top:8px;right:8px;background:red;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:bold}
+.img-wrap{position:relative}
+.price{font-weight:800;margin-top:4px}
+</style>
+</head>
+<body>
+
+<header>
+<a href="#" class="logo"><img src="logo.png" alt="APEX SHOP"></a>
+<div class="top-right">📍 Bubieshie</div>
+</header>
+
+<div class="search-wrap">
+<input type="text" id="search" placeholder="Search phones, chargers...">
+<button onclick="search()">Search</button>
+</div>
+
+<!-- APEX SHOP - 4 REAL PRODUCTS SLIDER -->
+<div class="slider-container">
+<div class="slider-track">
+
+<div class="slide active" style="background:linear-gradient(135deg,#0f0f0f 0%,#2d2d2d 100%)">
+  <div>
+    <h2>5G Powerful Mifi White</h2>
+    <p>300Mbps • 5G Speed • Best Seller</p>
+    <span class="price-tag">GHS 450</span>
+  </div>
+  <img src="product-5g.jpg" class="slide-img">
+</div>
+
+<div class="slide" style="background:linear-gradient(135deg,#1565c0 0%,#42a5f5 100%)">
+  <div>
+    <h2>4G Mifi 150Mbps Pro</h2>
+    <p>Portable • All Networks • White</p>
+    <span class="price-tag">GHS 300</span>
+  </div>
+  <img src="product-4g.jpg" class="slide-img">
+</div>
+
+<div class="slide" style="background:linear-gradient(135deg,#ef6c00 0%,#ff9800 100%)">
+  <div>
+    <h2>Dual-Tank Hot Pot</h2>
+    <p>Rice + Soup • Smart Split</p>
+    <span class="price-tag">GHS 380</span>
+  </div>
+  <img src="product-hotpot.jpg" class="slide-img">
+</div>
+
+<div class="slide" style="background:linear-gradient(135deg,#2e7d32 0%,#81c784 100%)">
+  <div>
+    <h2>Bruhm Rice Cooker 5.0L</h2>
+    <p>Non-Stick • Auto Keep Warm</p>
+    <span class="price-tag">GHS 250</span>
+  </div>
+  <img src="product-rice.jpg" class="slide-img">
+</div>
+
+</div>
+<div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+</div>
+
+<style>
+.slider-container{position:relative;border-radius:18px;overflow:hidden;margin:15px;height:160px;box-shadow:0 6px 18px rgba(0,0,0,0.2)}
+.slider-track{position:relative;height:100%}
+.slide{position:absolute;inset:0;padding:18px 20px;color:#fff;display:flex;align-items:center;justify-content:space-between;opacity:0;transform:translateX(100%);transition:all 0.7s cubic-bezier(0.4,0,0.2,1)}
+.slide.active{opacity:1;transform:translateX(0)}
+.slide-img{width:120px;height:120px;border-radius:16px;object-fit:contain;background:#fff;padding:6px;box-shadow:0 4px 12px rgba(0,0,0,0.25)}
+.slide h2{font-size:15px;font-weight:800;line-height:1.2;margin-bottom:4px}
+.slide p{font-size:11px;opacity:0.9;margin-bottom:8px}
+.price-tag{background:#ffcc00;color:#000;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:900;display:inline-block}
+.dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:10}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.3s}
+.dot.active{background:#ffcc00;width:24px;border-radius:10px}
+</style>
+
+<script>
+let cur=0;
+const slides=document.querySelectorAll('.slide');
+const dots=document.querySelectorAll('.dot');
+function show(n){slides.forEach(s=>s.classList.remove('active'));dots.forEach(d=>d.classList.remove('active'));slides[n].classList.add('active');dots[n].classList.add('active');}
+setInterval(()=>{cur=(cur+1)%slides.length;show(cur);},4000);
+dots.forEach((d,i)=>d.addEventListener('click',()=>{cur=i;show(i);}));
+</script>
+
+<div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+</div>
+
+<div class="filters">
+<div class="filter">📱 All</div><div class="filter">📶 Mifi</div><div class="filter">⚡ Chargers</div><div class="filter">🎨 Art</div>
+</div>
+
+<div class="section-head">
+<div class="hot">🔥 Hot Products</div>
+<div class="tap">TAP IMAGE TO VIEW</div>
+</div>
+
+<div class="grid">
+<div class="card"><div class="img-wrap"><img src="https://images.unsplash.com/photo-1573166364524-df042a05e44d?w=400"><span class="badge">HOT</span></div><div class="card-body"><div>Universal Mifi 150Mbps</div><div class="price">GHS 300</div></div></div>
+<div class="card"><div class="img-wrap"><img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400"><span class="badge">NEW</span></div><div class="card-body"><div>Modern Canvas Art</div><div class="price">GHS 250</div></div></div>
+</div>
+
+<script>
+let cur=0;
+const slides=document.querySelectorAll('.slide');
+const dots=document.querySelectorAll('.dot');
+function show(n){slides.forEach(s=>s.classList.remove('active'));dots.forEach(d=>d.classList.remove('active'));slides[n].classList.add('active');dots[n].classList.add('active');}
+setInterval(()=>{cur=(cur+1)%slides.length;show(cur);},3000);
+dots.forEach((d,i)=>d.addEventListener('click',()=>{cur=i;show(i);}));
+function search(){alert("Search: "+document.getElementById('search').value)}
+</script>
+</body>
+</html>
