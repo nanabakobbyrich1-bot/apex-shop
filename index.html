@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APEX SHOP | Online Store</title>
+  <style>
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    /* Header & Navigation */
+    header {
+      background-color: #000;
+      color: #fff;
+      padding: 15px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    .search-bar {
+      flex: 1;
+      max-width: 600px;
+      display: flex;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
+
+    .search-bar button {
+      background-color: #ffcc00;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .user-actions a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    /* Banner Section */
+    .hero-banner {
+      background: linear-gradient(135deg, #000 0%, #333 100%);
+      color: #fff;
+      border-radius: 8px;
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .hero-text h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .hero-text p {
+      color: #ffcc00;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      background-color: #ffcc00;
+      color: #000;
+      padding: 12px 25px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    /* Product Grid */
+    .section-title {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 180px;
+      background-color: #eee;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+    }
+
+    .product-title {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .product-price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #000;
+      margin-bottom: 12px;
+    }
+
+    .btn-cart {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .btn-cart:hover {
+      background-color: #ffcc00;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <a href="#" class="logo">APEX SHOP</a>
+    <div class="search-bar">
+      <input type="text" placeholder="Search products, brands and categories...">
+      <button>Search</button>
+    </div>
+    <div class="user-actions">
+      <a href="#">Account</a>
+      <a href="#">Cart (0)</a>
+    </div>
+  </header>
+
+  <!-- Content Container -->
+  <div class="container">
+    
+    <!-- Hero Promotional Banner -->
+    <div class="hero-banner">
+      <div class="hero-text">
+        <h1>SM-SERIES PHONES</h1>
+        <p>Connect passion with life. Up to 40% OFF!</p>
+        <a href="#" class="btn-primary">Shop Now</a>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <h2 class="section-title">Trending Deals</h2>
+    <div class="product-grid">
+      
+      <div class="product-card">
+        <div class="product-image">Product Image</div>
+        <div class="product-title">Smartphone Cyber 16 Pro</div>
+        <div class="product-price">$299.99</div>
+        <button class="btn-cart">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">Product Image</div>
+        <div class="product-title">Wireless Headphones</div>
+        <div class="product-price">$49.99</div>
+        <button class="btn-cart">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">Product Image</div>
+        <div class="product-title">Smart Watch Series 7</div>
+        <div class="product-price">$89.99</div>
+        <button class="btn-cart">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">Product Image</div>
+        <div class="product-title">Bluetooth Speaker</div>
+        <div class="product-price">$35.00</div>
+        <button class="btn-cart">Add to Cart</button>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
