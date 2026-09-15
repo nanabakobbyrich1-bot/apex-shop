@@ -1,136 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APEX SHOP</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX SHOP - Order via MoMo</title>
 <style>
-.slider-container{position:relative;border-radius:18px;overflow:hidden;margin:15px;height:200px;box-shadow:0 6px 18px rgba(0,0,0,0.3)}
-.slider-track{position:relative;height:100%}
-.slide{position:absolute;inset:0;padding:0;color:#fff;display:flex;align-items:flex-end;opacity:0;transform:translateX(100%);transition:all 0.7s ease}
-.slide.active{opacity:1;transform:translateX(0)}
-.slide-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:1}
-.slide>div{position:relative;z-index:3;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.3) 60%,transparent 100%);width:100%;padding:20px 18px 35px 18px}
-.slide h2{font-size:18px;font-weight:900;line-height:1.2;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;text-shadow:0 2px 4px rgba(0,0,0,0.8)}
-.slide p{font-size:12px;font-weight:700;opacity:1;margin-bottom:10px;text-shadow:0 1px 3px rgba(0,0,0,0.8)}
-.price-tag{background:#ffcc00;color:#000;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:900;display:inline-block;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
-.dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:10}
-.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.6);cursor:pointer;transition:all 0.3s}
-.dot.active{background:#ffcc00;width:24px;border-radius:10px}
-.tap{color:red;font-size:12px;font-weight:800}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 15px 20px}
-.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f5f5f5;padding-bottom:80px}
+header{background:#000;padding:12px 15px;display:flex;justify-content:space-between;color:#fff}
+.logo{font-weight:900;color:#ffcc00;font-size:19px}
+.search-wrap{padding:10px 15px;background:#000;display:flex;gap:8px}
+.search-wrap input{flex:1;padding:12px;border:none;border-radius:8px}
+.search-wrap button{background:#ffcc00;border:none;padding:12px 15px;border-radius:8px;font-weight:900}
+.slider-container{position:relative;border-radius:18px;overflow:hidden;margin:15px;height:220px}
+.slide{position:relative;width:100%;height:100%}
+.slide-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slide>div{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);padding:18px}
+.slide h2{font-size:20px;font-weight:900;color:#fff;text-shadow:0 2px 4px #000}
+.slide p{font-weight:700;color:#fff;font-size:13px;margin:4px 0 8px}
+.price-tag{background:#ffcc00;color:#000;padding:6px 14px;border-radius:20px;font-weight:900;display:inline-block}
+.filters{display:flex;gap:10px;padding:10px 15px;overflow:auto}
+.filter{background:#fff;padding:8px 14px;border-radius:20px;font-weight:700}
+.section-head{padding:12px 15px;font-weight:900;display:flex;justify-content:space-between}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 15px}
+.card{background:#fff;border-radius:16px;overflow:hidden;position:relative;cursor:pointer}
 .card img{width:100%;height:180px;object-fit:cover}
-.card-body{padding:10px}
-.badge{position:absolute;top:8px;right:8px;background:red;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:bold}
-.img-wrap{position:relative}
-.price{font-weight:800;margin-top:4px}
+.card-body{padding:10px}.badge{position:absolute;top:8px;right:8px;background:red;color:#fff;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:900}
+.price{font-weight:900;margin-top:3px}
+.tap{color:red;font-size:11px;font-weight:900}
+
+/* MoMo Popup */
+#orderBox{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:99;padding:20px}
+#orderBox.show{display:flex}
+.order-card{background:#fff;border-radius:20px;padding:20px;width:100%;max-width:350px;text-align:center}
+.order-card h3{font-weight:900;margin-bottom:6px}
+.order-card p{font-size:13px;color:#555;margin-bottom:12px}
+.momo-btn{background:#ffcc00;color:#000;padding:14px;border-radius:12px;font-weight:900;display:block;text-decoration:none;margin:8px 0;border:none;width:100%;font-size:15px}
+.whatsapp-btn{background:#25D366;color:#fff;padding:14px;border-radius:12px;font-weight:900;display:block;text-decoration:none;margin:8px 0}
+.close-btn{background:#eee;padding:10px;border-radius:10px;border:none;width:100%;margin-top:5px}
 </style>
 </head>
 <body>
+<header><div class="logo">APEX SHOP</div><div>📍 Bubieshie,Accra</div></header>
+<div class="search-wrap"><input placeholder="Search..."><button>Search</button></div>
 
-<header>
-<a href="#" class="logo"><img src="logo.png" alt="APEX SHOP"></a>
-<div class="top-right">📍 Bubieshie</div>
-</header>
+<div class="slider-container"><div class="slide"><img src="IMG_4452.jpeg" class="slide-img"><div><h2>4G MIFI 150MBPS PRO</h2><p>Portable • All Networks • White</p><span class="price-tag">GHS 250</span></div></div></div>
 
-<div class="search-wrap">
-<input type="text" id="search" placeholder="Search phones, chargers...">
-<button onclick="search()">Search</button>
-</div>
-
-<!-- APEX SHOP - 4 REAL PRODUCTS SLIDER -->
-<div class="slider-container">
-<div class="slider-track">
-
-<div class="slide active" style="background:linear-gradient(135deg,#0f0f0f 0%,#2d2d2d 100%)">
-  <div>
-    <h2>5G Powerful Mifi White</h2>
-    <p>300Mbps • 5G Speed • Best Seller</p>
-    <span class="price-tag">GHS 250</span>
-  </div>
-  <img src="IMG_4452.jpeg" class="slide-img">
-</div>
-
-<div class="slide" style="background:linear-gradient(135deg,#1565c0 0%,#42a5f5 100%)">
-  <div>
-    <h2>4G Mifi 150Mbps Pro</h2>
-    <p>Portable • All Networks • White</p>
-    <span class="price-tag">GHS 300</span>
-  </div>
-  <img src="IMG_4452.jpeg" class="slide-img">
-</div>
-
-<div class="slide" style="background:linear-gradient(135deg,#ef6c00 0%,#ff9800 100%)">
-  <div>
-    <h2>Dual-Tank Hot Pot</h2>
-    <p>Rice + Soup • Smart Split</p>
-    <span class="price-tag">GHS 380</span>
-  </div>
-  <img src="product-hotpot.jpg" class="slide-img">
-</div>
-
-<div class="slide" style="background:linear-gradient(135deg,#2e7d32 0%,#81c784 100%)">
-  <div>
-    <h2>Bruhm Rice Cooker 5.0L</h2>
-    <p>Non-Stick • Auto Keep Warm</p>
-    <span class="price-tag">GHS 250</span>
-  </div>
-  <img src="product-rice.jpg" class="slide-img">
-</div>
-
-</div>
-<div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-</div>
-
-<style>
-.slider-container{position:relative;border-radius:18px;overflow:hidden;margin:15px;height:160px;box-shadow:0 6px 18px rgba(0,0,0,0.2)}
-.slider-track{position:relative;height:100%}
-.slide{position:absolute;inset:0;padding:18px 20px;color:#fff;display:flex;align-items:center;justify-content:space-between;opacity:0;transform:translateX(100%);transition:all 0.7s cubic-bezier(0.4,0,0.2,1)}
-.slide.active{opacity:1;transform:translateX(0)}
-.slide-img{width:120px;height:120px;border-radius:16px;object-fit:contain;background:#fff;padding:6px;box-shadow:0 4px 12px rgba(0,0,0,0.25)}
-.slide h2{font-size:15px;font-weight:800;line-height:1.2;margin-bottom:4px}
-.slide p{font-size:11px;opacity:0.9;margin-bottom:8px}
-.price-tag{background:#ffcc00;color:#000;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:900;display:inline-block}
-.dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:10}
-.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.3s}
-.dot.active{background:#ffcc00;width:24px;border-radius:10px}
-</style>
-
-<script>
-let cur=0;
-const slides=document.querySelectorAll('.slide');
-const dots=document.querySelectorAll('.dot');
-function show(n){slides.forEach(s=>s.classList.remove('active'));dots.forEach(d=>d.classList.remove('active'));slides[n].classList.add('active');dots[n].classList.add('active');}
-setInterval(()=>{cur=(cur+1)%slides.length;show(cur);},4000);
-dots.forEach((d,i)=>d.addEventListener('click',()=>{cur=i;show(i);}));
-</script>
-
-<div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-</div>
-
-<div class="filters">
-<div class="filter">📱 All</div><div class="filter">📶 Mifi</div><div class="filter">⚡ Chargers</div><div class="filter">🎨 Art</div>
-</div>
-
-<div class="section-head">
-<div class="hot">🔥 Hot Products</div>
-<div class="tap">TAP IMAGE TO VIEW</div>
-</div>
+<div class="filters"><div class="filter">All</div><div class="filter">Mifi</div><div class="filter">Chargers</div></div>
+<div class="section-head"><span>🔥 Hot Products</span><span class="tap">TAP TO ORDER VIA MOMO</span></div>
 
 <div class="grid">
-<div class="card"><div class="img-wrap"><img src="https://images.unsplash.com/photo-1573166364524-df042a05e44d?w=400"><span class="badge">HOT</span></div><div class="card-body"><div>Universal Mifi 150Mbps</div><div class="price">GHS 300</div></div></div>
-<div class="card"><div class="img-wrap"><img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400"><span class="badge">NEW</span></div><div class="card-body"><div>Modern Canvas Art</div><div class="price">GHS 250</div></div></div>
+<div class="card" onclick="order('5G Powerful Mifi - GHS 230')"><span class="badge">HOT</span><img src="IMG_4452.jpeg"><div class="card-body"><div>5G Powerful Mifi</div><div class="price">GHS 230</div></div></div>
+<div class="card" onclick="order('Universal Mifi White - GHS 250')"><img src="IMG_4452.jpeg"><div class="card-body"><div>Universal Mifi</div><div class="price">GHS 300</div></div></div>
+<div class="card" onclick="order('Hot Pot Cooker - GHS 250')"><img src="IMG_4452.jpeg"><div class="card-body"><div>Hot Pot</div><div class="price">GHS 250</div></div></div>
+<div class="card" onclick="order('Rice Cooker - GHS 320')"><img src="IMG_4452.jpeg"><div class="card-body"><div>Rice Cooker</div><div class="price">GHS 320</div></div></div>
+</div>
+
+<!-- ORDER VIA MOMO BOX -->
+<div id="orderBox" onclick="this.classList.remove('show')">
+<div class="order-card" onclick="event.stopPropagation()">
+<h3 id="pName">Product Name</h3>
+<p>Pay via MoMo and we deliver to Bubieshie / Accra</p>
+<div style="background:#fff8dc;padding:10px;border-radius:10px;border:1px dashed #ffcc00;margin-bottom:10px">
+<b>MoMo Number:</b><br><span style="font-size:20px;font-weight:900">0249303078 </span><br><small> Name: Nana Bakobby Rich </small>
+</div>
+<a class="momo-btn" id="momoLink" href="#">📱 PAY WITH MOMO - SEND MONEY</a>
+<a class="whatsapp-btn" id="waLink" href="#" target="_blank">💬 ORDER ON WHATSAPP</a>
+<button class="close-btn" onclick="document.getElementById('orderBox').classList.remove('show')">Close</button>
+</div>
 </div>
 
 <script>
-let cur=0;
-const slides=document.querySelectorAll('.slide');
-const dots=document.querySelectorAll('.dot');
-function show(n){slides.forEach(s=>s.classList.remove('active'));dots.forEach(d=>d.classList.remove('active'));slides[n].classList.add('active');dots[n].classList.add('active');}
-setInterval(()=>{cur=(cur+1)%slides.length;show(cur);},3000);
-dots.forEach((d,i)=>d.addEventListener('click',()=>{cur=i;show(i);}));
-function search(){alert("Search: "+document.getElementById('search').value)}
+function order(name){
+ document.getElementById('pName').innerText=name;
+ document.getElementById('orderBox').classList.add('show');
+ let msg = "Hello Nana B Rich, I want to order: "+name+" . I will pay via MoMo.";
+ document.getElementById('waLink').href="https://wa.me/233249303078?text="+encodeURIComponent(msg);
+ document.getElementById('momoLink').href="tel:*170#";
+}
 </script>
 </body>
 </html>
