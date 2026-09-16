@@ -201,5 +201,82 @@ function openO(id){view(id);setTimeout(()=>document.getElementById('orderbox').s
 function goOrder(){document.getElementById('orderbox').scrollIntoView({behavior:'smooth'})}
 function sendWA(){let n=document.getElementById('n').value.trim();let l=document.getElementById('l').value.trim();let ph=document.getElementById('p').value.trim();let q=document.getElementById('qt').value;if(!n||!l||!ph){alert('Fill Name, Location, Phone');return}let msg=`Hello APEX TECH & GADGETS!%0A%0AProduct: ${curP.name}%0APrice: GH₵ ${curP.price}%0AQty: ${q}%0A%0AName: ${n}%0ALocation: ${l}%0APhone: ${ph}%0A%0AMoMo: 0247440480`;window.open(`https://wa.me/233249303078?text=${msg}`,'_blank')}
 </script>
+<!-- FULL IMAGE VIEW -->
+<div id="imgModal" onclick="this.style.display='none'" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:20000; justify-content:center; align-items:center;">
+<img id="fullImg" src="" style="max-width:95%; max-height:90%; border-radius:10px;">
+<div style="position:absolute; top:15px; right:20px; color:#fff; font-size:30px;">×</div>
+</div>
+
+<!-- T-SHIRT PAGE PRO -->
+<div id="tshirtPage" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#f5f5f5; z-index:10000; overflow-y:auto;">
+<div style="position:sticky;top:0;background:#fff;padding:12px 15px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+<span onclick="closeService()" style="color:#f68b1e;font-size:22px;cursor:pointer;">←</span><b>👕 T-Shirt Printing</b>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px;">
+<div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1)">
+<img onclick="viewImg(this.src)" src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500" style="width:100%;height:150px;object-fit:cover;cursor:zoom-in">
+<div style="padding:10px"><b style="font-size:12px">Birthday T-Shirt</b><div style="color:#f68b1e;font-weight:bold">80 GHS</div>
+<button onclick="orderNow('Birthday T-Shirt - 80 GHS')" style="width:100%;background:#25D366;color:#fff;border:0;padding:8px;border-radius:6px;margin-top:5px">💬 WhatsApp Order</button>
+<button onclick="payMoMo('Birthday T-Shirt - 80 GHS')" style="width:100%;background:#FFCC00;color:#000;border:0;padding:8px;border-radius:6px;margin-top:5px;font-weight:bold">💰 Pay via MoMo</button>
+</div></div>
+
+<div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1)">
+<img onclick="viewImg(this.src)" src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500" style="width:100%;height:150px;object-fit:cover;cursor:zoom-in">
+<div style="padding:10px"><b style="font-size:12px">Church Program Tee</b><div style="color:#f68b1e;font-weight:bold">70 GHS</div>
+<button onclick="orderNow('Church Tee - 70 GHS')" style="width:100%;background:#25D366;color:#fff;border:0;padding:8px;border-radius:6px;margin-top:5px">💬 WhatsApp Order</button>
+<button onclick="payMoMo('Church Tee - 70 GHS')" style="width:100%;background:#FFCC00;color:#000;border:0;padding:8px;border-radius:6px;margin-top:5px;font-weight:bold">💰 Pay via MoMo</button>
+</div></div>
+
+<div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1)">
+<img onclick="viewImg(this.src)" src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500" style="width:100%;height:150px;object-fit:cover;cursor:zoom-in">
+<div style="padding:10px"><b style="font-size:12px">School Event Shirt</b><div style="color:#f68b1e;font-weight:bold">60 GHS</div>
+<button onclick="orderNow('School Shirt - 60 GHS')" style="width:100%;background:#25D366;color:#fff;border:0;padding:8px;border-radius:6px;margin-top:5px">💬 WhatsApp Order</button>
+<button onclick="payMoMo('School Shirt - 60 GHS')" style="width:100%;background:#FFCC00;color:#000;border:0;padding:8px;border-radius:6px;margin-top:5px;font-weight:bold">💰 Pay via MoMo</button>
+</div></div>
+
+<div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1)">
+<img onclick="viewImg(this.src)" src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=500" style="width:100%;height:150px;object-fit:cover;cursor:zoom-in">
+<div style="padding:10px"><b style="font-size:12px">Business Logo Tee</b><div style="color:#f68b1e;font-weight:bold">90 GHS</div>
+<button onclick="orderNow('Business Logo Tee - 90 GHS')" style="width:100%;background:#25D366;color:#fff;border:0;padding:8px;border-radius:6px;margin-top:5px">💬 WhatsApp Order</button>
+<button onclick="payMoMo('Business Logo Tee - 90 GHS')" style="width:100%;background:#FFCC00;color:#000;border:0;padding:8px;border-radius:6px;margin-top:5px;font-weight:bold">💰 Pay via MoMo</button>
+</div></div>
+</div>
+</div>
+
+<!-- PICTURE FRAMES PAGE PRO -->
+<div id="framesPage" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#f5f5f5; z-index:10000; overflow-y:auto;">
+<div style="position:sticky;top:0;background:#fff;padding:12px 15px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+<span onclick="closeService()" style="color:#f68b1e;font-size:22px;cursor:pointer;">←</span><b>🖼️ Picture Frames</b>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px;">
+<div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1)">
+<img onclick="viewImg(this.src)" src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=500" style="width:100%;height:150px;object-fit:cover;cursor:zoom-in">
+<div style="padding:10px"><b style="font-size:12px">Wooden Classic</b><div style="font-size:11px;color:#666">12x16 inches</div><div style="color:#f68b1e;font-weight:bold">80 GHS</div>
+<button onclick="orderNow('Wooden Classic Frame 12x16 - 80 GHS')" style="width:100%;background:#25D366;color:#fff;border:0;padding:8px;border-radius:6px;margin-top:5px">💬 WhatsApp Order</button>
+<button onclick="payMoMo('Wooden Classic Frame - 80 GHS')" style="width:100%;background:#FFCC00;color:#000;border:0;padding:8px;border-radius:6px;margin-top:5px;font-weight:bold">💰 Pay via MoMo</button>
+</div></div>
+
+<div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1)">
+<img onclick="viewImg(this.src)" src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=500" style="width:100%;height:150px;object-fit:cover;cursor:zoom-in">
+<div style="padding:10px"><b style="font-size:12px">Golden Luxury Frame</b><div style="font-size:11px;color:#666">16x20 inches</div><div style="color:#f68b1e;font-weight:bold">150 GHS</div>
+<button onclick="orderNow('Golden Luxury Frame - 150 GHS')" style="width:100%;background:#25D366;color:#fff;border:0;padding:8px;border-radius:6px;margin-top:5px">💬 WhatsApp Order</button>
+<button onclick="payMoMo('Golden Luxury Frame - 150 GHS')" style="width:100%;background:#FFCC00;color:#000;border:0;padding:8px;border-radius:6px;margin-top:5px;font-weight:bold">💰 Pay via MoMo</button>
+</div></div>
+
+<div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1)">
+<img onclick="viewImg(this.src)" src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=500" style="width:100%;height:150px;object-fit:cover;cursor:zoom-in">
+<div style="padding:10px"><b style="font-size:12px">Glass Photo Frame</b><div style="font-size:11px;color:#666">10x12 inches</div><div style="color:#f68b1e;font-weight:bold">100 GHS</div>
+<button onclick="orderNow('Glass Frame - 100 GHS')" style="width:100%;background:#25D366;color:#fff;border:0;padding:8px;border-radius:6px;margin-top:5px">💬 WhatsApp Order</button>
+<button onclick="payMoMo('Glass Frame - 100 GHS')" style="width:100%;background:#FFCC00;color:#000;border:0;padding:8px;border-radius:6px;margin-top:5px;font-weight:bold">💰 Pay via MoMo</button>
+</div></div>
+
+<div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1)">
+<img onclick="viewImg(this.src)" src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=500" style="width:100%;height:150px;object-fit:cover;cursor:zoom-in">
+<div style="padding:10px"><b style="font-size:12px">Canvas Wall Frame</b><div style="font-size:11px;color:#666">20x24 inches</div><div style="color:#f68b1e;font-weight:bold">200 GHS</div>
+<button onclick="orderNow('Canvas Frame - 200 GHS')" style="width:100%;background:#25D366;color:#fff;border:0;padding:8px;border-radius:6px;margin-top:5px">💬 WhatsApp Order</button>
+<button onclick="payMoMo('Canvas Frame - 200 GHS')" style="width:100%;background:#FFCC00;color:#000;border:0;padding:8px;border-radius:6px;margin-top:5px;font-weight:bold">💰 Pay via MoMo</button>
+</div></div>
+</div>
+</div>
 </body>
 </html>
