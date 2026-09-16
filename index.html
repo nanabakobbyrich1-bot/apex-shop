@@ -132,7 +132,21 @@ function next(){go((cur+1)%banners.length)} function prev(){go((cur-1+banners.le
 setInterval(next,15000);
 function openMenu(){document.getElementById('sideMenu').style.right='0';document.getElementById('menuOverlay').style.display='block';}
 function closeMenu(){document.getElementById('sideMenu').style.right='-100%';document.getElementById('menuOverlay').style.display='none';}
-function filterCategory(c){closeMenu();let b=document.querySelectorAll('#filters button');b.forEach(x=>{if(x.textContent.toLowerCase().includes(c)||c=='all'&&x.textContent.toLowerCase().includes('all'))x.click()});window.scrollTo({top:400,behavior:'smooth'})}
+function filterCategory(c){
+  closeMenu();
+  let map={'all':'All','mifi':'Mifi','chargers':'Chargers','powerbanks':'Power Banks','power bank':'Power Banks','power banks':'Power Banks','earbuds':'Earbuds','watches':'Smart Watches','smart watches':'Smart Watches'};
+  let target=map[c.toLowerCase()]||c;
+  // Find and click the REAL button from your cats.forEach loop
+  let btns=document.querySelectorAll('#filters button, #filters div button, #filters div');
+  btns.forEach(b=>{
+    if(b.textContent.trim().toLowerCase()===target.toLowerCase()){
+      b.click();
+    }
+  });
+  // Force filter if click fails
+  if(typeof act!=='undefined'){act=target; if(typeof filtered==='function'){filtered();}}
+  window.scrollTo({top:380,behavior:'smooth'});
+}
 let cats=["All","Mifi","Chargers","Power Banks","Earbuds","Smart Watches","Phones","Cables","Speakers"];
 let prods=[
 {id:1,cat:"Mifi",name:"Lebaiqi 150Mbps 4G/5G LTE WiFi MiFi - Portable Internet On The Go",price:219,old:236,dis:7,rate:"4.5",rev:23,img:"IMG_4452.jpeg"},
