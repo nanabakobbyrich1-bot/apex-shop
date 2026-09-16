@@ -105,7 +105,37 @@ header{background:#0a0a0a;padding:12px 15px;display:flex;justify-content:space-b
 <a onclick="filterCategory('watches')" style="display:flex;align-items:center;gap:14px;padding:16px 0;color:#222;text-decoration:none;cursor:pointer">
   <span>⌚</span> Smart Watches
 </a>
+<div style="border-top:1px solid #eee; margin:15px 0; padding-top:15px;">
+  <div style="display:flex; justify-content:space-between; padding:0 15px 10px; align-items:center;">
+    <b style="font-size:14px; color:#333;">OUR SERVICES</b>
+    <span style="color:#f68b1e; font-size:13px; cursor:pointer;" onclick="closeMenu()">See All</span>
+  </div>
 
+  <div onclick="openService('tshirt')" style="padding:11px 20px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:14px; border-bottom:1px solid #f9f9f9;">
+    <span>👕</span> T-Shirt Printing
+  </div>
+  <div onclick="openService('invitation')" style="padding:11px 20px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:14px; border-bottom:1px solid #f9f9f9;">
+    <span>💌</span> Invitation Cards
+  </div>
+  <div onclick="openService('posters')" style="padding:11px 20px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:14px; border-bottom:1px solid #f9f9f9;">
+    <span>📄</span> Posters & Flyers
+  </div>
+  <div onclick="openService('brochures')" style="padding:11px 20px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:14px; border-bottom:1px solid #f9f9f9;">
+    <span>📑</span> Brochures & Pamphlets
+  </div>
+  <div onclick="openService('banners')" style="padding:11px 20px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:14px; border-bottom:1px solid #f9f9f9;">
+    <span>🪧</span> Banners & Stickers
+  </div>
+  <div onclick="openService('forms')" style="padding:11px 20px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:14px; border-bottom:1px solid #f9f9f9;">
+    <span>📝</span> Forms & Letterheads
+  </div>
+  <div onclick="openService('custom')" style="padding:11px 20px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:14px; border-bottom:1px solid #f9f9f9;">
+    <span>🎨</span> Custom Prints
+  </div>
+  <div onclick="openService('frames')" style="padding:11px 20px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:14px;">
+    <span>🖼️</span> Picture Frames
+  </div>
+</div>
   </div>
 </div>
 <div id="menuOverlay" onclick="closeMenu()" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9998;display:none"></div>
