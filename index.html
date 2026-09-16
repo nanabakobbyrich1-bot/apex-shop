@@ -162,7 +162,19 @@ function next(){go((cur+1)%banners.length)} function prev(){go((cur-1+banners.le
 setInterval(next,15000);
 function openMenu(){document.getElementById('sideMenu').style.right='0';document.getElementById('menuOverlay').style.display='block';}
 function closeMenu(){document.getElementById('sideMenu').style.right='-100%';document.getElementById('menuOverlay').style.display='none';}
-function filterCategory(c){
+function openTshirtPage(){
+  document.getElementById('tshirtPage').style.display='block';
+  closeMenu();
+}
+function openFramesPage(){
+  document.getElementById('framesPage').style.display='block';
+  closeMenu();
+}
+function closeService(){
+  document.getElementById('tshirtPage').style.display='none';
+  document.getElementById('framesPage').style.display='none';
+}
+  function filterCategory(c){
   closeMenu();
   let map={'all':'All','mifi':'Mifi','chargers':'Chargers','powerbanks':'Power Banks','power bank':'Power Banks','power banks':'Power Banks','earbuds':'Earbuds','watches':'Smart Watches','smart watches':'Smart Watches'};
   let target=map[c.toLowerCase()]||c;
