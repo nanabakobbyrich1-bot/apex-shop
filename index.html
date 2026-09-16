@@ -1,82 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APEX SHOP - Order via MoMo</title>
+<title>APEX TECH & GADGETS - Bubieshie Accra | 0247440480</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#f5f5f5;padding-bottom:80px}
-header{background:#000;padding:12px 15px;display:flex;justify-content:space-between;color:#fff}
-.logo{font-weight:900;color:#ffcc00;font-size:19px}
-.search-wrap{padding:10px 15px;background:#000;display:flex;gap:8px}
-.search-wrap input{flex:1;padding:12px;border:none;border-radius:8px}
-.search-wrap button{background:#ffcc00;border:none;padding:12px 15px;border-radius:8px;font-weight:900}
-.slider-container{position:relative;border-radius:18px;overflow:hidden;margin:15px;height:220px}
-.slide{position:relative;width:100%;height:100%}
-.slide-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.slide>div{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);padding:18px}
-.slide h2{font-size:20px;font-weight:900;color:#fff;text-shadow:0 2px 4px #000}
-.slide p{font-weight:700;color:#fff;font-size:13px;margin:4px 0 8px}
-.price-tag{background:#ffcc00;color:#000;padding:6px 14px;border-radius:20px;font-weight:900;display:inline-block}
-.filters{display:flex;gap:10px;padding:10px 15px;overflow:auto}
-.filter{background:#fff;padding:8px 14px;border-radius:20px;font-weight:700}
-.section-head{padding:12px 15px;font-weight:900;display:flex;justify-content:space-between}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 15px}
-.card{background:#fff;border-radius:16px;overflow:hidden;position:relative;cursor:pointer}
-.card img{width:100%;height:180px;object-fit:cover}
-.card-body{padding:10px}.badge{position:absolute;top:8px;right:8px;background:red;color:#fff;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:900}
-.price{font-weight:900;margin-top:3px}
-.tap{color:red;font-size:11px;font-weight:900}
-
-/* MoMo Popup */
-#orderBox{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:99;padding:20px}
-#orderBox.show{display:flex}
-.order-card{background:#fff;border-radius:20px;padding:20px;width:100%;max-width:350px;text-align:center}
-.order-card h3{font-weight:900;margin-bottom:6px}
-.order-card p{font-size:13px;color:#555;margin-bottom:12px}
-.momo-btn{background:#ffcc00;color:#000;padding:14px;border-radius:12px;font-weight:900;display:block;text-decoration:none;margin:8px 0;border:none;width:100%;font-size:15px}
-.whatsapp-btn{background:#25D366;color:#fff;padding:14px;border-radius:12px;font-weight:900;display:block;text-decoration:none;margin:8px 0}
-.close-btn{background:#eee;padding:10px;border-radius:10px;border:none;width:100%;margin-top:5px}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
+body{background:#f2f2f2}
+:root{--yellow:#FFD400;--black:#0a0a0a;--blue:#0F5BFF}
+header{background:var(--black);padding:12px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:30}
+.logo-wrap{display:flex;align-items:center;gap:10px}
+.logo-img{width:44px;height:44px;background:var(--yellow);border-radius:12px;display:grid;place-items:center;font-weight:900;color:#000;font-size:22px;object-fit:cover;border:2px solid var(--yellow)}
+.logo-text b{color:var(--yellow);font-size:19px;font-weight:900}
+.logo-text span{color:#fff;font-size:10px;letter-spacing:1.5px;display:block}
+.location{color:#fff;font-size:11px;background:#1a1a1a;padding:7px 12px;border-radius:20px;border:1px solid #333}
+.search-bar{background:var(--black);padding:0 15px 12px;display:flex;gap:8px}
+.search-bar input{flex:1;padding:13px 14px;border-radius:12px;border:none}
+.search-bar button{background:var(--yellow);border:none;padding:13px 18px;border-radius:12px;font-weight:900}
+.slider{position:relative;margin:14px;border-radius:20px;overflow:hidden;height:240px;background:#000}
+.slides{position:relative;height:100%}
+.slide{position:absolute;inset:0;opacity:0;transform:scale(.96);transition:all .7s ease}
+.slide.active{opacity:1;transform:scale(1);z-index:2}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slide::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,.25) 60%,transparent 85%)}
+.slide-content{position:absolute;z-index:3;left:18px;bottom:18px;right:18px}
+.slide-content h2{color:#fff;font-size:21px;font-weight:900;text-transform:uppercase;line-height:1.1}
+.slide-content p{color:var(--yellow);font-size:12px;font-weight:700;margin:5px 0 9px}
+.price-badge{background:var(--yellow);color:#000;padding:6px 14px;border-radius:20px;font-weight:900;display:inline-block}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:4;background:rgba(255,255,255,.92);border:none;width:36px;height:36px;border-radius:50%;font-weight:900;cursor:pointer}
+.arrow.left{left:10px}.arrow.right{right:10px}
+.dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:4}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5);transition:.3s}
+.dot.active{background:var(--yellow);width:22px;border-radius:10px}
+.filters{display:flex;gap:8px;padding:12px 15px;overflow-x:auto;scrollbar-width:none}
+.filter{white-space:nowrap;background:#fff;padding:9px 16px;border-radius:25px;font-weight:800;font-size:13px;border:1px solid #eee;cursor:pointer}
+.filter.active{background:var(--black);color:var(--yellow);border-color:var(--black)}
+.blue-section{background:var(--blue);padding:14px 0 18px;margin:12px 0}
+.blue-head{display:flex;justify-content:space-between;align-items:center;padding:0 15px 12px;color:#fff}
+.blue-head b{font-size:16px;font-weight:900}
+.h-scroll{display:flex;gap:12px;overflow-x:auto;padding:0 15px;scrollbar-width:none}
+.p-card{background:#fff;border-radius:16px;min-width:175px;max-width:175px;overflow:hidden;position:relative;flex-shrink:0}
+.p-card img{width:100%;height:145px;object-fit:cover;cursor:pointer}
+.p-body{padding:10px}
+.p-title{font-size:11px;font-weight:700;line-height:1.3;height:32px;overflow:hidden}
+.p-price{font-weight:900;margin-top:6px;font-size:14px}
+.p-old{font-size:10px;color:#888;text-decoration:line-through;margin-left:4px}
+.p-rating{font-size:10px;color:#ff9d00;margin-top:3px}
+.sponsored-label{position:absolute;top:8px;left:8px;background:var(--yellow);color:#000;font-size:8px;font-weight:900;padding:3px 6px;border-radius:6px}
+.section-title{padding:14px 15px 8px;display:flex;justify-content:space-between;font-weight:900}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 15px 20px}
+.card{background:#fff;border-radius:16px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.card img{width:100%;height:155px;object-fit:cover;cursor:pointer}
+.card-body{padding:10px;flex:1;display:flex;flex-direction:column}
+.card-title{font-size:12px;font-weight:700;flex:1;line-height:1.3}
+.card-price{font-weight:900;margin:6px 0}
+.btn-momo{background:var(--black);color:var(--yellow);border:none;padding:9px;border-radius:10px;font-weight:800;font-size:11px;cursor:pointer;width:100%;margin-top:auto}
+.badge{position:absolute;top:8px;right:8px;background:red;color:#fff;padding:4px 8px;border-radius:10px;font-size:9px;font-weight:900}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.93);display:none;z-index:100;overflow-y:auto}
+.modal.show{display:block}
+.view-header{position:sticky;top:0;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 15px;z-index:2}
+.view-header .momo-top{background:var(--yellow);color:#000;padding:10px 16px;border-radius:10px;font-weight:900;border:none;font-size:13px}
+.view-img{width:100%;height:330px;object-fit:cover;background:#000}
+.view-body{padding:16px;background:#fff;border-radius:20px 20px 0 0;margin-top:-20px;position:relative}
+.view-price{font-size:24px;font-weight:900;margin:8px 0}
+.view-desc{font-size:13px;color:#555;line-height:1.6;margin:10px 0}
+.view-specs{background:#f7f7f7;padding:12px;border-radius:12px;font-size:12px;line-height:1.7}
+.order-form{margin-top:14px;padding:16px;border-radius:16px;border:2px solid #FFD400;background:#fff}
+.order-form input{width:100%;padding:13px;margin:7px 0;border:1.5px solid #e5e5e5;border-radius:12px;font-size:14px}
+.btn-pay{background:var(--yellow);color:#000;padding:15px;border-radius:12px;font-weight:900;border:none;width:100%;margin-top:8px;font-size:14px}
+.btn-close{background:#eee;padding:12px;border-radius:12px;border:none;width:100%;margin-top:8px}
 </style>
 </head>
 <body>
-<header><div class="logo">APEX SHOP</div><div>📍 Bubieshie,Accra</div></header>
-<div class="search-wrap"><input placeholder="Search..."><button>Search</button></div>
 
-<div class="slider-container"><div class="slide"><img src="IMG_4452.jpeg" class="slide-img"><div><h2>4G MIFI 150MBPS PRO</h2><p>Portable • All Networks • White</p><span class="price-tag">GHS 250</span></div></div></div>
-
-<div class="filters"><div class="filter">All</div><div class="filter">Mifi</div><div class="filter">Chargers</div></div>
-<div class="section-head"><span>🔥 Hot Products</span><span class="tap">TAP TO ORDER VIA MOMO</span></div>
-
-<div class="grid">
-<div class="card" onclick="order('5G Powerful Mifi - GHS 230')"><span class="badge">HOT</span><img src="IMG_4452.jpeg"><div class="card-body"><div>5G Powerful Mifi</div><div class="price">GHS 230</div></div></div>
-<div class="card" onclick="order('Universal Mifi White - GHS 250')"><img src="IMG_4452.jpeg"><div class="card-body"><div>Universal Mifi</div><div class="price">GHS 300</div></div></div>
-<div class="card" onclick="order('Hot Pot Cooker - GHS 250')"><img src="IMG_4452.jpeg"><div class="card-body"><div>Hot Pot</div><div class="price">GHS 250</div></div></div>
-<div class="card" onclick="order('Rice Cooker - GHS 320')"><img src="IMG_4452.jpeg"><div class="card-body"><div>Rice Cooker</div><div class="price">GHS 320</div></div></div>
+<header>
+<div class="logo-wrap">
+<img src="logo.png" class="logo-img" onerror="this.outerHTML='<div class=logo-img>A</div>'" alt="APEX">
+<div class="logo-text"><b>APEX TECH</b><span>& GADGETS</span></div>
 </div>
+<div class="location">📍 Bubieshie, Accra • 0247440480</div>
+</header>
 
-<!-- ORDER VIA MOMO BOX -->
-<div id="orderBox" onclick="this.classList.remove('show')">
-<div class="order-card" onclick="event.stopPropagation()">
-<h3 id="pName">Product Name</h3>
-<p>Pay via MoMo and we deliver to Bubieshie / Accra</p>
-<div style="background:#fff8dc;padding:10px;border-radius:10px;border:1px dashed #ffcc00;margin-bottom:10px">
-<b>MoMo Number:</b><br><span style="font-size:20px;font-weight:900">0249303078 </span><br><small> Name: Nana Bakobby Rich </small>
+<div class="search-bar"><input id="searchInput" placeholder="Search 200+ gadgets, chargers, mifi..."><button onclick="doSearch()">Search</button></div>
+
+<div class="slider"><div class="slides" id="slides"></div><button class="arrow left" onclick="prevSlide()">‹</button><button class="arrow right" onclick="nextSlide()">›</button><div class="dots" id="dots"></div></div>
+
+<div class="filters" id="filters"></div>
+
+<div class="blue-section"><div class="blue-head"><b>🔥 Sponsored products</b><span>Slide →</span></div><div class="h-scroll" id="sponsoredRow"></div></div>
+<div class="blue-section" style="background:#0a0a0a"><div class="blue-head"><b>⭐ Top selling items</b><span>Slide →</span></div><div class="h-scroll" id="topRow"></div></div>
+
+<div class="section-title"><span id="catTitle">All Products (200)</span><span style="font-size:11px;color:#888" id="countText">Tap image to view</span></div>
+<div class="grid" id="mainGrid"></div>
+
+<div id="viewModal" class="modal">
+<div class="view-header"><button onclick="closeView()" style="border:none;background:#f2f2f2;padding:8px 12px;border-radius:10px">✕ Close</button><button class="momo-top" onclick="openOrderFromView()">Order via MoMo</button></div>
+<img id="viewImg" class="view-img" src="">
+<div class="view-body">
+<h2 id="viewName"></h2><div id="viewPrice" class="view-price"></div><div id="viewOld" style="color:#888;font-size:13px"></div><div id="viewRating" style="color:#ff9d00;font-size:12px;margin-top:4px"></div>
+<div class="view-desc" id="viewDesc"></div><div class="view-specs" id="viewSpecs"></div>
+<div class="order-form" id="orderFormInline">
+<h3>📱 Order via MoMo</h3>
+<p style="font-size:12px;color:#666;margin-bottom:8px">Fill Name & Location before WhatsApp</p>
+<input id="fName" placeholder="Full Name *">
+<input id="fLocation" placeholder="Location / Address * e.g. Bubieshie, Kaneshie">
+<input id="fPhone" placeholder="Phone Number *">
+<input id="fQty" type="number" value="1" min="1">
+<div style="background:#fff8dc;border:1px dashed #FFD400;padding:10px;border-radius:10px;text-align:center;margin:8px 0"><b>MoMo / Call: 0247440480</b><br><small>APEX TECH & GADGETS - Nana Rich</small></div>
+<button class="btn-pay" onclick="sendWhatsApp()">💬 SEND ORDER TO WHATSAPP</button>
+<button class="btn-close" onclick="closeView()">Continue Shopping</button>
 </div>
-<a class="momo-btn" id="momoLink" href="#">📱 PAY WITH MOMO - SEND MONEY</a>
-<a class="whatsapp-btn" id="waLink" href="#" target="_blank">💬 ORDER ON WHATSAPP</a>
-<button class="close-btn" onclick="document.getElementById('orderBox').classList.remove('show')">Close</button>
 </div>
 </div>
 
 <script>
-function order(name){
- document.getElementById('pName').innerText=name;
- document.getElementById('orderBox').classList.add('show');
- let msg = "Hello Nana B Rich, I want to order: "+name+" . I will pay via MoMo.";
- document.getElementById('waLink').href="https://wa.me/233249303078?text="+encodeURIComponent(msg);
- document.getElementById('momoLink').href="tel:*170#";
-}
-</script>
-</body>
-</html>
+const banners=[
+{t:"4G MIFI 150MBPS PRO",s:"Portable • All Networks • White • Free Delivery",p:"GH₵ 250",img:"IMG_4452.jpeg"},
+{t:"5G POWERFUL MIFI HOT",s:"10 Devices • Long Battery • Black Edition",p:"GH₵ 400",img:"IMG_4452.jpeg"},
+{t:"UNIVERSAL MIFI WHITE",s:"All SIM Support • Fast Internet",p:"GH₵ 300",img:"IMG_4452.jpeg"},
+{t:"MTN TURBONET 4G+ DEAL",s:"Home & Office • Super Fast",p:"GH₵ 450",img:"IMG_4452.jpeg"},
+{t:"BESUNDY POWER BANK 20K",s:"22.5W • Camping Light • 4 Cables",p:"GH₵ 89",img:"IMG_4452.jpeg"},
+{t:"ORIGINAL TYPE-C CHARGERS",s:"33W Fast Charging • All Phones",p:"GH₵ 50",img:"IMG_4452.jpeg"},
+{t:"WIRELESS EARBUDS PRO MAX",s:"Noise Cancelling • Deep Bass",p:"GH₵ 150",img:"IMG_4452.jpeg"},
+{t:"SMART WATCH
