@@ -75,7 +75,40 @@ header{background:#0a0a0a;padding:12px 15px;display:flex;justify-content:space-b
 <div class="slide"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"><div class="txt"><h2>SMART WATCH ULTRA</h2><p>Calls • Health • Waterproof</p><span>GH₵ 299</span></div></div>
 <button class="arrow l" onclick="prev()">‹</button><button class="arrow r" onclick="next()">›</button><div class="dots" id="dots"></div>
 </div>
+<div id="sideMenu" style="position:fixed;top:0;right:-100%;width:310px;height:100%;background:#fff;z-index:9999;transition:0.35s ease;overflow-y:auto">
+  <div style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee">
+    <b style="color:#666;font-size:13px">OUR CATEGORIES</b>
+    <span onclick="closeMenu()" style="font-size:22px;cursor:pointer">✕</span>
+  </div>
+  <div style="padding:5px 20px">
 
+<a onclick="filterCategory('all')" style="display:flex;align-items:center;gap:14px;padding:16px 0;color:#222;text-decoration:none;border-bottom:1px solid #f5f5f5;cursor:pointer">
+  <span>📦</span> All Gadgets
+</a>
+
+<a onclick="filterCategory('mifi')" style="display:flex;align-items:center;gap:14px;padding:16px 0;color:#222;text-decoration:none;border-bottom:1px solid #f5f5f5;cursor:pointer">
+  <span>📶</span> Mifi & Routers
+</a>
+
+<a onclick="filterCategory('chargers')" style="display:flex;align-items:center;gap:14px;padding:16px 0;color:#222;text-decoration:none;border-bottom:1px solid #f5f5f5;cursor:pointer">
+  <span>🔌</span> Chargers & Cables
+</a>
+
+<a onclick="filterCategory('powerbanks')" style="display:flex;align-items:center;gap:14px;padding:16px 0;color:#222;text-decoration:none;border-bottom:1px solid #f5f5f5;cursor:pointer">
+  <span>🔋</span> Power Banks
+</a>
+
+<a onclick="filterCategory('earbuds')" style="display:flex;align-items:center;gap:14px;padding:16px 0;color:#222;text-decoration:none;border-bottom:1px solid #f5f5f5;cursor:pointer">
+  <span>🎧</span> Earbuds
+</a>
+
+<a onclick="filterCategory('watches')" style="display:flex;align-items:center;gap:14px;padding:16px 0;color:#222;text-decoration:none;cursor:pointer">
+  <span>⌚</span> Smart Watches
+</a>
+
+  </div>
+</div>
+<div id="menuOverlay" onclick="closeMenu()" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9998;display:none"></div>
 <div class="filters" id="filters"></div>
 <div class="blue"><div class="blue-h"><span>🔥 Sponsored products</span><span>Slide →</span></div><div class="hrow" id="srow"></div></div>
 <div class="blue" style="background:#0a0a0a"><div class="blue-h"><span>⭐ Top selling items</span><span>Slide →</span></div><div class="hrow" id="trow"></div></div>
