@@ -72,7 +72,7 @@ header{background:#0a0a0a;padding:12px 15px;display:flex;justify-content:space-b
 <div class="slide active"><img src="https://i.ibb.co/ZtFtHds/IMG-4573.jpg"><div class="txt"><a href="https://wa.me/233249303078?text=Hello%20APEX%2C%20I%20want%20to%20order%20Rice%20Cooker" target="_blank" style="text-decoration:none"><span>ORDER NOW</span></a></div></div>
  <div class="slide active"><img src="https://i.ibb.co/Wp2pyvLT/IMG-4578.jpg"><div class="txt"><a href="https://wa.me/233249303078?text=Hello%20APEX%2C%20I%20want%20to%20order%20 Mobile%20Wifi" target="_blank" style="text-decoration:none"><span>ORDER NOW</span></a></div></div>
 <div class="slide active"><img src="https://i.ibb.co/wNgmg0YS/IMG-4587.jpg"><div class="txt"><h2>QUALITY PLAN T-SHIRT</h2><p>SIZE AVAILABLE( S • M • L • XL • XXL• XXXL )</p><a href="https://wa.me/233249303078?text=Hello%20APEX%2C%20I%20want%20quality%20plan%20T-shirt" target="_blank" style="text-decoration:none"><span>ORDER NOW</span></a></div></div>
-<div class="slide active"><img src="https://i.ibb.co/SXpycY3T/IMG-4589.jpg"><div class="txt"><h2>5KG LPG Cylinders</h2><p>All in Stock</p><a href="https://wa.me/233249303078?text=Hello%20APEX%2C%20I%20want%205kg%20LPG%20Cylinder" target="_blank" style="text-decoration:none"><span>ORDER NOW</span></a></div></div>
+<div class="slide"><img src="https://i.ibb.co/SXpycY3T/IMG-4589.jpg"><div class="txt"><h2>5KG LPG Cylinders</h2><p>All in Stock</p><a href="https://wa.me/233249303078?text=Hello%20APEX%2C%20I%20want%205kg%20LPG%20Cylinder" target="_blank" style="text-decoration:none"><span>ORDER NOW</span></a></div></div>
 <button class="arrow l" onclick="prev()">‹</button><button class="arrow r" onclick="next()">›</button><div class="dots" id="dots"></div>
 </div>
 <div id="sideMenu" style="position:fixed;top:0;right:-100%;width:310px;height:100%;background:#fff;z-index:9999;transition:0.35s ease;overflow-y:auto">
@@ -162,12 +162,22 @@ header{background:#0a0a0a;padding:12px 15px;display:flex;justify-content:space-b
 </div>
 
 <script>
-let banners=document.querySelectorAll('.slide');let dots=[];let cur=0;
+let cur=0;
+let banners=document.querySelectorAll('.slide');
 let dwrap=document.getElementById('dots');
-banners.forEach((_,i)=>{let d=document.createElement('div');d.className='dot'+(i==0?' active':'');d.onclick=()=>go(i);dwrap.appendChild(d);dots.push(d)});
-function go(n){banners[cur].classList.remove('active');dots[cur].classList.remove('active');cur=n;banners[cur].classList.add('active');dots[cur].classList.add('active')}
-function next(){go((cur+1)%banners.length)} function prev(){go((cur-1+banners.length)%banners.length)}
-setInterval(next,15000);
+if(dwrap){dwrap.innerHTML=''; banners.forEach((_,i)=>{let d=document.createElement('span');d.className='dot'+(i==0?' active':'');d.onclick=()=>go(i);dwrap.appendChild(d);})}
+let dots=document.querySelectorAll('.dot');
+function go(n){
+  banners[cur].classList.remove('active');
+  if(dots[cur]) dots[cur].classList.remove('active');
+  cur=n;
+  banners[cur].classList.add('active');
+  if(dots[cur]) dots[cur].classList.add('active');
+}
+function next(){go((cur+1)%banners.length)}
+function prev(){go((cur-1+banners.length)%banners.length)}
+setInterval(next,6000);
+go(0);
 function openMenu(){document.getElementById('sideMenu').style.right='0';document.getElementById('menuOverlay').style.display='block';}
 function closeMenu(){document.getElementById('sideMenu').style.right='-100%';document.getElementById('menuOverlay').style.display='none';}
 function openTshirtPage(){
