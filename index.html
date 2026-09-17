@@ -216,14 +216,47 @@ let prods=[
 let base={Mifi:["MTN TurboNet 4G+ Home Router","Universal Mifi White Fast","5G Powerful Mifi Pro"],Chargers:["Type-C Fast Charger 33W Original","iPhone Lightning 20W","3-in-1 Charger 100W","Car Charger 45W","Wireless Pad 15W"], "Power Banks":["Oraimo 27000mAh Power Bank","Anker 10000mAh PowerCore","Romoss 30000mAh"],Earbuds:["Oraimo FreePods 4 ANC","AirPods Pro 2nd Gen","JBL Wave Buds"], "Smart Watches":["T800 Ultra Smart Watch","Series 8 Ultra","Oraimo Watch 2R"],Phones:["Infinix Hot 40","Samsung A15","Tecno Spark 20"],Cables:["Type-C Cable 1.5m 100W","3-in-1 Nylon Cable","iPhone Cable MFi"],Speakers:["JBL Go3 Mini Speaker","Oraimo Boom 30W"]}
 for(let i=4;i<=200;i++){let ks=Object.keys(base);let c=ks[i%ks.length];let name=base[c][i%base[c].length]+" Model "+i;let pr=Math.floor(Math.random()*300)+49;let old=pr+Math.floor(Math.random()*200)+20;let dis=Math.floor((old-pr)/old*100);prods.push({id:i,cat:c,name:name,price:pr,old:old,dis:dis,rate:(Math.random()*1.5+3.5).toFixed(1),rev:Math.floor(Math.random()*100)+3,img:"IMG_4452.jpeg"})}
 
-let filt=document.getElementById('filters');let act="All";
-cats.forEach(c=>{let e=document.createElement('div');e.className='f'+(c=="All"?' active':'');e.innerText=c;e.onclick=()=>{act=c;document.querySelectorAll('.f').forEach(x=>x.classList.remove('active'));e.classList.add('active');render();document.getElementById('ctitle').innerText=c+" - "+filtered().length+" items"};filt.appendChild(e)})
-function filtered(){let q=document.getElementById('q').value.toLowerCase();let list=act=="All"?prods:prods.filter(p=>p.cat==act||(act=="Chargers"&&(p.cat=="Cables"||p.cat=="Chargers")));if(q)list=list.filter(p=>p.name.toLowerCase().includes(q));return list}
-function card(p,small){let d=document.createElement('div');d.className=small?'card':'gcard';d.innerHTML=`${small?'<span class=spo>SPONSORED</span>':''}${p.dis>30?`<span class=badge>-${p.dis}%</span>`:''}<img src="${p.img}" onerror="this.src='https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400'" onclick="view(${p.id})"><div class="${small?'card-body':'gbody'}"><div class="${small?'title':'gtitle'}">${p.name}</div>${small?`<div class=rate>★ ${p.rate} (${p.rev})</div>`:''}<div class="${small?'price':'gprice'}">GH₵ ${p.price} <span class="${small?'old':''}" style="font-size:10px;color:#888;text-decoration:line-through">GH₵ ${p.old}</span></div><button class="momo" onclick="openO(${p.id})">Order via MoMo</button></div>`;return d}
-prods.slice(0,12).forEach(p=>document.getElementById('srow').appendChild(card(p,true)));
-[...prods].sort((a,b)=>b.rev-a.rev).slice(0,12).forEach(p=>document.getElementById('trow').appendChild(card(p,true)));
-function render(){let g=document.getElementById('grid');g.innerHTML="";filtered().forEach(p=>g.appendChild(card(p,false)))} render();
-function search(){render()}
+let filt=document.getElementById('filters');
+let activeCat='All';
+filt.innerHTML='';
+cats.forEach(c=>{
+  let e=document.createElement('button');
+  e.textContent=c;
+  e.className=c==='All'?'f active':'f';
+  e.style.cssText='padding:10px 18px;border-radius:20px;border:1px solid #ddd;background:'+(c==='All'?'#000':'#fff')+';color:'+(c==='All'?'#FFD400':'#000')+';font-weight:bold;margin:5px;white-space:nowrap';
+  e.onclick=()=>{
+    activeCat=c;
+    document.querySelectorAll('#filters button').forEach(b=>{
+      b.classList.remove('active');
+      b.style.background='#fff'; b.style.color='#000';
+    });
+    e.classList.add('active');
+    e.style.background='#000'; e.style.color='#FFD400';
+    render();
+    window.scrollTo({top:filt.offsetTop+300,behavior:'smooth'});
+  };
+  filt.appendChild(e);
+});
+
+function filtered(){
+  let q=document.getElementById('q')?document.getElementById('q').value.toLowerCase():'';
+  return prods.filter(p=>{
+    let matchCat = activeCat==='All' || p.cat===activeCat;
+    let matchSearch = !q || p.name.toLowerCase().includes(q);
+    return matchCat && matchSearch;
+  });
+}
+
+function render(){
+  let g=document.getElementById('grid');
+  if(!g) return;
+  g.innerHTML='';
+  let list = filtered();
+  if(list.length===0){ g.innerHTML='<p style="padding:20px">No products in '+activeCat+'</p>'; return; }
+  list.slice(0,100).forEach(p=> g.appendChild(card(p,false)));
+}
+
+function search(){ render(); }
 let curP=null;
 function view(id){let p=prods.find(x=>x.id==id);curP=p;document.getElementById('vimg').src=p.img;document.getElementById('vimg').onerror=function(){this.src='https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600'};document.getElementById('vname').innerText=p.name;document.getElementById('vprice').innerText='GH₵ '+p.price;document.getElementById('vold').innerText='Was GH₵ '+p.old+' (-'+p.dis+'%)';document.getElementById('vrate').innerText='★ '+p.rate+' ('+p.rev+' reviews) • '+p.cat;document.getElementById('vdesc').innerText=p.name+' - Original from APEX TECH & GADGETS, Bubieshie Accra. '+p.cat+' category, brand new, delivery same day in Accra, 6 months warranty. Pay via MoMo 0247440480.';document.getElementById('modal').classList.add('show')}
 function closeM(){document.getElementById('modal').classList.remove('show')}
