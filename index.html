@@ -78,7 +78,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
     .site-header {
       background-color: #000000;
       color: #ffffff;
-      padding: 12px 24px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -90,13 +90,13 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
     .header-left {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 12px;
     }
 
     .logo-container img {
-      height: 65px;
+      height: 52px;
       width: auto;
-      border-radius: 12px;
+      border-radius: 8px;
       object-fit: contain;
       display: block;
       background-color: #ffffff;
@@ -109,51 +109,53 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
     }
 
     .brand-title {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       font-weight: 800;
       color: #e5b33b;
-      letter-spacing: 1px;
-      line-height: 1.1;
+      letter-spacing: 0.5px;
+      line-height: 1;
       margin: 0;
     }
 
     .brand-subtitle {
-      font-size: 1rem;
+      font-size: 0.75rem;
       font-weight: 700;
       color: #ffffff;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       margin-top: 2px;
       text-transform: uppercase;
     }
 
+    /* Location display preserved for all screen sizes */
     .brand-location {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.95rem;
+      gap: 4px;
+      font-size: 0.75rem;
       color: #cccccc;
-      margin-top: 4px;
+      margin-top: 3px;
+    }
+
+    .brand-location svg {
+      flex-shrink: 0;
     }
 
     .header-right {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 10px;
     }
 
     .btn-contact {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
       background-color: #52c46a;
       color: #ffffff;
       text-decoration: none;
       font-weight: 700;
-      font-size: 0.95rem;
-      padding: 10px 22px;
-      border-radius: 30px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      padding: 8px 12px;
+      border-radius: 20px;
       transition: background-color 0.3s ease;
     }
 
@@ -161,28 +163,22 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
       background-color: #42a858;
     }
 
-    /* Three Dots Toggle Button */
     .menu-toggle {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: #ffffff;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 4px 8px;
+      padding: 2px 6px;
       user-select: none;
-      transition: opacity 0.2s ease;
-    }
-
-    .menu-toggle:hover {
-      opacity: 0.8;
     }
 
     /* Side Drawer Menu */
     .mobile-menu {
       position: fixed;
       top: 0;
-      right: -100%; /* Initially hidden off-screen */
+      right: -100%;
       width: 280px;
       height: 100vh;
       background-color: #111111;
@@ -218,14 +214,8 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
       font-size: 1.1rem;
       font-weight: 600;
       display: block;
-      transition: color 0.2s ease;
     }
 
-    .mobile-menu ul li a:hover {
-      color: #e5b33b;
-    }
-
-    /* Overlay Background when Menu Opens */
     .menu-overlay {
       position: fixed;
       top: 0;
@@ -237,21 +227,13 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
       display: none;
     }
 
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .site-header { padding: 10px 16px; }
-      .logo-container img { height: 50px; }
-      .brand-title { font-size: 1.3rem; }
-      .brand-subtitle { font-size: 0.75rem; }
-      .brand-location { font-size: 0.8rem; }
-      .btn-contact { padding: 8px 14px; font-size: 0.8rem; }
-      .header-right { gap: 12px; }
-    }
-
-    @media (max-width: 520px) {
-      .brand-location { display: none; }
-      .btn-contact span { display: none; }
-      .btn-contact { padding: 10px; border-radius: 50%; }
+    @media (min-width: 769px) {
+      .logo-container img { height: 65px; }
+      .brand-title { font-size: 1.8rem; }
+      .brand-subtitle { font-size: 1rem; }
+      .brand-location { font-size: 0.95rem; }
+      .btn-contact { padding: 10px 22px; }
+      .header-right { gap: 20px; }
     }
   </style>
 
@@ -265,7 +247,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
       <h1 class="brand-title">APEX</h1>
       <div class="brand-subtitle">Tech & Gadgets</div>
       <div class="brand-location">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
         </svg>
         <span>Bubieshie, Accra</span>
@@ -273,20 +255,18 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
     </div>
   </div>
 
-  <!-- Right Section: Contact Button & Three Dots Icon -->
+  <!-- Right Section: Call Icon & Three Dots Menu -->
   <div class="header-right">
-    <a href="tel:+233247440480" class="btn-contact">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+    <a href="tel:+233247440480" class="btn-contact" aria-label="Contact Us">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
         <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
       </svg>
-      <span>Contact Us Now</span>
     </a>
 
-    <!-- Three Dots Toggle Button -->
     <div class="menu-toggle" onclick="openMenu()" aria-label="Toggle navigation">&#8942;</div>
   </div>
 
-  <!-- Slide-Out Mobile Drawer Menu -->
+  <!-- Drawer Menu Structure -->
   <div id="mobile-menu" class="mobile-menu">
     <div class="close-btn" onclick="closeMenu()">&times;</div>
     <nav>
@@ -300,10 +280,8 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
     </nav>
   </div>
 
-  <!-- Overlay (Closes menu when clicked outside) -->
   <div id="menu-overlay" class="menu-overlay" onclick="closeMenu()"></div>
 
-  <!-- JavaScript Code -->
   <script>
     function openMenu() {
       document.getElementById('mobile-menu').style.right = '0';
