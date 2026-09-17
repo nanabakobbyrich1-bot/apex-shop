@@ -14,20 +14,17 @@ header{background:#0a0a0a;padding:12px 15px;display:flex;justify-content:space-b
 .search{background:#0a0a0a;padding:0 15px 14px;display:flex;gap:8px}
 .search input{flex:1;padding:14px;border-radius:12px;border:none}
 .search button{background:#FFD400;border:none;padding:14px 18px;border-radius:12px;font-weight:900}
-.slider{margin:14px;border-radius:20px;height:220px;position:relative;overflow:hidden;background:#000}
-.slide{position:absolute;inset:0;display:none}
-.slide.active{display:block}
+.slider{margin:14px;border-radius:20px;height:200px;position:relative;overflow:hidden;background:#000}
+.slide{position:absolute;inset:0;display:none;overflow:hidden}
+.slide.active{display:block;z-index:1}
 .slide img{width:100%;height:100%;object-fit:cover}
-.slide::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.2) 70%)}
-.txt{position:absolute;left:18px;bottom:20px;z-index:3;display:flex;flex-direction:column;gap:4px;max-width:80%;}
-.txt h2{color:#fff;font-size:20px;font-weight:900;line-height:1.1;text-transform:uppercase;white-space:nowrap;}
-.txt p{color:#FFD400;font-size:12px;font-weight:700;letter-spacing:1px;white-space:nowrap;}
-.txt span{background:#FFD400;color:#000;padding:7px 14px;border-radius:20px;font-size:11px;font-weight:900;display:inline-block;width:fit-content;margin-top:6px;}
-.txt a{text-decoration:none !important;}
-.slide{position:absolute;inset:0;display:none;overflow:hidden;}
-.slide.active{display:block;}
-.slide.active .txt{animation:txtUp 0.5s ease forwards;}
-@keyframes txtUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6),transparent)}
+.slide:not(.active) .txt{display:none !important}
+.txt{position:absolute;left:18px;bottom:20px;z-index:2}
+.txt h2{color:#fff;font-size:20px;font-weight:900;line-height:1.1;white-space:nowrap;display:block;margin:0}
+.txt p{color:#FFD400;font-size:12px;font-weight:700;white-space:nowrap;display:block;margin:2px 0 0 0}
+.txt span{background:#FFD400;color:#000;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:900;display:inline-block;margin-top:6px}
+.txt a{text-decoration:none !important}
 .arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;background:#fff;border:none;width:36px;height:36px;border-radius:50%;font-weight:900}
 .arrow.l{left:10px}.arrow.r{right:10px}
 .dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:3}
