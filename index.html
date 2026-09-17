@@ -77,149 +77,117 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
     .site-header {
       background-color: #000000;
       color: #ffffff;
-      padding: 12px 24px;
+      padding: 10px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #222222;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
+      gap:8px;
     }
-
     .header-left {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 10px;
+      flex:1;
     }
-
     .logo-container img {
-      height: 65px;
-      width: auto;
-      border-radius: 12px;
+      height: 60px;
+      width: 135px;
+      border-radius: 14px;
       object-fit: contain;
       display: block;
       background-color: #ffffff;
+      padding:4px;
     }
-
     .brand-info {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      line-height:1.1;
     }
-
     .brand-title {
       font-size: 1.8rem;
-      font-weight: 800;
-      color: #e5b33b;
+      font-weight: 900;
+      color: #FFD400;
       letter-spacing: 1px;
-      line-height: 1.1;
       margin: 0;
     }
-
     .brand-subtitle {
-      font-size: 1rem;
+      font-size: 0.85rem;
       font-weight: 700;
       color: #ffffff;
-      letter-spacing: 1px;
-      margin-top: 2px;
       text-transform: uppercase;
     }
-
     .brand-location {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.95rem;
-      color: #cccccc;
-      margin-top: 4px;
+      gap: 4px;
+      font-size: 0.85rem;
+      color: #fff;
+      margin-top: 3px;
     }
-
     .header-right {
       display: flex;
-      align-items: center;
-      gap: 24px;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
     }
-
     .btn-contact {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background-color: #52c46a;
+      gap: 6px;
+      background-color: #00C851;
       color: #ffffff;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 0.95rem;
-      padding: 10px 22px;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 9px 14px;
       border-radius: 30px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      transition: background-color 0.3s ease;
+      white-space: nowrap;
     }
-
-    .btn-contact:hover {
-      background-color: #42a858;
-    }
-
     .menu-toggle {
       font-size: 1.8rem;
       color: #ffffff;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      padding: 4px;
+      background:#222;
+      width:42px;
+      height:42px;
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
-
     @media (max-width: 768px) {
-      .site-header { padding: 10px 16px; }
-      .logo-container img { height: 50px; }
-      .brand-title { font-size: 1.3rem; }
-      .brand-subtitle { font-size: 0.75rem; }
-      .brand-location { font-size: 0.8rem; }
-      .btn-contact { padding: 8px 14px; font-size: 0.8rem; }
-      .header-right { gap: 12px; }
-    }
-
-    @media (max-width: 520px) {
-      .brand-location { display: none; }
-      .btn-contact span { display: none; }
-      .btn-contact { padding: 10px; border-radius: 50%; }
+      .brand-title { font-size: 1.4rem; }
+      .logo-container img { height: 56px; width: 115px; }
+      .brand-location { font-size: 0.75rem; }
     }
   </style>
 
-  <!-- Left Section: Logo & Brand Info -->
   <div class="header-left">
     <a href="#" class="logo-container">
       <img src="https://i.ibb.co/0jqm38y8/Black-White-Business-Bio-Link-Your-Story.jpg" alt="APEX Tech & Gadgets Logo">
     </a>
-    
     <div class="brand-info">
       <h1 class="brand-title">APEX</h1>
-      <div class="brand-subtitle">Tech & Gadgets</div>
+      <div class="brand-subtitle">TECH & GADGETS</div>
       <div class="brand-location">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-        </svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         <span>Bubieshie, Accra</span>
       </div>
     </div>
   </div>
 
-  <!-- Right Section: Contact Call Button & Menu -->
   <div class="header-right">
+    <!-- MENU LINKED HERE -->
+    <div class="menu-toggle" onclick="openMenu()" aria-label="Toggle navigation">☰</div>
     <a href="tel:+233247440480" class="btn-contact">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-      </svg>
-      <span>Contact Us Now</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      <span>CONTACT US NOW</span>
     </a>
-
-    <div class="menu-toggle" aria-label="Toggle navigation">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-      </svg>
-    </div>
   </div>
 </header>
-
 <div class="search"><input id="q" placeholder="Search MiFi, Power Banks, Chargers..." oninput="search()"><button onclick="search()">Search</button></div>
 <div class="slider" id="slider">
   <div class="slide active"><img src="https://i.ibb.co/mrzKz1vL/IMG-4373.jpg"><div class="txt"><h2>HIGH QUALITY</h2><p>PRINTING SERVICE</p><a href="https://wa.me/233249303078?text=Hello%20APEX" target="_blank" style="text-decoration:none" target="_blank"><span>ORDER NOW</span></a></div></div>
