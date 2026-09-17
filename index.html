@@ -180,11 +180,33 @@ for(let i=4;i<=200;i++){let ks=Object.keys(base);let c=ks[i%ks.length];let name=
 
 let filt=document.getElementById('filters');let act="All";
 cats.forEach(c=>{let e=document.createElement('div');e.className='f'+(c=="All"?' active':'');e.innerText=c;e.onclick=()=>{act=c;document.querySelectorAll('.f').forEach(x=>x.classList.remove('active'));e.classList.add('active');render();document.getElementById('ctitle').innerText=c+" - "+filtered().length+" items"};filt.appendChild(e)})
-function filtered(){let q=document.getElementById('q').value.toLowerCase();let list=act=="All"?prods:prods.filter(p=>p.cat==act||(act=="Chargers"&&(p.cat=="Cables"||p.cat=="Chargers")));if(q)list=list.filter(p=>p.name.toLowerCase().includes(q));return list}
-function card(p,small){let d=document.createElement('div');d.className=small?'card':'gcard';d.innerHTML=`${small?'<span class=spo>SPONSORED</span>':''}${p.dis>30?`<span class=badge>-${p.dis}%</span>`:''}<img src="${p.img}" onerror="this.src='https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400'" onclick="view(${p.id})"><div class="${small?'card-body':'gbody'}"><div class="${small?'title':'gtitle'}">${p.name}</div>${small?`<div class=rate>★ ${p.rate} (${p.rev})</div>`:''}<div class="${small?'price':'gprice'}">GH₵ ${p.price} <span class="${small?'old':''}" style="font-size:10px;color:#888;text-decoration:line-through">GH₵ ${p.old}</span></div><button class="momo" onclick="openO(${p.id})">Order via MoMo</button></div>`;return d}
-prods.slice(0,12).forEach(p=>document.getElementById('srow').appendChild(card(p,true)));
-[...prods].sort((a,b)=>b.rev-a.rev).slice(0,12).forEach(p=>document.getElementById('trow').appendChild(card(p,true)));
-function render(){let g=document.getElementById('grid');g.innerHTML="";filtered().forEach(p=>g.appendChild(card(p,false)))} render();
+function filtered(){
+let q=document.getElementById('q').value.toLowerCase();
+let list=activeCat=='All'?prods:prods.filter(p=>p.cat==activeCat);
+if(q){list=list.filter(p=>p.name.toLowerCase().includes(q))}
+return list;
+}
+function card(p){
+let d=document.createElement('div');
+d.innerHTML=p.name;
+d.className='card';
+d.onclick=()=>view(p.id);
+return d;
+}
+function render(){
+let g=document.getElementById('grid');
+let s=document.getElementById('sponsoredTrack');
+let t=document.getElementById('topTrack');
+let list=filtered();
+g.innerHTML='';
+s.innerHTML='';
+t.innerHTML='';
+list.forEach(p=>{
+g.appendChild(card(p));
+s.appendChild(card(p));
+t.appendChild(card(p));
+});
+}
 function search(){render()}
 let curP=null;
 function view(id){let p=prods.find(x=>x.id==id);curP=p;document.getElementById('vimg').src=p.img;document.getElementById('vimg').onerror=function(){this.src='https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600'};document.getElementById('vname').innerText=p.name;document.getElementById('vprice').innerText='GH₵ '+p.price;document.getElementById('vold').innerText='Was GH₵ '+p.old+' (-'+p.dis+'%)';document.getElementById('vrate').innerText='★ '+p.rate+' ('+p.rev+' reviews) • '+p.cat;document.getElementById('vdesc').innerText=p.name+' - Original from APEX TECH & GADGETS, Bubieshie Accra. '+p.cat+' category, brand new, delivery same day in Accra, 6 months warranty. Pay via MoMo 0247440480.';document.getElementById('modal').classList.add('show')}
