@@ -757,9 +757,13 @@ function goOrder() {
 
 
 function sendWA() {
-  let name = document.getElementById('n').value.trim();
-  let loc = document.getElementById('l').value.trim();
-  let qty = document.getElementById('qt').value || 1;
+  let nameEl = document.getElementById('n');
+  let locEl = document.getElementById('l');
+  let qtyEl = document.getElementById('qt');
+
+  let name = nameEl ? nameEl.value.trim() : '';
+  let loc = locEl ? locEl.value.trim() : '';
+  let qty = qtyEl ? qtyEl.value : 1;
 
   if (!name || !loc) {
     alert('Please enter your Name and Location');
@@ -767,10 +771,12 @@ function sendWA() {
   }
 
   let phone = "233249303078";
-  let text = `Welcome to APEX TECH & GADGETS!\nGhana's Home of Original WiFi, T-Shirt, Phones & Many More.\nNationwide Delivery | Pay on Delivery\n\nPLEASE WHAT DO YOU WANT TO ORDER...\n\n📦 *Item:* ${curP.name}\n💰 *Price:* GH₵ ${curP.price}\n🔢 *Quantity:* ${qty}\n\n*Customer Details:*\n👤 *Name:* ${name}\n📍 *Location:* ${loc}`;
+  let text = `Welcome to APEX TECH & GADGETS!\nGhana's Home of Original WiFi, T-Shirt, Phones & Many More.\nNationwide Delivery | Pay on Delivery\n\nPLEASE WHAT DO YOU WANT TO ORDER...\n\n📦 *Item:* ${typeof curP !== 'undefined' && curP ? curP.name : 'Product'}\n💰 *Price:* GH₵ ${typeof curP !== 'undefined' && curP ? curP.price : ''}\n🔢 *Quantity:* ${qty}\n\n*Customer Details:*\n👤 *Name:* ${name}\n📍 *Location:* ${loc}`;
   
-  window.open(`https://wa.me/${233249303078}?text=${encodeURIComponent(text)}`, '_blank');
+  // Directly opens WhatsApp with target number 233249303078
+  window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
 }
+
 
 // SIDE DRAWER FUNCTIONS
 function openMenu() {
