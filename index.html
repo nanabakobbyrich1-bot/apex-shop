@@ -675,21 +675,20 @@ function createCard(p) {
 
 // CREATE GRID CARD
 function createGridCard(p) {
-  let d = document.createElement('div');
-  d.className = 'gcard';
-  d.onclick = () => view(p.id);
-  d.innerHTML = `
-    <span class="badge">-${p.dis}%</span>
-    <img src="${p.img}" alt="${p.name}">
+  let discount = p.old ? Math.round(((p.old - p.price) / p.old) * 100) : 0;
+  let card = document.createElement('div');
+  card.className = 'gcard';
+  card.innerHTML = `
+    ${discount > 0 ? `<div class="badge">-${discount}%</div>` : ''}
+    <img src="${p.img}" alt="${p.name}" onclick="view('${p.id}')">
     <div class="gbody">
       <div class="gtitle">${p.name}</div>
-      <div class="gprice">GH₵ ${p.price}</div>
-      <div style="font-size:10px;color:#888;text-decoration:line-through">Was GH₵ ${p.old}</div>
-      <div style="font-size:10px;color:#ff9d00;margin-top:2px">★ ${p.rate} (${p.rev})</div>
-      <button class="momo" onclick="event.stopPropagation(); openO(${p.id})">Buy / View</button>
+      <div class="gprice">GH₵ ${p.price} <span style="font-size:10px; color:#888; text-decoration:line-through;">${p.old ? 'Was GH₵ '+p.old : ''}</span></div>
+      <div style="font-size:10px; color:#f59e0b;">★ ${p.rate} (${p.rev})</div>
+      <button onclick="view('${p.id}')" style="width:100%; margin-top:8px; padding:8px; background:#000; color:#fff; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Veiw /Buy </button>
     </div>
   `;
-  return d;
+  return card;
 }
 
 function render() {
