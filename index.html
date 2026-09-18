@@ -687,9 +687,22 @@ function view(id) {
   document.getElementById('vold').innerText = p.old ? 'Was GH₵ ' + p.old : '';
   document.getElementById('vrate').innerText = '★ ' + p.rate + ' (' + p.rev + ' reviews) • Category: ' + p.cat;
   document.getElementById('vdesc').innerText = p.name + ' - Original item from APEX TECH & GADGETS, Bubieshie Accra. High quality products only and fast same-day delivery across Accra.';
-  
+
+  // Keep form hidden initially when modal opens
+  document.getElementById('orderForm').style.display = 'none';
   document.getElementById('modal').classList.add('active');
 }
+
+function closeM() {
+  document.getElementById('modal').classList.remove('active');
+}
+
+function goOrder() {
+  let form = document.getElementById('orderForm');
+  form.style.display = 'block';
+  form.scrollIntoView({ behavior: 'smooth' });
+}
+
 
 
 function closeM() { document.getElementById('modal').classList.remove('show'); }
