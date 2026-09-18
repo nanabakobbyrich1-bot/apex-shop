@@ -725,25 +725,39 @@ function view(id) {
   document.getElementById('vold').innerText = p.old ? 'Was GH₵ ' + p.old : '';
   document.getElementById('vrate').innerText = '★ ' + p.rate + ' (' + p.rev + ' reviews) • Category: ' + p.cat;
   document.getElementById('vdesc').innerText = p.name + ' - Original item from APEX TECH & GADGETS, Bubieshie Accra. High quality products only and fast same-day delivery across Accra.';
+  
+  // Hide form initially
+  let form = document.getElementById('orderForm');
+  if (form) {
+    form.style.setProperty('display', 'none', 'important');
+  }
 
-  // Keep form hidden initially when modal opens
-  document.getElementById('orderForm').style.display = 'none';
-  document.getElementById('modal').classList.add('active');
+  // Show modal
+  let modal = document.getElementById('modal');
+  if (modal) {
+    modal.style.setProperty('display', 'flex', 'important');
+    modal.classList.add('active');
+  }
 }
 
 function closeM() {
   let modal = document.getElementById('modal');
   if (modal) {
     modal.classList.remove('active');
-    modal.style.display = 'none';
+    modal.style.setProperty('display', 'none', 'important');
   }
 }
 
 function goOrder() {
   let form = document.getElementById('orderForm');
   if (form) {
-    form.style.display = 'block';
-    form.scrollIntoView({ behavior: 'smooth' });
+    // Force form to display using !important override
+    form.style.setProperty('display', 'block', 'important');
+    
+    // Smooth scroll inside the modal body
+    setTimeout(() => {
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 50);
   }
 }
 
