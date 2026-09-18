@@ -732,20 +732,21 @@ function view(id) {
 }
 
 function closeM() {
-  document.getElementById('modal').classList.remove('active');
+  let modal = document.getElementById('modal');
+  if (modal) {
+    modal.classList.remove('active');
+    modal.style.display = 'none';
+  }
 }
 
 function goOrder() {
   let form = document.getElementById('orderForm');
-  form.style.display = 'block';
-  form.scrollIntoView({ behavior: 'smooth' });
+  if (form) {
+    form.style.display = 'block';
+    form.scrollIntoView({ behavior: 'smooth' });
+  }
 }
 
-
-
-function closeM() { document.getElementById('modal').classList.remove('show'); }
-function openO(id) { view(id); setTimeout(() => document.getElementById('orderbox').scrollIntoView({ behavior: 'smooth' }), 200); }
-function goOrder() { document.getElementById('orderbox').scrollIntoView({ behavior: 'smooth' }); }
 
 function sendWA() {
   let n = document.getElementById('n').value.trim();
