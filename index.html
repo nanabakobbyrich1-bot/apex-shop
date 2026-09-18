@@ -650,15 +650,19 @@ function search() { render(); }
 let curP = null;
 function view(id) {
   let p = prods.find(x => x.id == id);
+  if (!p) return;
   curP = p;
+
   document.getElementById('vimg').src = p.img;
   document.getElementById('vname').innerText = p.name;
   document.getElementById('vprice').innerText = 'GH₵ ' + p.price;
-  document.getElementById('vold').innerText = 'Was GH₵ ' + p.old + ' (-' + p.dis + '%)';
+  document.getElementById('vold').innerText = p.old ? 'Was GH₵ ' + p.old : '';
   document.getElementById('vrate').innerText = '★ ' + p.rate + ' (' + p.rev + ' reviews) • Category: ' + p.cat;
-  document.getElementById('vdesc').innerText = p.name + ' - Original item from APEX TECH & GADGETS, Bubieshie Accra. High quality guaranteed with 6 months warranty and fast same-day delivery across Accra.';
-  document.getElementById('modal').classList.add('show');
+  document.getElementById('vdesc').innerText = p.name + ' - Original item from APEX TECH & GADGETS, Bubieshie Accra. High quality products only and fast same-day delivery across Accra.';
+  
+  document.getElementById('modal').classList.add('active');
 }
+
 
 function closeM() { document.getElementById('modal').classList.remove('show'); }
 function openO(id) { view(id); setTimeout(() => document.getElementById('orderbox').scrollIntoView({ behavior: 'smooth' }), 200); }
