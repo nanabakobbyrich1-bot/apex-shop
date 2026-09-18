@@ -647,10 +647,8 @@ function render() {
   });
 
   // Populate horizontal showcases
-  lists.slice(0, 8).forEach(p => s.appendChild(createCard(p)));
-  lists.slice(8, 16).forEach(p => t.appendChild(createCard(p)));
-}
-
+  srow.innerHTML = prods.slice(0,8).map(createCard).join("");
+brow.innerHTML = prods.slice(8,16).map(createCard).join("");
 function search() { render(); }
 
 let curP = null;
