@@ -647,8 +647,8 @@ function render() {
   });
 
   // Populate horizontal showcases
-  prods.slice(0, 8).forEach(p => s.appendChild(createCard(p)));
-  prods.slice(8, 16).forEach(p => t.appendChild(createCard(p)));
+  lists.slice(0, 8).forEach(p => s.appendChild(createCard(p)));
+  lists.slice(8, 16).forEach(p => t.appendChild(createCard(p)));
 }
 
 function search() { render(); }
