@@ -763,18 +763,19 @@ function goOrder() {
 
 
 function sendWA() {
-  let n = document.getElementById('n').value.trim();
-  let l = document.getElementById('l').value.trim();
-  let ph = document.getElementById('p').value.trim();
-  let q = document.getElementById('qt').value;
+  let name = document.getElementById('n').value.trim();
+  let loc = document.getElementById('l').value.trim();
+  let qty = document.getElementById('qt').value || 1;
 
-  if (!n || !l || !ph) {
-    alert('Please enter your Name, Location, and Phone Number');
+  if (!name || !loc) {
+    alert('Please enter your Name and Location');
     return;
   }
 
-  let msg = `Hello APEX TECH & GADGETS!%0A%0A*New Order Request:*%0A- Item: ${curP.name}%0A- Price: GH₵ ${curP.price}%0A- Quantity: ${q}%0A%0A*Customer Info:*%0A- Name: ${n}%0A- Location: ${l}%0A- Phone: ${ph}%0A%0AMoMo Line: 0247440480`;
-  window.open(`https://wa.me/233249303078?text=${msg}`, '_blank');
+  let phone = "233249303078";
+  let text = `Welcome to APEX TECH & GADGETS!\nGhana's Home of Original WiFi, T-Shirt, Phones & Many More.\nNationwide Delivery | Pay on Delivery\n\nPLEASE WHAT DO YOU WANT TO ORDER...\n\n📦 *Item:* ${curP.name}\n💰 *Price:* GH₵ ${curP.price}\n🔢 *Quantity:* ${qty}\n\n*Customer Details:*\n👤 *Name:* ${name}\n📍 *Location:* ${loc}`;
+  
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
 }
 
 // SIDE DRAWER FUNCTIONS
