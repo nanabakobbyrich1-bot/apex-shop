@@ -825,5 +825,47 @@ function openService(srv) {
 // INITIAL RENDER
 render();
 </script>
-</body>
-</html>
+<!-- Firebase Fetch Script -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC8lyzlTLTBSeikS3-IgG6FJA",
+    authDomain: "apex-tech-gadgets.firebaseapp.com",
+    projectId: "apex-tech-gadgets",
+    storageBucket: "apex-tech-gadgets.firebasestorage.app",
+    messagingSenderId: "947500498392",
+    appId: "1:947500498392:web:870cf612398544e314fbbf",
+    measurementId: "G-EB9FXQL07K"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function loadProducts() {
+    try {
+      const querySnapshot = await getDocs(query(collection(db, "products"), orderBy("createdAt", "desc")));
+      const productGrid = document.getElementById('product-grid');
+      
+      if (!productGrid) return;
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <img src="${data.img || 'https://via.placeholder.com/150'}" alt="${data.name}">
+          <h3>${data.name}</h3>
+          <p>GH₵ ${data.price}</p>
+        `;
+        productGrid.appendChild(card);
+      });
+    } catch (e) {
+      console.error("Error loading products: ", e);
+    }
+  }
+
+  loadProducts();
+</script>
+
