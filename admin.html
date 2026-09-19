@@ -12,14 +12,14 @@
   /* Brand Header Styling */
   .brand-header { text-align: center; margin-bottom: 24px; }
   
-  /* Full Uncropped Logo Box */
+  /* White Rounded Container for Logo */
   .logo-wrapper {
     width: 100%;
-    max-width: 240px;
+    max-width: 280px;
     background: #ffffff;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 12px;
-    margin: 0 auto 16px auto;
+    margin: 0 auto 20px auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,18 +28,66 @@
   .brand-logo { 
     width: 100%; 
     height: auto; 
-    max-height: 180px;
+    max-height: 140px;
     object-fit: contain; 
     display: block; 
   }
   
-  /* Brand Typography */
-  .brand-title { font-size: 22px; font-weight: 900; letter-spacing: 1px; line-height: 1.2; text-transform: uppercase; margin-bottom: 6px; }
-  .text-white { color: #ffffff; }
-  .text-yellow { color: #FFD400; }
-  .brand-tagline { font-size: 11px; font-weight: 700; color: #aaaaaa; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
+  /* Brand Header Text */
+  .title-apex { 
+    font-size: 32px; 
+    font-weight: 900; 
+    color: #FFD400; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    line-height: 1.1;
+  }
+
+  .title-tech { 
+    font-size: 28px; 
+    font-weight: 900; 
+    color: #ffffff; 
+    letter-spacing: 1px; 
+    text-transform: uppercase; 
+    margin-top: 4px;
+    line-height: 1.1;
+  }
+
+  .brand-tagline { 
+    font-size: 11px; 
+    font-weight: 700; 
+    color: #aaaaaa; 
+    letter-spacing: 1.5px; 
+    text-transform: uppercase; 
+    margin-top: 8px; 
+  }
+
+  .location-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-top: 8px;
+    margin-bottom: 20px;
+  }
+
+  .location-tag svg {
+    width: 16px;
+    height: 16px;
+    fill: #ffffff;
+  }
   
-  .section-title { color: #FFD400; text-align: center; font-size: 18px; font-weight: 800; border-top: 1px solid #2a2a2a; padding-top: 16px; margin-top: 8px; }
+  .section-title { 
+    color: #FFD400; 
+    text-align: center; 
+    font-size: 18px; 
+    font-weight: 800; 
+    border-top: 1px solid #2a2a2a; 
+    padding-top: 16px; 
+  }
 
   .form-group { margin-bottom: 16px; }
   label { display: block; font-size: 13px; font-weight: 700; color: #cccccc; margin-bottom: 6px; }
@@ -57,10 +105,18 @@
     <div class="logo-wrapper">
       <img src="https://i.ibb.co/m5yN4kVW/IMG-4476.jpg" alt="APEX Logo" class="brand-logo">
     </div>
-    <h1 class="brand-title">
-      <span class="text-white">APEX</span> <span class="text-yellow">TECH & GADGETS</span>
-    </h1>
+    
+    <div class="title-apex">APEX</div>
+    <div class="title-tech">TECH & GADGETS</div>
     <div class="brand-tagline">YOUR ONLINE SHOPPING DESTINATION</div>
+    
+    <div class="location-tag">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+      </svg>
+      Bubieshie, Accra
+    </div>
+
     <div class="section-title">Add New Product</div>
   </div>
 
