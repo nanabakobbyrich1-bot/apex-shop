@@ -184,6 +184,25 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   object-fit: cover !important;
   display: block !important;
 }
+ /* FORCE ALL GADGET CONTAINERS TO 2-COLUMN GRID */
+#product-list, #products, #productGrid, .product-grid, section .grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  grid-auto-flow: row !important;
+  gap: 10px !important;
+  padding: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-x: visible !important;
+}
+#product-list .product-card, #products .product-card, .product-grid .product-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
 /* MODAL BACKDROP */
 #modal { display: none; }
 #modal.active { display: flex !important; }
@@ -972,16 +991,16 @@ render();
   const db = getFirestore(app);
 
   // Real-time listener for products with auto-created container
-  let productContainer = document.getElementById("products") || document.getElementById("product-list") || document.querySelector(".grid") || document.querySelector(".product-grid");
+  let productContainer = document.getElementById("productGrid") || document.getElementById("products") || document.getElementById("product-list");
 
 if (!productContainer) {
   productContainer = document.createElement("div");
-  productContainer.id = "products";
-  productContainer.className = "product-grid";
+  productContainer.id = "productGrid";
   const mainSection = document.querySelector("main") || document.body;
   mainSection.appendChild(productContainer);
 }
 
+productContainer.className = "product-grid";
 
   onSnapshot(collection(db, "products"), (snapshot) => {
     productContainer.innerHTML = "";
