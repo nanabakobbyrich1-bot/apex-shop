@@ -9,10 +9,8 @@
   body { background: #121212; color: #ffffff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
   .admin-card { background: #1e1e1e; width: 100%; max-width: 480px; padding: 28px 24px; border-radius: 16px; border: 1px solid #2a2a2a; box-shadow: 0 10px 25px rgba(0,0,0,0.5); margin-bottom: 30px; }
   
-  /* Brand Header Styling */
   .brand-header { text-align: center; margin-bottom: 24px; }
   
-  /* Fixed Logo Wrapper */
   .logo-wrapper {
     width: 160px;
     height: 100px;
@@ -25,68 +23,18 @@
     align-items: center;
   }
 
-  .brand-logo { 
-    max-width: 100%; 
-    max-height: 100%; 
-    object-fit: contain; 
-    display: block; 
-  }
-  
-  /* Brand Header Text */
-  .title-apex { 
-    font-size: 32px; 
-    font-weight: 900; 
-    color: #FFD400; 
-    letter-spacing: 2px; 
-    text-transform: uppercase; 
-    line-height: 1.1;
-  }
-
-  .title-tech { 
-    font-size: 26px; 
-    font-weight: 900; 
-    color: #ffffff; 
-    letter-spacing: 1px; 
-    text-transform: uppercase; 
-    margin-top: 4px;
-    line-height: 1.1;
-  }
-
-  .brand-tagline { 
-    font-size: 11px; 
-    font-weight: 700; 
-    color: #aaaaaa; 
-    letter-spacing: 1.5px; 
-    text-transform: uppercase; 
-    margin-top: 8px; 
-  }
+  .brand-logo { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+  .title-apex { font-size: 32px; font-weight: 900; color: #FFD400; letter-spacing: 2px; text-transform: uppercase; line-height: 1.1; }
+  .title-tech { font-size: 26px; font-weight: 900; color: #ffffff; letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; line-height: 1.1; }
+  .brand-tagline { font-size: 11px; font-weight: 700; color: #aaaaaa; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 8px; }
 
   .location-tag {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-size: 15px;
-    font-weight: 500;
-    color: #ffffff;
-    margin-top: 8px;
-    margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-size: 15px; font-weight: 500; color: #ffffff; margin-top: 8px; margin-bottom: 20px;
   }
-
-  .location-tag svg {
-    width: 16px;
-    height: 16px;
-    fill: #ffffff;
-  }
+  .location-tag svg { width: 16px; height: 16px; fill: #ffffff; }
   
-  .section-title { 
-    color: #FFD400; 
-    text-align: center; 
-    font-size: 18px; 
-    font-weight: 800; 
-    border-top: 1px solid #2a2a2a; 
-    padding-top: 16px; 
-  }
+  .section-title { color: #FFD400; text-align: center; font-size: 18px; font-weight: 800; border-top: 1px solid #2a2a2a; padding-top: 16px; }
 
   .form-group { margin-bottom: 16px; }
   label { display: block; font-size: 13px; font-weight: 700; color: #cccccc; margin-bottom: 6px; }
@@ -100,7 +48,6 @@
   .publish-btn { width: 100%; padding: 14px; background: #FFD400; color: #000000; border: none; border-radius: 10px; font-size: 15px; font-weight: 900; cursor: pointer; margin-top: 10px; transition: 0.2s; }
   .publish-btn:hover { background: #e6bf00; }
 
-  /* Live Inventory Container */
   .inventory-card { background: #1e1e1e; width: 100%; max-width: 480px; padding: 20px; border-radius: 16px; border: 1px solid #2a2a2a; }
   .inventory-title { color: #FFD400; font-size: 16px; font-weight: 800; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
   .item-list { display: flex; flex-direction: column; gap: 10px; }
@@ -117,7 +64,6 @@
 <body>
 
 <div class="admin-card">
-  <!-- Brand Header -->
   <div class="brand-header">
     <div class="logo-wrapper">
       <img src="https://i.ibb.co/zV26ZpTv/IMG-4476.jpg" alt="APEX Logo" class="brand-logo">
@@ -168,8 +114,8 @@
     </div>
 
     <div class="form-group">
-      <label>Image URL</label>
-      <input type="url" id="pImg" placeholder="Paste image link here" required>
+      <label>Image URL (Optional)</label>
+      <input type="url" id="pImg" placeholder="Paste image link here (or leave blank for placeholder)">
     </div>
 
     <div class="checkbox-group">
@@ -187,7 +133,6 @@
   </form>
 </div>
 
-<!-- Live Firebase Inventory Management -->
 <div class="inventory-card">
   <div class="inventory-title">
     <span>Live Catalog</span>
@@ -220,7 +165,9 @@
   const itemList = document.getElementById('itemList');
   const prodCount = document.getElementById('prodCount');
 
-  // Submit product to Firebase
+  // Default image if link is left blank
+  const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop";
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
@@ -231,7 +178,11 @@
     const oldPriceVal = document.getElementById('pOldPrice').value.trim();
     const oldPrice = oldPriceVal ? Number(oldPriceVal) : 0;
     const category = document.getElementById('pCategory').value;
-    const image = document.getElementById('pImg').value.trim();
+    const rawImg = document.getElementById('pImg').value.trim();
+    
+    // If no image link is provided, use default image
+    const image = rawImg !== "" ? rawImg : DEFAULT_IMAGE;
+
     const isFeatured = document.getElementById('isFeatured').checked;
     const isBestSeller = document.getElementById('isBestSeller').checked;
 
@@ -260,7 +211,6 @@
     }
   });
 
-  // Real-time listener for current catalog items
   onSnapshot(collection(db, "products"), (snapshot) => {
     itemList.innerHTML = "";
     prodCount.innerText = `${snapshot.size} items`;
@@ -277,7 +227,7 @@
       const row = document.createElement('div');
       row.className = 'prod-row';
       row.innerHTML = `
-        <img src="${data.image || 'https://via.placeholder.com/50'}" alt="Thumb">
+        <img src="${data.image || DEFAULT_IMAGE}" alt="Thumb">
         <div class="prod-info">
           <div class="prod-title">${data.title || 'Untitled'}</div>
           <div class="prod-meta">
@@ -292,7 +242,6 @@
       itemList.appendChild(row);
     });
 
-    // Attach delete listeners
     document.querySelectorAll('.delete-btn').forEach(btn => {
       btn.addEventListener('click', async (e) => {
         const docId = e.target.getAttribute('data-id');
