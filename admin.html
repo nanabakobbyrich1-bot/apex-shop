@@ -114,7 +114,7 @@
         <option value="Earbuds">Earbuds</option>
         <option value="Smart Watches">Smart Watches</option>
         <option value="Home Appliance">Home Appliance</option>
-       <option value="Others">Others</option>
+        <option value="Others">Others</option>
       </select>
     </div>
 
@@ -179,7 +179,7 @@
 
   const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop";
 
-  // Photo Preview Logic when selecting from Photo Library
+  // Photo Preview Logic
   pImageFileInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -194,29 +194,48 @@
     }
   });
 
-  // Convert image to web-optimized URL via ImgBB upload API
-  async function uploadToImgBB(file) {
-    const apiKey = "d1df7b1fa15c32d4be0c2793132fa2d2"; // Free ImgBB API key for seamless photo uploads
-    const formData = new FormData();
-    formData.append("image", file);
+  // Compress & Resize Image to lightweight Base64 string for instant loading
+  function processAndCompressImage(file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxDim = 600; // max width/height suitable for phone screen
+          let width = img.width;
+          let height = img.height;
 
-    const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
-      method: "POST",
-      body: formData
+          if (width > height) {
+            if (width > maxDim) {
+              height *= maxDim / width;
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width *= maxDim / height;
+              height = maxDim;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Return optimized JPEG data URL (0.7 quality)
+          resolve(canvas.toDataURL('image/jpeg', 0.7));
+        };
+      };
     });
-
-    const data = await res.json();
-    if (data.success) {
-      return data.data.url;
-    } else {
-      throw new Error("Image upload failed");
-    }
   }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
-    submitBtn.innerText = "Uploading Image...";
+    submitBtn.innerText = "Publishing Product...";
 
     const name = document.getElementById('pName').value.trim();
     const price = Number(document.getElementById('pPrice').value);
@@ -231,10 +250,8 @@
     try {
       if (pImageFileInput.files.length > 0) {
         const selectedFile = pImageFileInput.files[0];
-        imageUrl = await uploadToImgBB(selectedFile);
+        imageUrl = await processAndCompressImage(selectedFile);
       }
-
-      submitBtn.innerText = "Publishing Product...";
 
       await addDoc(collection(db, "products"), {
         title: name,
@@ -254,7 +271,7 @@
       previewBox.style.display = 'none';
     } catch (error) {
       console.error("Error adding product: ", error);
-      alert("Failed to publish product. Please check connection and try again.");
+      alert("Failed to publish product. Please try again.");
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerText = "Publish Product";
