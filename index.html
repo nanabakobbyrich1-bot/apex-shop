@@ -972,14 +972,16 @@ render();
   const db = getFirestore(app);
 
   // Real-time listener for products with auto-created container
-  let productContainer = document.getElementById("product-list") || document.querySelector(".product-grid");
+  let productContainer = document.getElementById("products") || document.getElementById("product-list") || document.querySelector(".grid") || document.querySelector(".product-grid");
 
-  if (!productContainer) {
-    productContainer = document.createElement("div");
-    productContainer.id = "product-list";
-    productContainer.className = "product-grid";
-    document.body.appendChild(productContainer);
-  }
+if (!productContainer) {
+  productContainer = document.createElement("div");
+  productContainer.id = "products";
+  productContainer.className = "product-grid";
+  const mainSection = document.querySelector("main") || document.body;
+  mainSection.appendChild(productContainer);
+}
+
 
   onSnapshot(collection(db, "products"), (snapshot) => {
     productContainer.innerHTML = "";
