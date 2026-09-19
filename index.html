@@ -844,36 +844,38 @@ render();
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // Real-time listener for products
-  const productContainer = document.getElementById("product-list") || document.querySelector(".product-grid");
+  // Real-time listener for products with auto-created container
+  let productContainer = document.getElementById("product-list") || document.querySelector(".product-grid");
 
-  if (productContainer) {
-    onSnapshot(collection(db, "products"), (snapshot) => {
-      productContainer.innerHTML = ""; // Clear existing fallback items
-
-      if (snapshot.empty) {
-        productContainer.innerHTML = "<p style='text-align:center; grid-column: 1/-1;'>No products available yet.</p>";
-        return;
-      }
-
-      snapshot.forEach((doc) => {
-        const item = doc.data();
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.innerHTML = `
-          <img src="${item.image || item.img || 'https://via.placeholder.com/200'}" alt="${item.title || item.name}">
-          <small>${item.category || item.cat || 'General'}</small>
-          <h3>${item.title || item.name || 'Untitled Product'}</h3>
-          <p class="price">GH₵ ${item.price || '0.00'}</p>
-          <button>Buy Now</button>
-        `;
-        productContainer.appendChild(card);
-      });
-    });
-  } else {
-    console.error("Product container element not found in HTML!");
+  if (!productContainer) {
+    productContainer = document.createElement("div");
+    productContainer.id = "product-list";
+    productContainer.className = "product-grid";
+    document.body.appendChild(productContainer);
   }
+
+  onSnapshot(collection(db, "products"), (snapshot) => {
+    productContainer.innerHTML = "";
+
+    if (snapshot.empty) {
+      productContainer.innerHTML = "<p style='text-align:center; padding: 20px;'>No products available yet.</p>";
+      return;
+    }
+
+    snapshot.forEach((doc) => {
+      const item = doc.data();
+      const card = document.createElement("div");
+      card.className = "product-card";
+      card.innerHTML = `
+        <img src="${item.image || item.img || 'https://via.placeholder.com/200'}" alt="${item.title || item.name}">
+        <small>${item.category || item.cat || 'Gadgets'}</small>
+        <h3>${item.title || item.name || 'Untitled Product'}</h3>
+        <p class="price">GH₵ ${item.price || '0.00'}</p>
+        <button>Buy Now</button>
+      `;
+      productContainer.appendChild(card);
+    });
+  });
 </script>
 </body>
 </html>
-
