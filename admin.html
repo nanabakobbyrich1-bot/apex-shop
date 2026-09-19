@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin - Add New Product</title>
+<title>Admin - APEX Tech & Gadgets</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-  body { background: #121212; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-  .admin-card { background: #1e1e1e; width: 100%; max-width: 440px; padding: 28px 24px; border-radius: 16px; border: 1px solid #2a2a2a; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+  body { background: #121212; color: #ffffff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
+  .admin-card { background: #1e1e1e; width: 100%; max-width: 480px; padding: 28px 24px; border-radius: 16px; border: 1px solid #2a2a2a; box-shadow: 0 10px 25px rgba(0,0,0,0.5); margin-bottom: 30px; }
   
   /* Brand Header Styling */
   .brand-header { text-align: center; margin-bottom: 24px; }
@@ -92,8 +92,26 @@
   label { display: block; font-size: 13px; font-weight: 700; color: #cccccc; margin-bottom: 6px; }
   input, select { width: 100%; padding: 12px 14px; background: #2a2a2a; border: 1px solid #3d3d3d; border-radius: 10px; color: #ffffff; font-size: 14px; outline: none; }
   input:focus, select:focus { border-color: #FFD400; }
+  
+  .checkbox-group { display: flex; gap: 15px; margin-top: 10px; margin-bottom: 16px; }
+  .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .checkbox-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #FFD400; cursor: pointer; }
+
   .publish-btn { width: 100%; padding: 14px; background: #FFD400; color: #000000; border: none; border-radius: 10px; font-size: 15px; font-weight: 900; cursor: pointer; margin-top: 10px; transition: 0.2s; }
   .publish-btn:hover { background: #e6bf00; }
+
+  /* Live Inventory Container */
+  .inventory-card { background: #1e1e1e; width: 100%; max-width: 480px; padding: 20px; border-radius: 16px; border: 1px solid #2a2a2a; }
+  .inventory-title { color: #FFD400; font-size: 16px; font-weight: 800; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .item-list { display: flex; flex-direction: column; gap: 10px; }
+  .prod-row { display: flex; align-items: center; background: #2a2a2a; padding: 10px; border-radius: 10px; gap: 12px; }
+  .prod-row img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; background: #fff; }
+  .prod-info { flex: 1; }
+  .prod-title { font-size: 13px; font-weight: bold; color: #fff; line-height: 1.2; }
+  .prod-meta { font-size: 11px; color: #aaa; margin-top: 3px; }
+  .badge-tag { font-size: 9px; padding: 2px 5px; border-radius: 4px; background: #FFD400; color: #000; font-weight: 800; margin-left: 4px; }
+  .delete-btn { background: #ef4444; color: #fff; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; font-size: 11px; cursor: pointer; }
+  .delete-btn:hover { background: #dc2626; }
 </style>
 </head>
 <body>
@@ -111,7 +129,7 @@
     
     <div class="location-tag">
       <svg viewBox="0 0 24 24">
-        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5-2.5z"/>
       </svg>
       Bubieshie, Accra
     </div>
@@ -122,7 +140,7 @@
   <form id="productForm">
     <div class="form-group">
       <label>Product Name</label>
-      <input type="text" id="pName" placeholder="e.g. 4G Pocket MiFi" required>
+      <input type="text" id="pName" placeholder="e.g. Universal 4G Pocket MiFi" required>
     </div>
 
     <div class="form-group">
@@ -137,7 +155,16 @@
 
     <div class="form-group">
       <label>Category</label>
-      <input type="text" id="pCategory" placeholder="e.g. WiFi & Routers" required>
+      <select id="pCategory" required>
+        <option value="Wifi & Routers">Wifi & Routers</option>
+        <option value="Phones">Phones</option>
+        <option value="Power Banks">Power Banks</option>
+        <option value="Chargers">Chargers</option>
+        <option value="Cables">Cables</option>
+        <option value="Earbuds">Earbuds</option>
+        <option value="Smart Watches">Smart Watches</option>
+        <option value="Home Appliance">Home Appliance</option>
+      </select>
     </div>
 
     <div class="form-group">
@@ -145,13 +172,35 @@
       <input type="url" id="pImg" placeholder="Paste image link here" required>
     </div>
 
+    <div class="checkbox-group">
+      <label class="checkbox-item">
+        <input type="checkbox" id="isFeatured">
+        <span>Featured & Trending</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" id="isBestSeller">
+        <span>Best Seller</span>
+      </label>
+    </div>
+
     <button type="submit" class="publish-btn" id="submitBtn">Publish Product</button>
   </form>
 </div>
 
+<!-- Live Firebase Inventory Management -->
+<div class="inventory-card">
+  <div class="inventory-title">
+    <span>Live Catalog</span>
+    <span id="prodCount" style="font-size:12px; color:#aaa;">0 items</span>
+  </div>
+  <div id="itemList" class="item-list">
+    <div style="color:#888; font-size:13px; text-align:center; padding:10px;">Loading catalog...</div>
+  </div>
+</div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyC8lyzlTLTBSeikS3-IgG6FJA",
@@ -168,7 +217,10 @@
 
   const form = document.getElementById('productForm');
   const submitBtn = document.getElementById('submitBtn');
+  const itemList = document.getElementById('itemList');
+  const prodCount = document.getElementById('prodCount');
 
+  // Submit product to Firebase
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
@@ -178,8 +230,10 @@
     const price = Number(document.getElementById('pPrice').value);
     const oldPriceVal = document.getElementById('pOldPrice').value.trim();
     const oldPrice = oldPriceVal ? Number(oldPriceVal) : 0;
-    const category = document.getElementById('pCategory').value.trim();
+    const category = document.getElementById('pCategory').value;
     const image = document.getElementById('pImg').value.trim();
+    const isFeatured = document.getElementById('isFeatured').checked;
+    const isBestSeller = document.getElementById('isBestSeller').checked;
 
     try {
       await addDoc(collection(db, "products"), {
@@ -188,6 +242,10 @@
         oldPrice: oldPrice,
         category: category,
         image: image,
+        isFeatured: isFeatured,
+        isBestSeller: isBestSeller,
+        rating: "4.8",
+        reviews: 42,
         createdAt: serverTimestamp()
       });
 
@@ -200,6 +258,54 @@
       submitBtn.disabled = false;
       submitBtn.innerText = "Publish Product";
     }
+  });
+
+  // Real-time listener for current catalog items
+  onSnapshot(collection(db, "products"), (snapshot) => {
+    itemList.innerHTML = "";
+    prodCount.innerText = `${snapshot.size} items`;
+
+    if (snapshot.empty) {
+      itemList.innerHTML = `<div style="color:#888; font-size:13px; text-align:center; padding:10px;">No products added yet.</div>`;
+      return;
+    }
+
+    snapshot.forEach((docSnap) => {
+      const data = docSnap.data();
+      const id = docSnap.id;
+
+      const row = document.createElement('div');
+      row.className = 'prod-row';
+      row.innerHTML = `
+        <img src="${data.image || 'https://via.placeholder.com/50'}" alt="Thumb">
+        <div class="prod-info">
+          <div class="prod-title">${data.title || 'Untitled'}</div>
+          <div class="prod-meta">
+            GHS ${data.price || 0} • ${data.category || 'General'}
+            ${data.isFeatured ? '<span class="badge-tag">Featured</span>' : ''}
+            ${data.isBestSeller ? '<span class="badge-tag">Best Seller</span>' : ''}
+          </div>
+        </div>
+        <button class="delete-btn" data-id="${id}">Delete</button>
+      `;
+
+      itemList.appendChild(row);
+    });
+
+    // Attach delete listeners
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const docId = e.target.getAttribute('data-id');
+        if (confirm("Are you sure you want to delete this product?")) {
+          try {
+            await deleteDoc(doc(db, "products", docId));
+          } catch (err) {
+            console.error("Error deleting product:", err);
+            alert("Could not delete product.");
+          }
+        }
+      });
+    });
   });
 </script>
 
