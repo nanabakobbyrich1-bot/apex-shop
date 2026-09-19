@@ -6,7 +6,7 @@
 <title>APEX TECH & GADGETS - +233 247440480</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f5f5f5;color:#111}
+body{background:#0d0d0d;color:#fff}
 header{background:#000;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20}
 .logo-img{height:48px;width:auto;object-fit:contain}
 .header-right{display:flex;align-items:center;gap:10px}
@@ -15,8 +15,8 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .menu-line{width:18px;height:2.5px;background:#fff;border-radius:2px}
 .menu-line.short{width:10px;margin-left:8px}
 .search{background:#0a0a0a;padding:0 15px 14px;display:flex;gap:8px}
-.search input{flex:1;padding:12px 14px;border-radius:12px;border:none;outline:none;font-size:14px}
-.search button{background:#FFD400;border:none;padding:12px 18px;border-radius:12px;font-weight:900;cursor:pointer}
+.search input{flex:1;padding:12px 14px;border-radius:12px;border:none;outline:none;font-size:14px;background:#1a1a1a;color:#fff}
+.search button{background:#FFD400;border:none;padding:12px 18px;border-radius:12px;font-weight:900;cursor:pointer;color:#000}
 .slider{margin:14px;border-radius:20px;height:200px;position:relative;overflow:hidden;background:#000;cursor:pointer}
 .slide{position:absolute;inset:0;display:none;overflow:hidden}
 .slide.active{display:block;z-index:1}
@@ -35,20 +35,22 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .dot.active{background:#FFD400;width:18px;border-radius:10px}
 .filters{display:flex;gap:8px;padding:12px 15px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .filters::-webkit-scrollbar{display:none}
-.f{background:#fff;padding:8px 16px;border-radius:20px;font-weight:800;font-size:12px;border:1px solid #eee;white-space:nowrap;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
-.f.active{background:#0a0a0a;color:#FFD400;border-color:#0a0a0a}
-.blue{background:#0F5BFF;padding:14px 0 16px;margin:10px 0}
+.f{background:#1a1a1a;color:#ccc;padding:8px 16px;border-radius:20px;font-weight:800;font-size:12px;border:1px solid #2a2a2a;white-space:nowrap;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.f.active{background:#FFD400;color:#000;border-color:#FFD400}
+.blue{background:#0b1120;padding:14px 0 16px;margin:10px 0}
 .blue-h{padding:0 15px 10px;display:flex;justify-content:space-between;color:#fff;font-weight:900;font-size:13px}
 .hrow{display:flex;gap:10px;overflow-x:auto;padding:0 15px;scrollbar-width:none}
 .hrow::-webkit-scrollbar{display:none}
-.card{background:#fff;min-width:165px;max-width:165px;border-radius:16px;overflow:hidden;position:relative;flex-shrink:0;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,0.05);-webkit-tap-highlight-color:transparent}
-.card img{width:100%;height:120px;object-fit:cover}
+
+/* HORIZONTAL CARDS (FEATURED & BEST SELLERS) */
+.card{background:#18181b;min-width:165px;max-width:165px;border-radius:16px;overflow:hidden;position:relative;flex-shrink:0;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,0.5);-webkit-tap-highlight-color:transparent;border:1px solid #27272a}
+.card img{width:100%;height:120px;object-fit:cover;background:#000}
 .card-body{padding:9px}
-.title{font-size:11px;font-weight:700;height:32px;overflow:hidden;line-height:1.3;color:#222}
-.price{font-weight:900;margin-top:4px;font-size:13px;color:#000}
+.title{font-size:11px;font-weight:700;height:32px;overflow:hidden;line-height:1.3;color:#FFD400}
+.price{font-weight:900;margin-top:4px;font-size:13px;color:#22c55e}
 .old{font-size:10px;color:#888;text-decoration:line-through;margin-left:4px}
 .rate{font-size:10px;color:#ff9d00;margin-top:2px}
-.spo{position:absolute;top:8px;left:8px;background:#FFD400;color:#000;font-size:8px;font-weight:900;padding:3px 6px;border-radius:6px}
+.spo{position:absolute;top:8px;left:8px;background:#FFD400;color:#000;font-size:8px;font-weight:900;padding:3px 6px;border-radius:6px;z-index:2}
 
 /* FORCED STRICT 2-COLUMN GRID SYSTEM */
 .grid, #grid, #product-list, #products, #productGrid, .product-grid {
@@ -64,13 +66,14 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   width: 100% !important;
   max-width: 100% !important;
   min-width: 0 !important;
-  background: #ffffff !important;
+  background: #18181b !important;
   border-radius: 14px !important;
   overflow: hidden !important;
   position: relative !important;
   display: flex !important;
   flex-direction: column !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06) !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4) !important;
+  border: 1px solid #27272a !important;
   box-sizing: border-box !important;
   cursor: pointer !important;
   -webkit-tap-highlight-color: transparent !important;
@@ -85,7 +88,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   position: relative !important;
   width: 100% !important;
   height: 130px !important;
-  background-color: #f9f9f9 !important;
+  background-color: #000000 !important;
   overflow: hidden !important;
 }
 
@@ -120,7 +123,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .product-title, .gtitle {
   font-size: 12px !important;
   font-weight: 700 !important;
-  color: #111827 !important;
+  color: #FFD400 !important;
   margin: 0 0 4px 0 !important;
   line-height: 1.3 !important;
   display: -webkit-box !important;
@@ -137,14 +140,14 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   margin-bottom: 4px !important;
   font-size: 13px !important;
   font-weight: 800 !important;
-  color: #000 !important;
+  color: #22c55e !important;
 }
 
 .buy-btn {
   width: 100% !important;
   padding: 8px 0 !important;
-  background-color: #000000 !important;
-  color: #ffffff !important;
+  background-color: #FFD400 !important;
+  color: #000000 !important;
   border: none !important;
   border-radius: 8px !important;
   font-size: 11px !important;
@@ -153,23 +156,23 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   margin-top: auto !important;
 }
 
-/* MODAL SCREEN STYLING */
+/* DARK MODAL SCREEN STYLING */
 #modal { display: none; }
 #modal.active { display: flex !important; }
 
 .p-modal-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.6); justify-content: center; align-items: flex-end;
-  z-index: 9999; backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.85); justify-content: center; align-items: flex-end;
+  z-index: 9999; backdrop-filter: blur(4px);
 }
 
 .p-modal-card {
-  width: 100%; max-width: 480px; height: 96vh; background: #eef1f5; color: #111;
+  width: 100%; max-width: 480px; height: 96vh; background: #121212; color: #ffffff;
   border-top-left-radius: 20px; border-top-right-radius: 20px; display: flex; flex-direction: column; overflow: hidden;
-  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.8); border-top: 1px solid #27272a;
 }
 
-.p-modal-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #fff; border-bottom: 1px solid #e5e7eb; }
+.p-modal-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #18181b; border-bottom: 1px solid #27272a; }
 
 /* ENLARGED BACK HOME ARROW */
 .p-back-btn { 
@@ -178,32 +181,34 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   font-size: 28px; 
   font-weight: bold; 
   cursor: pointer; 
-  color: #374151; 
+  color: #FFD400; 
   line-height: 1;
   padding: 0 4px;
+  display: flex;
+  align-items: center;
 }
 
-.p-brand-title { font-weight: 700; font-size: 16px; color: #111827; }
+.p-brand-title { font-weight: 700; font-size: 16px; color: #ffffff; }
 
-.p-modal-body { overflow-y: auto; flex: 1; padding: 12px 14px; }
+.p-modal-body { overflow-y: auto; flex: 1; padding: 12px 14px; background: #121212; }
 
-.p-img-container { width: 100%; height: 260px; background: #fff; border-radius: 12px; display: flex; justify-content: center; align-items: center; overflow: hidden; margin-bottom: 12px; }
+.p-img-container { width: 100%; height: 260px; background: #000; border-radius: 12px; display: flex; justify-content: center; align-items: center; overflow: hidden; margin-bottom: 12px; border: 1px solid #27272a; }
 .p-main-img { width: 100%; height: 100%; object-fit: contain; }
 
-/* MARKETPLACE ITEM DETAILS PANEL */
-.item-panel { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #eaeaea; }
-.item-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #6b7280; margin-bottom: 8px; }
-.item-title { font-size: 18px; font-weight: 800; color: #111827; margin-bottom: 6px; }
-.item-price { font-size: 22px; font-weight: 900; color: #16a34a; margin-bottom: 14px; }
+/* MARKETPLACE ITEM DETAILS PANEL (DARK) */
+.item-panel { background: #18181b; border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #27272a; }
+.item-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #a1a1aa; margin-bottom: 8px; }
+.item-title { font-size: 18px; font-weight: 800; color: #FFD400; margin-bottom: 6px; }
+.item-price { font-size: 22px; font-weight: 900; color: #22c55e; margin-bottom: 14px; }
 
 .action-buttons { display: flex; gap: 10px; margin-bottom: 10px; }
 
 /* REQUEST CALL BUTTON - DIRECT PHONE DIAL */
 .btn-call { 
   flex: 1; 
-  border: 1px solid #16a34a; 
-  background: #fff; 
-  color: #16a34a; 
+  border: 1px solid #22c55e; 
+  background: transparent; 
+  color: #22c55e; 
   font-size: 13px; 
   font-weight: 800; 
   padding: 12px 6px; 
@@ -233,27 +238,69 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   gap: 6px; 
 }
 
-/* CHAT BOX SECTION */
-.chat-section { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #eaeaea; }
-.chat-title { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 12px; }
-.chat-input { width: 100%; padding: 12px 14px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 13px; outline: none; margin-bottom: 10px; background: #f9fafb; }
-.chat-btn { width: 100%; padding: 12px; background: #fde68a; color: #92400e; border: none; border-radius: 10px; font-weight: 800; font-size: 14px; cursor: pointer; }
+/* CHAT BOX SECTION (DARK) */
+.chat-section { background: #18181b; border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #27272a; }
+.chat-title { font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 12px; }
+.chat-input { width: 100%; padding: 12px 14px; border: 1px solid #3f3f46; border-radius: 10px; font-size: 13px; outline: none; margin-bottom: 10px; background: #09090b; color: #ffffff; }
+.chat-btn { width: 100%; padding: 12px; background: #FFD400; color: #000000; border: none; border-radius: 10px; font-weight: 800; font-size: 14px; cursor: pointer; }
 
-/* SPECIFICATIONS GRID */
-.specs-grid { background: #fff; border-radius: 12px; padding: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border: 1px solid #eaeaea; margin-bottom: 12px; }
+/* SPECIFICATIONS GRID (DARK) */
+.specs-grid { background: #18181b; border-radius: 12px; padding: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border: 1px solid #27272a; margin-bottom: 12px; }
 .spec-item { display: flex; flex-direction: column; }
-.spec-val { font-size: 13px; font-weight: 700; color: #111827; }
-.spec-lbl { font-size: 10px; color: #9ca3af; font-weight: 700; margin-top: 2px; text-transform: uppercase; }
+.spec-val { font-size: 13px; font-weight: 700; color: #ffffff; }
+.spec-lbl { font-size: 10px; color: #71717a; font-weight: 700; margin-top: 2px; text-transform: uppercase; }
 
 /* SIMILAR ITEMS BANNER */
-.similar-banner { background: #000; border-radius: 12px; padding: 14px 10px; margin-bottom: 14px; }
+.similar-banner { background: #000; border-radius: 12px; padding: 14px 10px; margin-bottom: 12px; border: 1px solid #27272a; }
 .similar-title { color: #FFD400; font-size: 13px; font-weight: 900; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; padding-left: 4px; }
 .similar-row { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
 .similar-row::-webkit-scrollbar { display: none; }
 
-#sideMenu{position:fixed;top:0;right:-100%;width:300px;height:100%;background:#fff;z-index:9999;transition:0.3s ease;overflow-y:auto}
-#menuOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9998;display:none}
-.menu-item{display:flex;align-items:center;gap:12px;padding:14px 0;color:#222;text-decoration:none;border-bottom:1px solid #f5f5f5;cursor:pointer;font-size:13px;font-weight:bold;-webkit-tap-highlight-color:transparent}
+/* SAFETY TIPS PANEL (DARK) */
+.safety-tips-card {
+  background: #18181b;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 14px;
+  border: 1px solid #27272a;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.safety-tips-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.safety-tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.safety-tips-list li {
+  font-size: 12px;
+  color: #a1a1aa;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 16px;
+}
+.safety-tips-list li:last-child {
+  margin-bottom: 0;
+}
+.safety-tips-list li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  color: #71717a;
+  font-weight: bold;
+}
+
+#sideMenu{position:fixed;top:0;right:-100%;width:300px;height:100%;background:#18181b;z-index:9999;transition:0.3s ease;overflow-y:auto;border-left:1px solid #27272a}
+#menuOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9998;display:none}
+.menu-item{display:flex;align-items:center;gap:12px;padding:14px 0;color:#fff;text-decoration:none;border-bottom:1px solid #27272a;cursor:pointer;font-size:13px;font-weight:bold;-webkit-tap-highlight-color:transparent}
 </style>
 </head>
 <body>
@@ -273,11 +320,11 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
     .header-left { display: flex; align-items: center; gap: 12px; }
     .logo-container img { height: 52px; width: auto; border-radius: 8px; object-fit: contain; display: block; background-color: #ffffff; }
     .brand-info { display: flex; flex-direction: column; justify-content: center; }
-    .brand-title { font-size: 1.4rem; font-weight: 800; color: #e5b33b; letter-spacing: 0.5px; line-height: 1; margin: 0; }
+    .brand-title { font-size: 1.4rem; font-weight: 800; color: #FFD400; letter-spacing: 0.5px; line-height: 1; margin: 0; }
     .brand-subtitle { font-size: 0.75rem; font-weight: 700; color: #ffffff; letter-spacing: 0.5px; margin-top: 2px; text-transform: uppercase; }
     .brand-location { display: flex; align-items: center; gap: 4px; font-size: 0.75rem; color: #cccccc; margin-top: 3px; }
     .header-right { display: flex; align-items: center; gap: 10px; }
-    .btn-contact { display: inline-flex; align-items: center; justify-content: center; background-color: #52c46a; color: #ffffff; text-decoration: none; font-weight: 700; padding: 8px 12px; border-radius: 20px; }
+    .btn-contact { display: inline-flex; align-items: center; justify-content: center; background-color: #22c55e; color: #ffffff; text-decoration: none; font-weight: 700; padding: 8px 12px; border-radius: 20px; }
     .menu-toggle { font-size: 1.6rem; color: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 2px 6px; user-select: none; }
     .mobile-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background-color: #111111; box-shadow: -5px 0 15px rgba(0,0,0,0.5); z-index: 9999; display: flex; flex-direction: column; padding: 24px; transition: right 0.3s ease-in-out; }
     .mobile-menu .close-btn { align-self: flex-end; font-size: 1.8rem; color: #ffffff; cursor: pointer; margin-bottom: 24px; }
@@ -348,13 +395,13 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 <!-- CATEGORY FILTER CHIPS -->
 <div class="filters" id="filters"></div>
 
-<!-- SPONSORED SHOWCASE (BLUE) -->
+<!-- SPONSORED SHOWCASE (FEATURED & TRENDING) -->
 <div class="blue">
   <div class="blue-h"><span>🔥 Featured & Trending</span><span>Slide →</span></div>
   <div class="hrow" id="srow"></div>
 </div>
 
-<!-- TOP SELLING SHOWCASE (DARK) -->
+<!-- TOP SELLING SHOWCASE (BEST SELLERS) -->
 <div class="blue" style="background:#0a0a0a">
   <div class="blue-h"><span>⭐ Best Sellers</span><span>Slide →</span></div>
   <div class="hrow" id="trow"></div>
@@ -362,7 +409,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 
 <!-- MAIN PRODUCT GRID SECTION -->
 <div style="padding:12px 15px 4px;font-weight:900;display:flex;justify-content:space-between;align-items:center">
-  <span id="ctitle">All Gadgets</span>
+  <span id="ctitle" style="color:#fff">All Gadgets</span>
   <span style="font-size:11px;color:#888">Tap item to view</span>
 </div>
 
@@ -371,9 +418,9 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 
 <!-- SIDE DRAWER NAVIGATION -->
 <div id="sideMenu">
-  <div style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee">
-    <b style="color:#666;font-size:13px">OUR CATEGORIES</b>
-    <span onclick="closeMenu()" style="font-size:22px;cursor:pointer">✕</span>
+  <div style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #27272a">
+    <b style="color:#aaa;font-size:13px">OUR CATEGORIES</b>
+    <span onclick="closeMenu()" style="font-size:22px;cursor:pointer;color:#fff">✕</span>
   </div>
   <div style="padding:5px 20px">
     <div class="menu-item" onclick="filterCategory('All')"><span>📦</span> All Gadgets</div>
@@ -387,14 +434,19 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 </div>
 <div id="menuOverlay" onclick="closeMenu()"></div>
 
-<!-- MODAL POPUP -->
+<!-- MODAL POPUP (DARK THEME) -->
 <div id="modal" class="p-modal-overlay" onclick="closeM(event)">
   <div class="p-modal-card" onclick="event.stopPropagation()">
     <div class="p-modal-header">
-      <!-- ENLARGED BACK BUTTON -->
-      <button class="p-back-btn" onclick="closeM()">⟨</button>
+      <!-- ENLARGED BACK HOME ARROW WITH ICON -->
+      <button class="p-back-btn" onclick="closeM()" title="Back to Home">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
       <span class="p-brand-title">Home page</span>
-      <div style="display:flex; gap:12px; color:#16a34a;">
+      <div style="display:flex; gap:12px; color:#22c55e;">
         <span style="font-size:18px; cursor:pointer">➦</span>
         <span style="font-size:18px; cursor:pointer">🔖</span>
       </div>
@@ -410,8 +462,9 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
       <div class="item-panel">
         <div class="item-meta">
           <span>📍 Greater Accra, Bubieshie</span>
-          <span style="background:#f3f4f6; padding:2px 6px; border-radius:4px; color:#6b7280; font-weight:bold">Promoted</span>
+          <span style="background:#27272a; padding:2px 6px; border-radius:4px; color:#FFD400; font-weight:bold">Promoted</span>
         </div>
+        <!-- PRODUCT TITLE IN YELLOW -->
         <h2 id="vname" class="item-title"></h2>
         <div id="vprice" class="item-price"></div>
 
@@ -429,7 +482,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
         </div>
       </div>
 
-      <!-- CHAT WITH SELLER BOX (DIRECT WHATSAPP REDIRECT) -->
+      <!-- CHAT WITH SELLER BOX -->
       <div class="chat-section">
         <div class="chat-title">Chat with the seller</div>
         <input type="text" id="sellerMsg" placeholder="Hello" class="chat-input" />
@@ -461,6 +514,21 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
         <div class="similar-title">🔥 Featured, Trending & Best Sellers</div>
         <div class="similar-row" id="famRow"></div>
       </div>
+
+      <!-- SAFETY TIPS SECTION -->
+      <div class="safety-tips-card">
+        <div class="safety-tips-title">
+          <span>🛡️</span> Safety tips
+        </div>
+        <ul class="safety-tips-list">
+          <li>Avoid paying in advance, even for delivery</li>
+          <li>Meet with the seller at a safe public place</li>
+          <li>Inspect the item and ensure it's exactly what you want</li>
+          <li>Make sure that the packed item is the one you've inspected</li>
+          <li>Only pay if you're satisfied</li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </div>
@@ -537,6 +605,7 @@ function filtered() {
   return list;
 }
 
+// CREATES HORIZONTAL CARDS (FEATURED & BEST SELLERS) WITH WORKING CLICK TO OPEN MODAL
 function createCard(p) {
   let d = document.createElement('div');
   d.className = 'card';
@@ -633,7 +702,7 @@ function sendDirectChat() {
 }
 
 function closeM(e) {
-  if (!e || e.target.id === 'modal' || e.target.classList.contains('p-back-btn')) {
+  if (!e || e.target.id === 'modal' || e.target.classList.contains('p-back-btn') || e.target.closest('.p-back-btn')) {
     let modal = document.getElementById('modal');
     if (modal) {
       modal.classList.remove('active');
