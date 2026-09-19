@@ -525,12 +525,42 @@ setInterval(next, 6000);
 let categories = ["All", "Wifi & Routers", "Phones", "T-Shirts", "Frames", "Home Appliance", "Power Banks", "Cables", "Chargers"];
 
 let prods = [
-  {id:"1", cat:"Wifi & Routers", name:"Universal Mobile WiFi (150Mbps)", price:199, old:220, dis:21, rate:"4.8", rev:42, img:"https://i.ibb.co/Hp2nFkNZ/95b985b7-81b8-430b-6c85-4e0a3781b4e5-F7-FDE882-0-E01-422-C-BE69-C71-B2-CD9-F3-F7.jpg"},
-  {id:"2", cat:"Phones", name:"Nokia C2 copy and paste version", price:250, old:280, dis:19, rate:"4.2", rev:42, img:"https://i.ibb.co/XkvthCty/IMG-0005.jpg"},
-  {id:"3", cat:"Wifi & Routers", name:"Huawei E5576 Unlocked Portable 4G MiFi", price:260, old:320, dis:18, rate:"4.7", rev:31, img:"https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500"},
-  {id:"4", cat:"Power Banks", name:"Oraimo 27000mAh Power Bank", price:240, old:290, dis:17, rate:"4.9", rev:104, img:"https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500"},
-  {id:"5", cat:"Chargers", name:"Apple 20W USB-C Power Adapter Fast Charger", price:130, old:170, dis:23, rate:"4.9", rev:140, img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500"},
-  {id:"6", cat:"Wifi & Routers", name:"4G LTE-Advanced Mobile wifi", price:120, old:160, dis:25, rate:"4.8", rev:95, img:"https://i.ibb.co/k2nd6Vs0/ff1bf370-dd99-5794-496e-1b099872b645-D2-CA49-B8-F19-F-463-B-93-F6-EFFF649-E672-F.jpg"}
+  {
+    id:"1", cat:"Wifi & Routers", name:"Universal Mobile WiFi (150Mbps)", price:199, old:220, dis:21, rate:"4.8", rev:42, 
+    img:"https://i.ibb.co/Hp2nFkNZ/95b985b7-81b8-430b-6c85-4e0a3781b4e5-F7-FDE882-0-E01-422-C-BE69-C71-B2-CD9-F3-F7.jpg",
+    isFeatured: true,
+    isBestSeller: false
+  },
+  {
+    id:"2", cat:"Phones", name:"Nokia C2 copy and paste version", price:250, old:280, dis:19, rate:"4.2", rev:42, 
+    img:"https://i.ibb.co/XkvthCty/IMG-0005.jpg",
+    isFeatured: false,
+    isBestSeller: true
+  },
+  {
+    id:"3", cat:"Wifi & Routers", name:"Huawei E5576 Unlocked Portable 4G MiFi", price:260, old:320, dis:18, rate:"4.7", rev:31, 
+    img:"https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500",
+    isFeatured: true,
+    isBestSeller: true
+  },
+  {
+    id:"4", cat:"Power Banks", name:"Oraimo 27000mAh Power Bank", price:240, old:290, dis:17, rate:"4.9", rev:104, 
+    img:"https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500",
+    isFeatured: false,
+    isBestSeller: true
+  },
+  {
+    id:"5", cat:"Chargers", name:"Apple 20W USB-C Power Adapter Fast Charger", price:130, old:170, dis:23, rate:"4.9", rev:140, 
+    img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500",
+    isFeatured: true,
+    isBestSeller: false
+  },
+  {
+    id:"6", cat:"Wifi & Routers", name:"4G LTE-Advanced Mobile wifi", price:120, old:160, dis:25, rate:"4.8", rev:95, 
+    img:"https://i.ibb.co/k2nd6Vs0/ff1bf370-dd99-5794-496e-1b099872b645-D2-CA49-B8-F19-F-463-B-93-F6-EFFF649-E672-F.jpg",
+    isFeatured: false,
+    isBestSeller: false
+  }
 ];
 
 let activeCat = "All";
@@ -606,12 +636,18 @@ function render() {
   s.innerHTML = '';
   t.innerHTML = '';
 
+  // 1. Render All Gadgets (Grid)
   list.forEach(p => {
     g.appendChild(createGridCard(p));
   });
 
-  prods.slice(0, 8).forEach(p => s.appendChild(createCard(p)));
-  prods.slice(0, 8).forEach(p => t.appendChild(createCard(p)));
+  // 2. Render Featured & Trending Section
+  let featuredProducts = prods.filter(p => p.isFeatured);
+  featuredProducts.forEach(p => s.appendChild(createCard(p)));
+
+  // 3. Render Best Sellers Section
+  let bestSellerProducts = prods.filter(p => p.isBestSeller);
+  bestSellerProducts.forEach(p => t.appendChild(createCard(p)));
 }
 
 function search() { render(); }
@@ -755,7 +791,9 @@ render();
         dis: item.discount || 0,
         rate: item.rating || "4.8",
         rev: item.reviews || "42",
-        img: item.image || item.img || "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500"
+        img: item.image || item.img || "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500",
+        isFeatured: item.isFeatured || false,
+        isBestSeller: item.isBestSeller || false
       };
 
       const existingIndex = prods.findIndex(p => p.id === fireId);
