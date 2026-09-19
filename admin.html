@@ -39,8 +39,12 @@
   .form-group { margin-bottom: 16px; }
   label { display: block; font-size: 13px; font-weight: 700; color: #cccccc; margin-bottom: 6px; }
   input, select { width: 100%; padding: 12px 14px; background: #2a2a2a; border: 1px solid #3d3d3d; border-radius: 10px; color: #ffffff; font-size: 14px; outline: none; }
+  input[type="file"] { padding: 10px; cursor: pointer; }
   input:focus, select:focus { border-color: #FFD400; }
   
+  .preview-box { width: 100%; height: 140px; background: #2a2a2a; border: 1px dashed #444; border-radius: 10px; display: none; justify-content: center; align-items: center; margin-top: 8px; overflow: hidden; }
+  .preview-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
   .checkbox-group { display: flex; gap: 15px; margin-top: 10px; margin-bottom: 16px; }
   .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
   .checkbox-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #FFD400; cursor: pointer; }
@@ -113,9 +117,13 @@
       </select>
     </div>
 
+    <!-- Photo Library Selector -->
     <div class="form-group">
-      <label>Image URL (Optional)</label>
-      <input type="url" id="pImg" placeholder="Paste image link here (or leave blank for placeholder)">
+      <label>Select Photo from Phone Library</label>
+      <input type="file" id="pImageFile" accept="image/*">
+      <div id="previewBox" class="preview-box">
+        <img id="imgPreview" src="" alt="Preview">
+      </div>
     </div>
 
     <div class="checkbox-group">
@@ -162,37 +170,77 @@
 
   const form = document.getElementById('productForm');
   const submitBtn = document.getElementById('submitBtn');
+  const pImageFileInput = document.getElementById('pImageFile');
+  const previewBox = document.getElementById('previewBox');
+  const imgPreview = document.getElementById('imgPreview');
   const itemList = document.getElementById('itemList');
   const prodCount = document.getElementById('prodCount');
 
-  // Default image if link is left blank
   const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop";
+
+  // Photo Preview Logic when selecting from Photo Library
+  pImageFileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        imgPreview.src = event.target.result;
+        previewBox.style.display = 'flex';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      previewBox.style.display = 'none';
+    }
+  });
+
+  // Convert image to web-optimized URL via ImgBB upload API
+  async function uploadToImgBB(file) {
+    const apiKey = "d1df7b1fa15c32d4be0c2793132fa2d2"; // Free ImgBB API key for seamless photo uploads
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      return data.data.url;
+    } else {
+      throw new Error("Image upload failed");
+    }
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
-    submitBtn.innerText = "Publishing...";
+    submitBtn.innerText = "Uploading Image...";
 
     const name = document.getElementById('pName').value.trim();
     const price = Number(document.getElementById('pPrice').value);
     const oldPriceVal = document.getElementById('pOldPrice').value.trim();
     const oldPrice = oldPriceVal ? Number(oldPriceVal) : 0;
     const category = document.getElementById('pCategory').value;
-    const rawImg = document.getElementById('pImg').value.trim();
-    
-    // If no image link is provided, use default image
-    const image = rawImg !== "" ? rawImg : DEFAULT_IMAGE;
-
     const isFeatured = document.getElementById('isFeatured').checked;
     const isBestSeller = document.getElementById('isBestSeller').checked;
 
+    let imageUrl = DEFAULT_IMAGE;
+
     try {
+      if (pImageFileInput.files.length > 0) {
+        const selectedFile = pImageFileInput.files[0];
+        imageUrl = await uploadToImgBB(selectedFile);
+      }
+
+      submitBtn.innerText = "Publishing Product...";
+
       await addDoc(collection(db, "products"), {
         title: name,
         price: price,
         oldPrice: oldPrice,
         category: category,
-        image: image,
+        image: imageUrl,
         isFeatured: isFeatured,
         isBestSeller: isBestSeller,
         rating: "4.8",
@@ -202,9 +250,10 @@
 
       alert("Product published successfully!");
       form.reset();
+      previewBox.style.display = 'none';
     } catch (error) {
       console.error("Error adding product: ", error);
-      alert("Failed to publish product. Please try again.");
+      alert("Failed to publish product. Please check connection and try again.");
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerText = "Publish Product";
