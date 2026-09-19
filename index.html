@@ -828,9 +828,9 @@ render();
 <!-- Firebase Fetch Script -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    const firebaseConfig = {
+  const firebaseConfig = {
     apiKey: "AIzaSyC8lyzlTLTBSeikS3-IgG6FJA",
     authDomain: "apex-tech-gadgets.firebaseapp.com",
     projectId: "apex-tech-gadgets",
@@ -840,35 +840,39 @@ render();
     measurementId: "G-EB9FXQL07K"
   };
 
-
+  // Initialize Firebase & Firestore
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  async function loadProducts() {
-    try {
-      const querySnapshot = await getDocs(query(collection(db, "products"), orderBy("createdAt", "desc")));
-      const productGrid = document.getElementById('product-grid');
-      
-      if (!productGrid) return;
+  // Real-time listener for products
+  const productContainer = document.getElementById("product-list") || document.querySelector(".product-grid");
 
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const card = document.createElement('div');
-        card.className = 'product-card';
+  if (productContainer) {
+    onSnapshot(collection(db, "products"), (snapshot) => {
+      productContainer.innerHTML = ""; // Clear existing fallback items
+
+      if (snapshot.empty) {
+        productContainer.innerHTML = "<p style='text-align:center; grid-column: 1/-1;'>No products available yet.</p>";
+        return;
+      }
+
+      snapshot.forEach((doc) => {
+        const item = doc.data();
+        const card = document.createElement("div");
+        card.className = "product-card";
         card.innerHTML = `
-          <img src="${data.img || 'https://via.placeholder.com/150'}" alt="${data.name}">
-          <h3>${data.name}</h3>
-          <p>GH₵ ${data.price}</p>
+          <img src="${item.image || item.img || 'https://via.placeholder.com/200'}" alt="${item.title || item.name}">
+          <small>${item.category || item.cat || 'General'}</small>
+          <h3>${item.title || item.name || 'Untitled Product'}</h3>
+          <p class="price">GH₵ ${item.price || '0.00'}</p>
+          <button>Buy Now</button>
         `;
-        productGrid.appendChild(card);
+        productContainer.appendChild(card);
       });
-    } catch (e) {
-      console.error("Error loading products: ", e);
-    }
+    });
+  } else {
+    console.error("Product container element not found in HTML!");
   }
-
-  loadProducts();
-</script>
 </script>
 </body>
 </html>
