@@ -1,87 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>APEX TECH - Admin Dashboard</title>
-  <style>
-    body { font-family: -apple-system, sans-serif; background: #121212; color: #fff; padding: 20px; }
-    .card { background: #1e1e1e; padding: 24px; border-radius: 12px; max-width: 400px; margin: 20px auto; border: 1px solid #333; }
-    h2 { margin-top: 0; color: #FFD400; text-align: center; }
-    label { font-size: 14px; color: #aaa; margin-top: 10px; display: block; }
-    input, select, button { width: 100%; padding: 12px; margin-top: 6px; border-radius: 8px; border: 1px solid #333; box-sizing: border-box; font-size: 16px; }
-    input, select { background: #2b2b2b; color: #fff; }
-    button { background: #FFD400; color: #000; font-weight: bold; margin-top: 20px; border: none; cursor: pointer; }
-    button:active { opacity: 0.8; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Add New Product</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+  body { background: #121212; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+  .admin-card { background: #1e1e1e; width: 100%; max-width: 440px; padding: 24px; border-radius: 16px; border: 1px solid #2a2a2a; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+  h2 { color: #FFD400; text-align: center; font-size: 22px; font-weight: 900; margin-bottom: 20px; }
+  .form-group { margin-bottom: 16px; }
+  label { display: block; font-size: 13px; font-weight: 700; color: #cccccc; margin-bottom: 6px; }
+  input, select { width: 100%; padding: 12px 14px; background: #2a2a2a; border: 1px solid #3d3d3d; border-radius: 10px; color: #ffffff; font-size: 14px; outline: none; }
+  input:focus, select:focus { border-color: #FFD400; }
+  .publish-btn { width: 100%; padding: 14px; background: #FFD400; color: #000000; border: none; border-radius: 10px; font-size: 15px; font-weight: 900; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+  .publish-btn:hover { background: #e6bf00; }
+</style>
 </head>
 <body>
 
-<div class="card">
+<div class="admin-card">
   <h2>Add New Product</h2>
-  
-  <label>Product Name</label>
-  <input type="text" id="title" placeholder="e.g. 4G Pocket MiFi" />
+  <form id="productForm">
+    <div class="form-group">
+      <label>Product Name</label>
+      <input type="text" id="pName" placeholder="e.g. 4G Pocket MiFi" required>
+    </div>
 
-  <label>Price (GHS)</label>
-  <input type="number" id="price" placeholder="e.g. 250" />
+    <div class="form-group">
+      <label>Price (GHS)</label>
+      <input type="number" id="pPrice" placeholder="e.g. 250" required>
+    </div>
 
-  <label>Category</label>
-  <input type="text" id="cat" placeholder="e.g. WiFi & Routers" />
+    <div class="form-group">
+      <label>Old Price (GHS) (Optional)</label>
+      <input type="number" id="pOldPrice" placeholder="e.g. 300">
+    </div>
 
-  <label>Image URL</label>
-  <input type="text" id="img" placeholder="Paste image link here" />
+    <div class="form-group">
+      <label>Category</label>
+      <input type="text" id="pCategory" placeholder="e.g. WiFi & Routers" required>
+    </div>
 
-  <button onclick="addProduct()">Publish Product</button>
+    <div class="form-group">
+      <label>Image URL</label>
+      <input type="url" id="pImg" placeholder="Paste image link here" required>
+    </div>
+
+    <button type="submit" class="publish-btn" id="submitBtn">Publish Product</button>
+  </form>
 </div>
 
-<!-- Firebase SDKs -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyC8lyzlTLTBSeikS3-IgG6FJA",
     authDomain: "apex-tech-gadgets.firebaseapp.com",
     projectId: "apex-tech-gadgets",
-    storageBucket: "apex-tech-gadgets.firebasestorage.app",
+    storageBucket: "apex-tech-gadgets.appspot.com",
     messagingSenderId: "947500498392",
-    appId: "1:947500498392:web:870cf612398544e314fbbf",
+    appId: "1:947500498392:web:870cf6123985",
     measurementId: "G-EB9FXQL07K"
   };
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  window.addProduct = async function() {
-    let name = document.getElementById('title').value;
-    let price = document.getElementById('price').value;
-    let cat = document.getElementById('cat').value;
-    let img = document.getElementById('img').value;
+  const form = document.getElementById('productForm');
+  const submitBtn = document.getElementById('submitBtn');
 
-    if (!name || !price) {
-      alert('Please enter at least a title and price.');
-      return;
-    }
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Publishing...";
+
+    const name = document.getElementById('pName').value.trim();
+    const price = Number(document.getElementById('pPrice').value);
+    const oldPriceVal = document.getElementById('pOldPrice').value.trim();
+    const oldPrice = oldPriceVal ? Number(oldPriceVal) : 0;
+    const category = document.getElementById('pCategory').value.trim();
+    const image = document.getElementById('pImg').value.trim();
 
     try {
       await addDoc(collection(db, "products"), {
-        name: name,
-        price: Number(price),
-        cat: cat,
-        img: img,
-        createdAt: new Date()
+        title: name,
+        price: price,
+        oldPrice: oldPrice,
+        category: category,
+        image: image,
+        createdAt: serverTimestamp()
       });
-      alert("Product published live!");
-      document.getElementById('title').value = '';
-      document.getElementById('price').value = '';
-      document.getElementById('cat').value = '';
-      document.getElementById('img').value = '';
-    } catch (e) {
-      alert("Error adding product: " + e.message);
+
+      alert("Product published successfully!");
+      form.reset();
+    } catch (error) {
+      console.error("Error adding product: ", error);
+      alert("Failed to publish product. Please try again.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Publish Product";
     }
-  };
+  });
 </script>
 
 </body>
 </html>
+
