@@ -422,12 +422,55 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 <!-- MAIN BANNER SLIDER CONTAINER (SWIPEABLE / TOUCH ONLY) -->
 <div class="slider-wrapper">
   <div class="slider" id="slider">
-    <!-- Static Fallback Banners -->
-    <div class="slide"><img src="https://i.ibb.co/mrzKz1vL/IMG-4373.jpg"><div class="txt"><h2>HIGH QUALITY</h2><p>PRINTING SERVICE</p><a href="https://wa.me/233249303078?text=Hello%20APEX%2C%20I%20want%20Printing%20Service" target="_blank"><span>ORDER NOW</span></a></div></div>
-    <div class="slide"><img src="https://i.ibb.co/TDW0D3rG/IMG-4570.jpg"><div class="txt"><h2>PICTURE FRAME SERVICE</h2><p>All size Available </p> <a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a></div></div>
-    <div class="slide"><img src="https://i.ibb.co/fGSTp935/IMG-4640.jpg"><div class="txt"><h2> Good Star 5l Rice Cooker</h2><p>Fast • Powerful</p><a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>BUY NOW</span></a></div></div>
-    <div class="slide"><img src="https://i.ibb.co/vCd8Cjjb/IMG-4655.jpg"><div class="txt"><h2> Quality Plan T-Shirts</h2><p>All size and colors available</p><a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>BUY NOW</span></a></div></div>
-    <div class="slide"><img src="https://i.ibb.co/SXpycY3T/IMG-4589.jpg"><div class="txt"><h2> 5KG LPG Cylinders</h2><p>Available in Stock</p><a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a></div></div>
+    <!-- Static Fallback Banners with ORDER NOW -->
+    <div class="slide">
+      <img src="https://i.ibb.co/3mN9R5B/IMG-4373.jpg" alt="Mega Sale on WiFi">
+      <div class="txt">
+        <h2>Mega sale on WiFi</h2>
+        <p>Fast • Reliable • Portable</p>
+        <a href="https://wa.me/233249303078?text=Hello%20APEX%2C%20I%20want%20Mega%20sale%20on%20WiFi" target="_blank"><span>ORDER NOW</span></a>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="https://i.ibb.co/mrzKz1vL/IMG-4373.jpg" alt="Printing Service">
+      <div class="txt">
+        <h2>HIGH QUALITY</h2>
+        <p>PRINTING SERVICE</p>
+        <a href="https://wa.me/233249303078?text=Hello%20APEX%2C%20I%20want%20Printing%20Service" target="_blank"><span>ORDER NOW</span></a>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="https://i.ibb.co/TDW0D3rG/IMG-4570.jpg" alt="Picture Frame Service">
+      <div class="txt">
+        <h2>PICTURE FRAME SERVICE</h2>
+        <p>All size Available</p>
+        <a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="https://i.ibb.co/fGSTp935/IMG-4640.jpg" alt="Rice Cooker">
+      <div class="txt">
+        <h2>Good Star 5l Rice Cooker</h2>
+        <p>Fast • Powerful</p>
+        <a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="https://i.ibb.co/vCd8Cjjb/IMG-4655.jpg" alt="Plain T-Shirts">
+      <div class="txt">
+        <h2>Quality Plain T-Shirts</h2>
+        <p>All sizes and colors available</p>
+        <a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="https://i.ibb.co/SXpycY3T/IMG-4589.jpg" alt="LPG Cylinders">
+      <div class="txt">
+        <h2>5KG LPG Cylinders</h2>
+        <p>Available in Stock</p>
+        <a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a>
+      </div>
+    </div>
   </div>
   <div class="dots" id="dots"></div>
 </div>
@@ -829,7 +872,11 @@ render();
           slideDiv.className = 'slide dynamic-slide';
           slideDiv.innerHTML = `
             <img src="${bannerData.image}" alt="${bannerData.title || 'Promo Banner'}">
-            ${bannerData.title ? `<div class="txt"><h2>${bannerData.title}</h2></div>` : ''}
+            <div class="txt">
+              <h2>${bannerData.title || ''}</h2>
+              ${bannerData.subtitle ? `<p>${bannerData.subtitle}</p>` : ''}
+              <a href="https://wa.me/233249303078?text=${encodeURIComponent('Hello APEX, I want to order ' + (bannerData.title || 'this item'))}" target="_blank"><span>ORDER NOW</span></a>
+            </div>
           `;
           sliderContainer.insertBefore(slideDiv, sliderContainer.firstChild);
         }
