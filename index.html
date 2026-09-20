@@ -102,7 +102,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .f{background:#1a1a1a;color:#ccc;padding:8px 16px;border-radius:20px;font-weight:800;font-size:12px;border:1px solid #2a2a2a;white-space:nowrap;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .f.active{background:#FFD400;color:#000;border-color:#FFD400}
 
-/* FEATURED & TRENDING SECTION */
+/* FEATURED & TRENDING SECTION WITH BACKGROUND IMAGE */
 .blue{
   background: linear-gradient(rgba(11, 17, 32, 0.85), rgba(11, 17, 32, 0.85)), url('YOUR_HOSTED_IMAGE_URL_HERE') center/cover no-repeat;
   padding:14px 0 16px;
@@ -113,7 +113,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .hrow{display:flex;gap:10px;overflow-x:auto;padding:0 15px;scrollbar-width:none}
 .hrow::-webkit-scrollbar{display:none}
 
-/* HORIZONTAL CARDS */
+/* HORIZONTAL CARDS (FEATURED & BEST SELLERS) */
 .card{background:#18181b;min-width:165px;max-width:165px;border-radius:16px;overflow:hidden;position:relative;flex-shrink:0;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,0.5);-webkit-tap-highlight-color:transparent;border:1px solid #27272a}
 .card img{width:100%;height:120px;object-fit:cover;background:#000;filter:brightness(1.05)}
 .card-body{padding:9px}
@@ -123,7 +123,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .rate{font-size:10px;color:#ff9d00;margin-top:2px}
 .spo{position:absolute;top:8px;left:8px;background:#FFD400;color:#000;font-size:8px;font-weight:900;padding:3px 6px;border-radius:6px;z-index:2}
 
-/* GRID SYSTEM */
+/* FORCED STRICT 2-COLUMN GRID SYSTEM */
 .grid, #grid, #product-list, #products, #productGrid, .product-grid {
   display: grid !important;
   grid-template-columns: repeat(2, 1fr) !important;
@@ -241,38 +241,58 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .p-modal-card {
   width: 100%; max-width: 480px; height: 96vh; background: #121212; color: #ffffff;
   border-top-left-radius: 20px; border-top-right-radius: 20px; display: flex; flex-direction: column; overflow: hidden;
-  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.8); border-top: 1px solid #27272a;
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.8); border-top: 1px solid #27272a; position: relative;
 }
 
-.p-modal-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #18181b; border-bottom: 1px solid #27272a; }
-
-.header-title-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.p-modal-header { 
+  display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #18181b; border-bottom: 1px solid #27272a; 
+  position: sticky; top: 0; z-index: 100;
 }
 
 .p-back-btn { 
   background: transparent; 
   border: none; 
-  font-size: 24px; 
+  font-size: 28px; 
   font-weight: bold; 
   cursor: pointer; 
   color: #FFD400; 
   line-height: 1;
-  padding: 4px 6px;
+  padding: 0 4px;
   display: flex;
   align-items: center;
-  border-radius: 6px;
-}
-
-.p-back-btn:active {
-  background: rgba(255, 212, 0, 0.15);
 }
 
 .p-brand-title { font-weight: 700; font-size: 16px; color: #ffffff; }
 
-.p-modal-body { overflow-y: auto; flex: 1; padding: 12px 14px; background: #121212; }
+.p-modal-body { overflow-y: auto; flex: 1; padding: 12px 14px; background: #121212; scroll-behavior: smooth; position: relative; }
+
+/* FLOATING SWIPE-UP BACK BUTTON */
+.floating-back-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(24, 24, 27, 0.95);
+  color: #FFD400;
+  border: 1px solid #FFD400;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  cursor: pointer;
+  z-index: 99;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+.floating-back-btn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 .p-img-container { width: 100%; height: 260px; background: #000; border-radius: 12px; display: flex; justify-content: center; align-items: center; overflow: hidden; margin-bottom: 12px; border: 1px solid #27272a; cursor: pointer; }
 .p-main-img { width: 100%; height: 100%; object-fit: contain; }
@@ -457,9 +477,10 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   <button onclick="search()">Search</button>
 </div>
 
-<!-- MAIN BANNER SLIDER CONTAINER -->
+<!-- MAIN BANNER SLIDER CONTAINER (SWIPEABLE / TOUCH ONLY) -->
 <div class="slider-wrapper">
   <div class="slider" id="slider">
+    <!-- Static Fallback Banners with ORDER NOW -->
     <div class="slide active" onclick="viewCustomBanner('HIGH QUALITY PRINTING SERVICE', 'https://i.ibb.co/mrzKz1vL/IMG-4373.jpg', 'Services')">
       <img src="https://i.ibb.co/mrzKz1vL/IMG-4373.jpg" alt="Printing Service">
       <div class="txt">
@@ -507,15 +528,15 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 <!-- CATEGORY FILTER CHIPS -->
 <div class="filters" id="filters"></div>
 
-<!-- FEATURED & TRENDING SHOWCASE -->
+<!-- SPONSORED SHOWCASE (FEATURED & TRENDING) -->
 <div class="blue">
   <div class="blue-h"><span>🔥 Featured & Trending</span><span>Slide →</span></div>
   <div class="hrow" id="srow"></div>
 </div>
 
-<!-- RECOMMENDED FOR YOU SHOWCASE (UPDATED TITLE) -->
+<!-- TOP SELLING SHOWCASE (BEST SELLERS) -->
 <div class="blue" style="background:#0a0a0a">
-  <div class="blue-h"><span>⭐ Recommended for you...</span><span>Slide →</span></div>
+  <div class="blue-h"><span>⭐ Best Sellers</span><span>Slide →</span></div>
   <div class="hrow" id="trow"></div>
 </div>
 
@@ -546,26 +567,34 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 </div>
 <div id="menuOverlay" onclick="closeMenu()"></div>
 
-<!-- MODAL POPUP (WITH BACK ARROW + HOME PAGE HEADER) -->
+<!-- MODAL POPUP (DARK THEME) -->
 <div id="modal" class="p-modal-overlay" onclick="closeM(event)">
   <div class="p-modal-card" onclick="event.stopPropagation()">
+    <!-- FIXED HEADER WITH BACK BUTTON -->
     <div class="p-modal-header">
-      <div class="header-title-container">
-        <button class="p-back-btn" onclick="closeM()" title="Back to Home" aria-label="Go Back">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-        </button>
-        <span class="p-brand-title">Home page</span>
-      </div>
+      <button class="p-back-btn" onclick="closeM()" title="Back to Home">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <span class="p-brand-title">Home page</span>
       <div style="display:flex; gap:12px; color:#22c55e;">
         <span style="font-size:18px; cursor:pointer">➦</span>
         <span style="font-size:18px; cursor:pointer">🔖</span>
       </div>
     </div>
 
-    <div class="p-modal-body">
+    <!-- FLOATING BACK-TO-TOP / HOME BUTTON FOR SWIPE UP -->
+    <div id="floatingBackBtn" class="floating-back-btn" onclick="scrollToModalTop()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="19" x2="12" y2="5"></line>
+        <polyline points="5 12 12 5 19 12"></polyline>
+      </svg>
+      Back to top
+    </div>
+
+    <div class="p-modal-body" id="modalBody">
       <!-- IMAGE DISPLAY -->
       <div class="p-img-container" onclick="viewImg(document.getElementById('vimg').src)">
         <img id="vimg" src="" alt="Product" class="p-main-img" />
@@ -577,6 +606,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
           <span>📍 Greater Accra, Bubieshie</span>
           <span style="background:#27272a; padding:2px 6px; border-radius:4px; color:#FFD400; font-weight:bold">Promoted</span>
         </div>
+        <!-- PRODUCT TITLE IN YELLOW -->
         <h2 id="vname" class="item-title"></h2>
         <div id="vprice" class="item-price"></div>
 
@@ -723,6 +753,7 @@ function filtered() {
   return list;
 }
 
+// CREATES HORIZONTAL CARDS
 function createCard(p) {
   let d = document.createElement('div');
   d.className = 'card';
@@ -739,6 +770,7 @@ function createCard(p) {
   return d;
 }
 
+// CREATES GRID CARDS
 function createGridCard(p) {
   let discount = p.old ? Math.round(((p.old - p.price) / p.old) * 100) : (p.dis || 0);
   let card = document.createElement('div');
@@ -769,13 +801,16 @@ function render() {
   s.innerHTML = '';
   t.innerHTML = '';
 
+  // 1. Render Main Grid
   list.forEach(p => {
     g.appendChild(createGridCard(p));
   });
 
+  // 2. Render Featured & Trending separately
   let featuredProds = prods.filter(p => p.isFeatured === true);
   featuredProds.forEach(p => s.appendChild(createCard(p)));
 
+  // 3. Render Best Sellers separately
   let bestSellerProds = prods.filter(p => p.isBestSeller === true);
   bestSellerProds.forEach(p => t.appendChild(createCard(p)));
 }
@@ -798,6 +833,7 @@ function view(id) {
   let defaultText = `Hello APEX Tech, I am interested in: ${p.name}` + (p.price ? ` (GH₵ ${p.price})` : '');
   document.getElementById('waDirectBtn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent(defaultText)}`;
 
+  // Populate Familiar Products: same-category products first, then remaining products
   let famRow = document.getElementById('famRow');
   famRow.innerHTML = '';
   
@@ -812,12 +848,20 @@ function view(id) {
   });
 
   let modal = document.getElementById('modal');
+  let modalBody = document.getElementById('modalBody');
+
   if (modal) {
     modal.style.setProperty('display', 'flex', 'important');
     modal.classList.add('active');
   }
+
+  // AUTO SCROLL TO TOP WHEN A FAMILIAR PRODUCT OR ITEM IS CLICKED
+  if (modalBody) {
+    modalBody.scrollTop = 0;
+  }
 }
 
+// HANDLER FOR TAPPING SLIDER BANNERS
 function viewCustomBanner(title, imgUrl, category = 'Promo Banner') {
   curP = { name: title, img: imgUrl, cat: category };
 
@@ -830,6 +874,7 @@ function viewCustomBanner(title, imgUrl, category = 'Promo Banner') {
   let defaultText = `Hello APEX Tech, I am interested in your promo: ${title}`;
   document.getElementById('waDirectBtn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent(defaultText)}`;
 
+  // Populate Familiar Products for banner promo
   let famRow = document.getElementById('famRow');
   famRow.innerHTML = '';
   
@@ -844,12 +889,40 @@ function viewCustomBanner(title, imgUrl, category = 'Promo Banner') {
   });
 
   let modal = document.getElementById('modal');
+  let modalBody = document.getElementById('modalBody');
+
   if (modal) {
     modal.style.setProperty('display', 'flex', 'important');
     modal.classList.add('active');
   }
+
+  // AUTO SCROLL TO TOP FOR CUSTOM BANNERS
+  if (modalBody) {
+    modalBody.scrollTop = 0;
+  }
 }
 
+// SWIPE UP / SCROLL MONITOR FOR MODAL BODY TO SHOW FLOATING BACK BUTTON
+const modalBody = document.getElementById('modalBody');
+const floatingBackBtn = document.getElementById('floatingBackBtn');
+
+if (modalBody && floatingBackBtn) {
+  modalBody.addEventListener('scroll', () => {
+    if (modalBody.scrollTop > 200) {
+      floatingBackBtn.classList.add('show');
+    } else {
+      floatingBackBtn.classList.remove('show');
+    }
+  });
+}
+
+function scrollToModalTop() {
+  if (modalBody) {
+    modalBody.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+// DIRECT WHATSAPP REDIRECT FUNCTION
 function sendDirectChat() {
   let inputMsg = document.getElementById('sellerMsg').value.trim();
   let phone = "233249303078";
@@ -914,6 +987,7 @@ render();
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  // REAL-TIME BANNER LISTENER
   const bannersQuery = query(collection(db, "banners"), orderBy("createdAt", "desc"));
   onSnapshot(bannersQuery, (snapshot) => {
     const sliderContainer = document.getElementById('slider');
@@ -946,6 +1020,7 @@ render();
     }
   });
 
+  // REAL-TIME PRODUCTS LISTENER
   onSnapshot(collection(db, "products"), (snapshot) => {
     if (snapshot.empty) return;
 
