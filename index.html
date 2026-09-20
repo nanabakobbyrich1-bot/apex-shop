@@ -17,22 +17,45 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .search{background:#0a0a0a;padding:0 15px 14px;display:flex;gap:8px}
 .search input{flex:1;padding:12px 14px;border-radius:12px;border:none;outline:none;font-size:14px;background:#1a1a1a;color:#fff}
 .search button{background:#FFD400;border:none;padding:12px 18px;border-radius:12px;font-weight:900;cursor:pointer;color:#000}
-.slider{margin:14px;border-radius:20px;height:200px;position:relative;overflow:hidden;background:#000;cursor:pointer}
-.slide{position:absolute;inset:0;display:none;overflow:hidden}
-.slide.active{display:block;z-index:1}
-.slide img{width:100%;height:100%;object-fit:cover}
+
+/* TOUCH SLIDER STYLES */
+.slider{
+  margin:14px;
+  border-radius:20px;
+  height:200px;
+  position:relative;
+  overflow-x:auto;
+  display:flex;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  background:#000;
+}
+.slider::-webkit-scrollbar{display:none}
+
+.slide{
+  flex:0 0 100%;
+  width:100%;
+  height:100%;
+  position:relative;
+  scroll-snap-align:start;
+  overflow:hidden;
+}
+.slide img{width:100%;height:100%;object-fit:cover;pointer-events:none}
 .slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent)}
-.slide:not(.active).txt{display:none!important}
+
 .txt{position:absolute;left:18px;bottom:20px;z-index:2}
 .txt h2{color:#fff;font-size:18px;font-weight:900;line-height:1.1;white-space:nowrap;display:block;margin:0}
 .txt p{color:#FFD400;font-size:12px;font-weight:700;white-space:nowrap;display:block;margin:2px 0 0 0}
 .txt span{background:#FFD400;color:#000;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:900;display:inline-block;margin-top:6px}
 .txt a{text-decoration:none!important}
-.arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;background:rgba(255,255,255,0.8);border:none;width:34px;height:34px;border-radius:50%;font-weight:900;cursor:pointer}
-.arrow.l{left:10px}.arrow.r{right:10px}
-.dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:3}
-.dot{width:6px;height:6px;background:rgba(255,255,255,.5);border-radius:50%;cursor:pointer}
+
+.slider-wrapper { position: relative; }
+.dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:3;pointer-events:none}
+.dot{width:6px;height:6px;background:rgba(255,255,255,.5);border-radius:50%;transition:all 0.3s ease}
 .dot.active{background:#FFD400;width:18px;border-radius:10px}
+
 .filters{display:flex;gap:8px;padding:12px 15px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .filters::-webkit-scrollbar{display:none}
 .f{background:#1a1a1a;color:#ccc;padding:8px 16px;border-radius:20px;font-weight:800;font-size:12px;border:1px solid #2a2a2a;white-space:nowrap;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
@@ -359,7 +382,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
       <div class="brand-subtitle">Tech & Gadgets</div>
       <div class="brand-location">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5-2.5z"/>
         </svg>
         <span>Bubieshie, Accra</span>
       </div>
@@ -396,15 +419,16 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   <button onclick="search()">Search</button>
 </div>
 
-<!-- MAIN BANNER SLIDER -->
-<div class="slider" id="slider">
-  <div class="slide active"><img src="https://i.ibb.co/mrzKz1vL/IMG-4373.jpg"><div class="txt"><h2>HIGH QUALITY</h2><p>PRINTING SERVICE</p><a href="https://wa.me/233249303078?text=Hello%20APEX%2C%20I%20want%20Printing%20Service" target="_blank" style="text-decoration:none"><span>ORDER NOW</span></a></div></div>
-  <div class="slide"><img src="https://i.ibb.co/TDW0D3rG/IMG-4570.jpg"><div class="txt"><h2>PICTURE FRAME SERVICE</h2><p>All size Available </p> <a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a></div></div>
-  <div class="slide"><img src="https://i.ibb.co/fGSTp935/IMG-4640.jpg"><div class="txt"><h2> Good Star 5l Rice Cooker</h2><p>Fast • Powerful</p><a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>BUY NOW</span></a></div></div>
-  <div class="slide"><img src="https://i.ibb.co/vCd8Cjjb/IMG-4655.jpg"><div class="txt"><h2> Quality Plan T-Shirts</h2><p>All size and colors available</p><a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>BUY NOW</span></a></div></div>
-  <div class="slide"><img src="https://i.ibb.co/SXpycY3T/IMG-4589.jpg"><div class="txt"><h2> 5KG LPG Cylinders</h2><p>Available in Stock</p><a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a></div></div>
-  <button class="arrow l" onclick="event.stopPropagation(); prev()">‹</button>
-  <button class="arrow r" onclick="event.stopPropagation(); next()">›</button>
+<!-- MAIN BANNER SLIDER CONTAINER (SWIPEABLE / TOUCH ONLY) -->
+<div class="slider-wrapper">
+  <div class="slider" id="slider">
+    <!-- Static Fallback Banners -->
+    <div class="slide"><img src="https://i.ibb.co/mrzKz1vL/IMG-4373.jpg"><div class="txt"><h2>HIGH QUALITY</h2><p>PRINTING SERVICE</p><a href="https://wa.me/233249303078?text=Hello%20APEX%2C%20I%20want%20Printing%20Service" target="_blank"><span>ORDER NOW</span></a></div></div>
+    <div class="slide"><img src="https://i.ibb.co/TDW0D3rG/IMG-4570.jpg"><div class="txt"><h2>PICTURE FRAME SERVICE</h2><p>All size Available </p> <a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a></div></div>
+    <div class="slide"><img src="https://i.ibb.co/fGSTp935/IMG-4640.jpg"><div class="txt"><h2> Good Star 5l Rice Cooker</h2><p>Fast • Powerful</p><a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>BUY NOW</span></a></div></div>
+    <div class="slide"><img src="https://i.ibb.co/vCd8Cjjb/IMG-4655.jpg"><div class="txt"><h2> Quality Plan T-Shirts</h2><p>All size and colors available</p><a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>BUY NOW</span></a></div></div>
+    <div class="slide"><img src="https://i.ibb.co/SXpycY3T/IMG-4589.jpg"><div class="txt"><h2> 5KG LPG Cylinders</h2><p>Available in Stock</p><a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a></div></div>
+  </div>
   <div class="dots" id="dots"></div>
 </div>
 
@@ -492,7 +516,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
           </a>
           <!-- DIRECT WHATSAPP CHAT -->
           <a id="waDirectBtn" href="https://wa.me/233249303078" target="_blank" class="btn-wa">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
             Order via WhatsApp
           </a>
         </div>
@@ -556,33 +580,36 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 </div>
 
 <script>
-let banners = document.querySelectorAll('.slide');
-let dots = [];
-let cur = 0;
+let slider = document.getElementById('slider');
 let dwrap = document.getElementById('dots');
 
-banners.forEach((b, i) => {
-  let d = document.createElement('div');
-  d.className = 'dot' + (i == 0 ? ' active' : '');
-  d.onclick = (e) => { e.stopPropagation(); go(i); };
-  dwrap.appendChild(d);
-  dots.push(d);
-  b.onclick = () => {
-    let btn = b.querySelector('a');
-    if (btn) btn.click();
-  };
+function updateSliderDots() {
+  let slides = slider.querySelectorAll('.slide');
+  dwrap.innerHTML = '';
+  if (slides.length === 0) return;
+  
+  slides.forEach((_, i) => {
+    let d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    dwrap.appendChild(d);
+  });
+}
+
+slider.addEventListener('scroll', () => {
+  let slides = slider.querySelectorAll('.slide');
+  let dots = dwrap.querySelectorAll('.dot');
+  if (!slides.length || !dots.length) return;
+  
+  let width = slider.offsetWidth;
+  let activeIdx = Math.round(slider.scrollLeft / width);
+  
+  dots.forEach((dot, idx) => {
+    if (idx === activeIdx) dot.classList.add('active');
+    else dot.classList.remove('active');
+  });
 });
 
-function go(n) {
-  banners[cur].classList.remove('active');
-  dots[cur].classList.remove('active');
-  cur = n;
-  banners[cur].classList.add('active');
-  dots[cur].classList.add('active');
-}
-function next() { go((cur + 1) % banners.length); }
-function prev() { go((cur - 1 + banners.length) % banners.length); }
-setInterval(next, 6000);
+updateSliderDots();
 
 let categories = ["All", "Wifi & Routers", "Phones", "T-Shirts", "Frames", "Home Appliance", "Power Banks", "Cables", "Chargers"];
 
@@ -769,7 +796,7 @@ render();
 <!-- FIREBASE INTEGRATION ENGINE -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyC8lyzlTLTBSeikS3-IgG6FJA",
@@ -784,6 +811,37 @@ render();
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  // REAL-TIME BANNER LISTENER (SHOWS NEWEST UPLOADED BANNERS FIRST)
+  const bannersQuery = query(collection(db, "banners"), orderBy("createdAt", "desc"));
+  onSnapshot(bannersQuery, (snapshot) => {
+    const sliderContainer = document.getElementById('slider');
+    
+    // Remove previous dynamic uploaded banners
+    const dynamicSlides = sliderContainer.querySelectorAll('.dynamic-slide');
+    dynamicSlides.forEach(slide => slide.remove());
+
+    if (!snapshot.empty) {
+      // Create and prepend uploaded banners so they appear first
+      snapshot.forEach((doc) => {
+        const bannerData = doc.data();
+        if (bannerData.image) {
+          const slideDiv = document.createElement('div');
+          slideDiv.className = 'slide dynamic-slide';
+          slideDiv.innerHTML = `
+            <img src="${bannerData.image}" alt="${bannerData.title || 'Promo Banner'}">
+            ${bannerData.title ? `<div class="txt"><h2>${bannerData.title}</h2></div>` : ''}
+          `;
+          sliderContainer.insertBefore(slideDiv, sliderContainer.firstChild);
+        }
+      });
+    }
+
+    if (typeof updateSliderDots === 'function') {
+      updateSliderDots();
+    }
+  });
+
+  // REAL-TIME PRODUCTS LISTENER
   onSnapshot(collection(db, "products"), (snapshot) => {
     if (snapshot.empty) return;
 
