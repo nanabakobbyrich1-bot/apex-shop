@@ -45,7 +45,6 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
 }
-/* REMOVED DARK OVERLAY AND LIGHTENED SLIDE IMAGES */
 .slide img{
   width:100%;
   height:100%;
@@ -54,7 +53,40 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   filter:brightness(1.15) contrast(1.05);
 }
 
-.txt{position:absolute;left:18px;bottom:20px;z-index:2;text-shadow:0 2px 8px rgba(0,0,0,0.9)}
+/* BANNER TEXT ANIMATIONS */
+.txt {
+  position:absolute;
+  left:18px;
+  bottom:20px;
+  z-index:2;
+  text-shadow:0 2px 8px rgba(0,0,0,0.9);
+}
+
+.txt h2, .txt p, .txt span {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.slide.active .txt h2 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+.slide.active .txt p {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.25s;
+}
+
+.slide.active .txt span {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.4s;
+}
+
 .txt h2{color:#fff;font-size:18px;font-weight:900;line-height:1.1;white-space:nowrap;display:block;margin:0}
 .txt p{color:#FFD400;font-size:12px;font-weight:700;white-space:nowrap;display:block;margin:2px 0 0 0}
 .txt span{background:#FFD400;color:#000;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:900;display:inline-block;margin-top:6px}
@@ -69,8 +101,15 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .filters::-webkit-scrollbar{display:none}
 .f{background:#1a1a1a;color:#ccc;padding:8px 16px;border-radius:20px;font-weight:800;font-size:12px;border:1px solid #2a2a2a;white-space:nowrap;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .f.active{background:#FFD400;color:#000;border-color:#FFD400}
-.blue{background:#0b1120;padding:14px 0 16px;margin:10px 0}
-.blue-h{padding:0 15px 10px;display:flex;justify-content:space-between;color:#fff;font-weight:900;font-size:13px}
+
+/* FEATURED & TRENDING SECTION WITH BACKGROUND IMAGE */
+.blue{
+  background: linear-gradient(rgba(11, 17, 32, 0.85), rgba(11, 17, 32, 0.85)), url('YOUR_HOSTED_IMAGE_URL_HERE') center/cover no-repeat;
+  padding:14px 0 16px;
+  margin:10px 0;
+}
+
+.blue-h{padding:0 15px 10px;display:flex;justify-content:space-between;color:#fff;font-weight:900;font-size:13px;text-shadow: 0 2px 4px rgba(0,0,0,0.8);}
 .hrow{display:flex;gap:10px;overflow-x:auto;padding:0 15px;scrollbar-width:none}
 .hrow::-webkit-scrollbar{display:none}
 
@@ -131,21 +170,6 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   object-fit: cover !important;
   display: block !important;
   filter: brightness(1.05);
-}
-
-/* INDEX BADGE STYLING */
-.index-badge {
-  position: absolute !important;
-  top: 8px !important;
-  left: 8px !important;
-  background-color: rgba(0, 0, 0, 0.8) !important;
-  color: #FFD400 !important;
-  font-size: 10px !important;
-  font-weight: 900 !important;
-  padding: 3px 7px !important;
-  border-radius: 6px !important;
-  z-index: 2 !important;
-  border: 1px solid #27272a !important;
 }
 
 .badge-discount, .badge {
@@ -222,7 +246,6 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 
 .p-modal-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #18181b; border-bottom: 1px solid #27272a; }
 
-/* ENLARGED BACK HOME ARROW */
 .p-back-btn { 
   background: transparent; 
   border: none; 
@@ -251,7 +274,6 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 
 .action-buttons { display: flex; gap: 10px; margin-bottom: 10px; }
 
-/* CALL SELLER BUTTON */
 .btn-call { 
   flex: 1; 
   border: 1px solid #22c55e; 
@@ -269,7 +291,6 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   align-items: center; 
 }
 
-/* ORDER VIA WHATSAPP BUTTON */
 .btn-wa { 
   flex: 1; 
   background: #22c55e; 
@@ -287,25 +308,21 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   gap: 6px; 
 }
 
-/* CHAT BOX SECTION (DARK) */
 .chat-section { background: #18181b; border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #27272a; }
 .chat-title { font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 12px; }
 .chat-input { width: 100%; padding: 12px 14px; border: 1px solid #3f3f46; border-radius: 10px; font-size: 13px; outline: none; margin-bottom: 10px; background: #09090b; color: #ffffff; }
 .chat-btn { width: 100%; padding: 12px; background: #FFD400; color: #000000; border: none; border-radius: 10px; font-weight: 800; font-size: 14px; cursor: pointer; }
 
-/* SPECIFICATIONS GRID (DARK) */
 .specs-grid { background: #18181b; border-radius: 12px; padding: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border: 1px solid #27272a; margin-bottom: 12px; }
 .spec-item { display: flex; flex-direction: column; }
 .spec-val { font-size: 13px; font-weight: 700; color: #ffffff; }
 .spec-lbl { font-size: 10px; color: #71717a; font-weight: 700; margin-top: 2px; text-transform: uppercase; }
 
-/* SIMILAR ITEMS BANNER */
 .similar-banner { background: #000; border-radius: 12px; padding: 14px 10px; margin-bottom: 12px; border: 1px solid #27272a; }
 .similar-title { color: #FFD400; font-size: 13px; font-weight: 900; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; padding-left: 4px; }
 .similar-row { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
 .similar-row::-webkit-scrollbar { display: none; }
 
-/* SAFETY TIPS PANEL (DARK) */
 .safety-tips-card {
   background: #18181b;
   border-radius: 12px;
@@ -433,10 +450,12 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 <div class="slider-wrapper">
   <div class="slider" id="slider">
     <!-- Static Fallback Banners with ORDER NOW -->
-    <div class="slide" onclick="viewCustomBanner('HIGH QUALITY PRINTING SERVICE', 'https://i.ibb.co/pvGYNVj9/IMG-4854.png', 'Services')">
-      <img src="https://i.ibb.co/pvGYNVj9/IMG-4854.png" alt="Printing Service">
+    <div class="slide active" onclick="viewCustomBanner('HIGH QUALITY PRINTING SERVICE', 'https://i.ibb.co/mrzKz1vL/IMG-4373.jpg', 'Services')">
+      <img src="https://i.ibb.co/mrzKz1vL/IMG-4373.jpg" alt="Printing Service">
       <div class="txt">
-        <span onclick="event.stopPropagation(); viewCustomBanner('HIGH QUALITY PRINTING SERVICE', 'https://i.ibb.co/pvGYNVj9/IMG-4854.png', 'Services')">ORDER NOW</span>
+        <h2>HIGH QUALITY</h2>
+        <p>PRINTING SERVICE</p>
+        <span onclick="event.stopPropagation(); viewCustomBanner('HIGH QUALITY PRINTING SERVICE', 'https://i.ibb.co/mrzKz1vL/IMG-4373.jpg', 'Services')">ORDER NOW</span>
       </div>
     </div>
     <div class="slide" onclick="viewCustomBanner('PICTURE FRAME SERVICE', 'https://i.ibb.co/TDW0D3rG/IMG-4570.jpg', 'Frames')">
@@ -521,7 +540,6 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 <div id="modal" class="p-modal-overlay" onclick="closeM(event)">
   <div class="p-modal-card" onclick="event.stopPropagation()">
     <div class="p-modal-header">
-      <!-- ENLARGED BACK HOME ARROW WITH ICON -->
       <button class="p-back-btn" onclick="closeM()" title="Back to Home">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -553,11 +571,9 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 
         <!-- ACTION BUTTONS -->
         <div class="action-buttons">
-          <!-- DIRECT PHONE CALL -->
           <a href="tel:+233247440480" class="btn-call">
             Call Seller
           </a>
-          <!-- DIRECT WHATSAPP CHAT -->
           <a id="waDirectBtn" href="https://wa.me/233249303078" target="_blank" class="btn-wa">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
             Order via WhatsApp
@@ -646,6 +662,11 @@ slider.addEventListener('scroll', () => {
   let width = slider.offsetWidth;
   let activeIdx = Math.round(slider.scrollLeft / width);
   
+  slides.forEach((slide, idx) => {
+    if (idx === activeIdx) slide.classList.add('active');
+    else slide.classList.remove('active');
+  });
+
   dots.forEach((dot, idx) => {
     if (idx === activeIdx) dot.classList.add('active');
     else dot.classList.remove('active');
@@ -708,15 +729,14 @@ function createCard(p) {
   return d;
 }
 
-// CREATES GRID CARDS WITH INDEX NUMBERING
-function createGridCard(p, index = 1) {
+// CREATES GRID CARDS
+function createGridCard(p) {
   let discount = p.old ? Math.round(((p.old - p.price) / p.old) * 100) : (p.dis || 0);
   let card = document.createElement('div');
   card.className = 'gcard';
-  card.onclick = () => view(p.id, index);
+  card.onclick = () => view(p.id);
   card.innerHTML = `
     <div class="card-img-wrapper">
-      <div class="index-badge">#${index}</div>
       ${discount > 0 ? `<div class="badge">-${discount}%</div>` : ''}
       <img src="${p.img}" alt="${p.name}">
     </div>
@@ -724,7 +744,7 @@ function createGridCard(p, index = 1) {
       <div class="gtitle">${p.name}</div>
       <div class="gprice">GH₵ ${p.price} <span style="font-size:10px; color:#888; text-decoration:line-through;">${p.old ? 'Was GH₵ '+p.old : ''}</span></div>
       <div style="font-size:10px; color:#f59e0b; margin-bottom: 6px;">★ ${p.rate || '4.8'} (${p.rev || '42'})</div>
-      <button class="buy-btn" onclick="event.stopPropagation(); view('${p.id}', ${index})">View / Buy</button>
+      <button class="buy-btn" onclick="event.stopPropagation(); view('${p.id}')">View / Buy</button>
     </div>
   `;
   return card;
@@ -740,9 +760,9 @@ function render() {
   s.innerHTML = '';
   t.innerHTML = '';
 
-  // 1. Render Main Section with Index passed
-  list.forEach((p, index) => {
-    g.appendChild(createGridCard(p, index + 1));
+  // 1. Render Main Grid
+  list.forEach(p => {
+    g.appendChild(createGridCard(p));
   });
 
   // 2. Render Featured & Trending separately
@@ -757,21 +777,19 @@ function render() {
 function search() { render(); }
 
 let curP = null;
-let curIndex = 1;
 
-function view(id, index = 1) {
+function view(id) {
   let p = prods.find(x => x.id == id);
   if (!p) return;
   curP = p;
-  curIndex = index;
 
   document.getElementById('vimg').src = p.img;
-  document.getElementById('vname').innerText = `#${index} - ${p.name}`;
+  document.getElementById('vname').innerText = p.name;
   document.getElementById('vprice').innerText = p.price ? ('GH₵ ' + p.price) : 'Contact for Price';
   document.getElementById('vcat').innerText = p.cat || 'Gadgets';
   
   let waPhone = "233249303078";
-  let defaultText = `Hello APEX Tech, I am interested in item #${index}: ${p.name}` + (p.price ? ` (GH₵ ${p.price})` : '');
+  let defaultText = `Hello APEX Tech, I am interested in: ${p.name}` + (p.price ? ` (GH₵ ${p.price})` : '');
   document.getElementById('waDirectBtn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent(defaultText)}`;
 
   // Populate Familiar Products Banner inside modal
@@ -793,7 +811,6 @@ function view(id, index = 1) {
 // HANDLER FOR TAPPING SLIDER BANNERS
 function viewCustomBanner(title, imgUrl, category = 'Promo Banner') {
   curP = { name: title, img: imgUrl, cat: category };
-  curIndex = 'PROMO';
 
   document.getElementById('vimg').src = imgUrl;
   document.getElementById('vname').innerText = title;
@@ -819,11 +836,11 @@ function viewCustomBanner(title, imgUrl, category = 'Promo Banner') {
   }
 }
 
-// DIRECT WHATSAPP REDIRECT FUNCTION WITH INDEX REFERENCE
+// DIRECT WHATSAPP REDIRECT FUNCTION
 function sendDirectChat() {
   let inputMsg = document.getElementById('sellerMsg').value.trim();
   let phone = "233249303078";
-  let text = `Hello APEX Tech, regarding item #${curIndex} (*${curP ? curP.name : 'your item'}*):\n` + (inputMsg ? inputMsg : "Hello, I am interested in this item.");
+  let text = `Hello APEX Tech, regarding (*${curP ? curP.name : 'your item'}*):\n` + (inputMsg ? inputMsg : "Hello, I am interested in this item.");
   window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
 }
 
@@ -884,22 +901,20 @@ render();
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // REAL-TIME BANNER LISTENER (SHOWS NEWEST UPLOADED BANNERS FIRST)
+  // REAL-TIME BANNER LISTENER
   const bannersQuery = query(collection(db, "banners"), orderBy("createdAt", "desc"));
   onSnapshot(bannersQuery, (snapshot) => {
     const sliderContainer = document.getElementById('slider');
     
-    // Remove previous dynamic uploaded banners
     const dynamicSlides = sliderContainer.querySelectorAll('.dynamic-slide');
     dynamicSlides.forEach(slide => slide.remove());
 
     if (!snapshot.empty) {
-      // Create and prepend uploaded banners so they appear first
-      snapshot.forEach((doc) => {
+      snapshot.forEach((doc, idx) => {
         const bannerData = doc.data();
         if (bannerData.image) {
           const slideDiv = document.createElement('div');
-          slideDiv.className = 'slide dynamic-slide';
+          slideDiv.className = 'slide dynamic-slide' + (idx === 0 ? ' active' : '');
           slideDiv.onclick = () => window.viewCustomBanner(bannerData.title || 'Special Promotion', bannerData.image, bannerData.subtitle || 'Promo');
           slideDiv.innerHTML = `
             <img src="${bannerData.image}" alt="${bannerData.title || 'Promo Banner'}">
