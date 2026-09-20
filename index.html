@@ -608,9 +608,9 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
         </div>
       </div>
 
-      <!-- FAMILIAR BANNER SECTION -->
+      <!-- FAMILIAR PRODUCTS SECTION -->
       <div class="similar-banner">
-        <div class="similar-title">🔥 Featured, Trending & Best Sellers</div>
+        <div class="similar-title">🔥 Familiar Products</div>
         <div class="similar-row" id="famRow"></div>
       </div>
 
@@ -712,7 +712,7 @@ function filtered() {
   return list;
 }
 
-// CREATES HORIZONTAL CARDS (FEATURED & BEST SELLERS)
+// CREATES HORIZONTAL CARDS
 function createCard(p) {
   let d = document.createElement('div');
   d.className = 'card';
@@ -792,10 +792,15 @@ function view(id) {
   let defaultText = `Hello APEX Tech, I am interested in: ${p.name}` + (p.price ? ` (GH₵ ${p.price})` : '');
   document.getElementById('waDirectBtn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent(defaultText)}`;
 
-  // Populate Familiar Products Banner inside modal
+  // Populate Familiar Products: same-category products first, then remaining products
   let famRow = document.getElementById('famRow');
   famRow.innerHTML = '';
-  prods.forEach(item => {
+  
+  let sameCat = prods.filter(item => item.id !== p.id && item.cat === p.cat);
+  let otherCat = prods.filter(item => item.id !== p.id && item.cat !== p.cat);
+  let sortedProds = [...sameCat, ...otherCat];
+
+  sortedProds.forEach(item => {
     let card = createCard(item);
     card.onclick = () => view(item.id);
     famRow.appendChild(card);
@@ -821,9 +826,15 @@ function viewCustomBanner(title, imgUrl, category = 'Promo Banner') {
   let defaultText = `Hello APEX Tech, I am interested in your promo: ${title}`;
   document.getElementById('waDirectBtn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent(defaultText)}`;
 
+  // Populate Familiar Products for banner promo
   let famRow = document.getElementById('famRow');
   famRow.innerHTML = '';
-  prods.forEach(item => {
+  
+  let sameCat = prods.filter(item => item.cat === category);
+  let otherCat = prods.filter(item => item.cat !== category);
+  let sortedProds = [...sameCat, ...otherCat];
+
+  sortedProds.forEach(item => {
     let card = createCard(item);
     card.onclick = () => view(item.id);
     famRow.appendChild(card);
