@@ -30,7 +30,8 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   scroll-behavior:smooth;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
-  background:#000;
+  background:#1a1a1a;
+  border:1px solid #27272a;
 }
 .slider::-webkit-scrollbar{display:none}
 
@@ -41,11 +42,19 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   position:relative;
   scroll-snap-align:start;
   overflow:hidden;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
 }
-.slide img{width:100%;height:100%;object-fit:cover;pointer-events:none}
-.slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent)}
+/* REMOVED DARK OVERLAY AND LIGHTENED SLIDE IMAGES */
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  pointer-events:none;
+  filter:brightness(1.15) contrast(1.05);
+}
 
-.txt{position:absolute;left:18px;bottom:20px;z-index:2}
+.txt{position:absolute;left:18px;bottom:20px;z-index:2;text-shadow:0 2px 8px rgba(0,0,0,0.9)}
 .txt h2{color:#fff;font-size:18px;font-weight:900;line-height:1.1;white-space:nowrap;display:block;margin:0}
 .txt p{color:#FFD400;font-size:12px;font-weight:700;white-space:nowrap;display:block;margin:2px 0 0 0}
 .txt span{background:#FFD400;color:#000;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:900;display:inline-block;margin-top:6px}
@@ -67,7 +76,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 
 /* HORIZONTAL CARDS (FEATURED & BEST SELLERS) */
 .card{background:#18181b;min-width:165px;max-width:165px;border-radius:16px;overflow:hidden;position:relative;flex-shrink:0;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,0.5);-webkit-tap-highlight-color:transparent;border:1px solid #27272a}
-.card img{width:100%;height:120px;object-fit:cover;background:#000}
+.card img{width:100%;height:120px;object-fit:cover;background:#000;filter:brightness(1.05)}
 .card-body{padding:9px}
 .title{font-size:11px;font-weight:700;height:32px;overflow:hidden;line-height:1.3;color:#FFD400}
 .price{font-weight:900;margin-top:4px;font-size:13px;color:#22c55e}
@@ -121,6 +130,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   max-height: 130px !important;
   object-fit: cover !important;
   display: block !important;
+  filter: brightness(1.05);
 }
 
 /* INDEX BADGE STYLING */
@@ -230,7 +240,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 
 .p-modal-body { overflow-y: auto; flex: 1; padding: 12px 14px; background: #121212; }
 
-.p-img-container { width: 100%; height: 260px; background: #000; border-radius: 12px; display: flex; justify-content: center; align-items: center; overflow: hidden; margin-bottom: 12px; border: 1px solid #27272a; }
+.p-img-container { width: 100%; height: 260px; background: #000; border-radius: 12px; display: flex; justify-content: center; align-items: center; overflow: hidden; margin-bottom: 12px; border: 1px solid #27272a; cursor: pointer; }
 .p-main-img { width: 100%; height: 100%; object-fit: contain; }
 
 /* MARKETPLACE ITEM DETAILS PANEL (DARK) */
@@ -423,44 +433,44 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 <div class="slider-wrapper">
   <div class="slider" id="slider">
     <!-- Static Fallback Banners with ORDER NOW -->
-    <div class="slide">
+    <div class="slide" onclick="viewCustomBanner('HIGH QUALITY PRINTING SERVICE', 'https://i.ibb.co/mrzKz1vL/IMG-4373.jpg', 'Services')">
       <img src="https://i.ibb.co/mrzKz1vL/IMG-4373.jpg" alt="Printing Service">
       <div class="txt">
         <h2>HIGH QUALITY</h2>
         <p>PRINTING SERVICE</p>
-        <a href="https://wa.me/233249303078?text=Hello%20APEX%2C%20I%20want%20Printing%20Service" target="_blank"><span>ORDER NOW</span></a>
+        <span onclick="event.stopPropagation(); viewCustomBanner('HIGH QUALITY PRINTING SERVICE', 'https://i.ibb.co/mrzKz1vL/IMG-4373.jpg', 'Services')">ORDER NOW</span>
       </div>
     </div>
-    <div class="slide">
+    <div class="slide" onclick="viewCustomBanner('PICTURE FRAME SERVICE', 'https://i.ibb.co/TDW0D3rG/IMG-4570.jpg', 'Frames')">
       <img src="https://i.ibb.co/TDW0D3rG/IMG-4570.jpg" alt="Picture Frame Service">
       <div class="txt">
         <h2>PICTURE FRAME SERVICE</h2>
         <p>All size Available</p>
-        <a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a>
+        <span onclick="event.stopPropagation(); viewCustomBanner('PICTURE FRAME SERVICE', 'https://i.ibb.co/TDW0D3rG/IMG-4570.jpg', 'Frames')">ORDER NOW</span>
       </div>
     </div>
-    <div class="slide">
+    <div class="slide" onclick="viewCustomBanner('Good Star 5l Rice Cooker', 'https://i.ibb.co/fGSTp935/IMG-4640.jpg', 'Home Appliance')">
       <img src="https://i.ibb.co/fGSTp935/IMG-4640.jpg" alt="Rice Cooker">
       <div class="txt">
         <h2>Good Star 5l Rice Cooker</h2>
         <p>Fast • Powerful</p>
-        <a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a>
+        <span onclick="event.stopPropagation(); viewCustomBanner('Good Star 5l Rice Cooker', 'https://i.ibb.co/fGSTp935/IMG-4640.jpg', 'Home Appliance')">ORDER NOW</span>
       </div>
     </div>
-    <div class="slide">
+    <div class="slide" onclick="viewCustomBanner('Quality Plain T-Shirts', 'https://i.ibb.co/vCd8Cjjb/IMG-4655.jpg', 'T-Shirts')">
       <img src="https://i.ibb.co/vCd8Cjjb/IMG-4655.jpg" alt="Plain T-Shirts">
       <div class="txt">
         <h2>Quality Plain T-Shirts</h2>
         <p>All sizes and colors available</p>
-        <a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a>
+        <span onclick="event.stopPropagation(); viewCustomBanner('Quality Plain T-Shirts', 'https://i.ibb.co/vCd8Cjjb/IMG-4655.jpg', 'T-Shirts')">ORDER NOW</span>
       </div>
     </div>
-    <div class="slide">
+    <div class="slide" onclick="viewCustomBanner('5KG LPG Cylinders', 'https://i.ibb.co/SXpycY3T/IMG-4589.jpg', 'Home Appliance')">
       <img src="https://i.ibb.co/SXpycY3T/IMG-4589.jpg" alt="LPG Cylinders">
       <div class="txt">
         <h2>5KG LPG Cylinders</h2>
         <p>Available in Stock</p>
-        <a href="https://wa.me/233249303078?text=Welcome%20to%20APEX%20TECH%20%26%20GADGETS!" target="_blank"><span>ORDER NOW</span></a>
+        <span onclick="event.stopPropagation(); viewCustomBanner('5KG LPG Cylinders', 'https://i.ibb.co/SXpycY3T/IMG-4589.jpg', 'Home Appliance')">ORDER NOW</span>
       </div>
     </div>
   </div>
@@ -750,6 +760,7 @@ function search() { render(); }
 
 let curP = null;
 let curIndex = 1;
+
 function view(id, index = 1) {
   let p = prods.find(x => x.id == id);
   if (!p) return;
@@ -758,14 +769,43 @@ function view(id, index = 1) {
 
   document.getElementById('vimg').src = p.img;
   document.getElementById('vname').innerText = `#${index} - ${p.name}`;
-  document.getElementById('vprice').innerText = 'GH₵ ' + p.price;
+  document.getElementById('vprice').innerText = p.price ? ('GH₵ ' + p.price) : 'Contact for Price';
   document.getElementById('vcat').innerText = p.cat || 'Gadgets';
   
   let waPhone = "233249303078";
-  let defaultText = `Hello APEX Tech, I am interested in item #${index}: ${p.name} (GH₵ ${p.price})`;
+  let defaultText = `Hello APEX Tech, I am interested in item #${index}: ${p.name}` + (p.price ? ` (GH₵ ${p.price})` : '');
   document.getElementById('waDirectBtn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent(defaultText)}`;
 
   // Populate Familiar Products Banner inside modal
+  let famRow = document.getElementById('famRow');
+  famRow.innerHTML = '';
+  prods.forEach(item => {
+    let card = createCard(item);
+    card.onclick = () => view(item.id);
+    famRow.appendChild(card);
+  });
+
+  let modal = document.getElementById('modal');
+  if (modal) {
+    modal.style.setProperty('display', 'flex', 'important');
+    modal.classList.add('active');
+  }
+}
+
+// HANDLER FOR TAPPING SLIDER BANNERS
+function viewCustomBanner(title, imgUrl, category = 'Promo Banner') {
+  curP = { name: title, img: imgUrl, cat: category };
+  curIndex = 'PROMO';
+
+  document.getElementById('vimg').src = imgUrl;
+  document.getElementById('vname').innerText = title;
+  document.getElementById('vprice').innerText = 'Special Promo / Service';
+  document.getElementById('vcat').innerText = category;
+  
+  let waPhone = "233249303078";
+  let defaultText = `Hello APEX Tech, I am interested in your promo: ${title}`;
+  document.getElementById('waDirectBtn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent(defaultText)}`;
+
   let famRow = document.getElementById('famRow');
   famRow.innerHTML = '';
   prods.forEach(item => {
@@ -862,12 +902,13 @@ render();
         if (bannerData.image) {
           const slideDiv = document.createElement('div');
           slideDiv.className = 'slide dynamic-slide';
+          slideDiv.onclick = () => window.viewCustomBanner(bannerData.title || 'Special Promotion', bannerData.image, bannerData.subtitle || 'Promo');
           slideDiv.innerHTML = `
             <img src="${bannerData.image}" alt="${bannerData.title || 'Promo Banner'}">
             <div class="txt">
               <h2>${bannerData.title || ''}</h2>
               ${bannerData.subtitle ? `<p>${bannerData.subtitle}</p>` : ''}
-              <a href="https://wa.me/233249303078?text=${encodeURIComponent('Hello APEX, I want to order ' + (bannerData.title || 'this item'))}" target="_blank"><span>ORDER NOW</span></a>
+              <span onclick="event.stopPropagation(); window.viewCustomBanner('${bannerData.title || 'Special Promotion'}', '${bannerData.image}', '${bannerData.subtitle || 'Promo'}')">ORDER NOW</span>
             </div>
           `;
           sliderContainer.insertBefore(slideDiv, sliderContainer.firstChild);
