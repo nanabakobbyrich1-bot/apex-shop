@@ -102,18 +102,18 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .f{background:#1a1a1a;color:#ccc;padding:8px 16px;border-radius:20px;font-weight:800;font-size:12px;border:1px solid #2a2a2a;white-space:nowrap;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .f.active{background:#FFD400;color:#000;border-color:#FFD400}
 
-/* FEATURED & TRENDING SECTION WITH BACKGROUND IMAGE */
+/* FEATURED & TRENDING SECTION - UPDATED TO LIGHT YELLOW BACKGROUND */
 .blue{
-  background: linear-gradient(rgba(11, 17, 32, 0.85), rgba(11, 17, 32, 0.85)), url('YOUR_HOSTED_IMAGE_URL_HERE') center/cover no-repeat;
+  background: #fffde7;
   padding:14px 0 16px;
   margin:10px 0;
 }
 
-.blue-h{padding:0 15px 10px;display:flex;justify-content:space-between;color:#fff;font-weight:900;font-size:13px;text-shadow: 0 2px 4px rgba(0,0,0,0.8);}
+.blue-h{padding:0 15px 10px;display:flex;justify-content:space-between;color:#1a1a1a;font-weight:900;font-size:13px;}
 .hrow{display:flex;gap:10px;overflow-x:auto;padding:0 15px;scrollbar-width:none}
 .hrow::-webkit-scrollbar{display:none}
 
-/* HORIZONTAL CARDS (FEATURED & BEST SELLERS) */
+/* HORIZONTAL CARDS (FEATURED & TOP SELLING ITEMS) */
 .card{background:#18181b;min-width:165px;max-width:165px;border-radius:16px;overflow:hidden;position:relative;flex-shrink:0;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,0.5);-webkit-tap-highlight-color:transparent;border:1px solid #27272a}
 .card img{width:100%;height:120px;object-fit:cover;background:#000;filter:brightness(1.05)}
 .card-body{padding:9px}
@@ -532,9 +532,9 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   <div class="hrow" id="srow"></div>
 </div>
 
-<!-- TOP SELLING SHOWCASE (BEST SELLERS) -->
-<div class="blue" style="background:#0a0a0a">
-  <div class="blue-h"><span>⭐ Best Sellers</span><span>Slide →</span></div>
+<!-- TOP SELLING SHOWCASE -->
+<div class="blue" style="background:#006994">
+  <div class="blue-h" style="color:#fff"><span>⭐ Top selling items</span><span>Slide →</span></div>
   <div class="hrow" id="trow"></div>
 </div>
 
@@ -712,6 +712,29 @@ slider.addEventListener('scroll', () => {
   });
 });
 
+/* CONTINUOUS AUTOMATIC BANNER SWIPING */
+let autoSlideInterval = setInterval(autoSwipeBanners, 3500);
+
+function autoSwipeBanners() {
+  let slides = slider.querySelectorAll('.slide');
+  if (slides.length <= 1) return;
+  let slideWidth = slider.offsetWidth;
+  let maxScrollLeft = slider.scrollWidth - slideWidth;
+  
+  if (Math.ceil(slider.scrollLeft) >= maxScrollLeft) {
+    slider.scrollTo({ left: 0, behavior: 'smooth' });
+  } else {
+    slider.scrollBy({ left: slideWidth, behavior: 'smooth' });
+  }
+}
+
+// Pause automatic swiping when the user interacts manually
+slider.addEventListener('touchstart', () => clearInterval(autoSlideInterval));
+slider.addEventListener('touchend', () => {
+  clearInterval(autoSlideInterval);
+  autoSlideInterval = setInterval(autoSwipeBanners, 3500);
+});
+
 updateSliderDots();
 
 let categories = ["All", "Wifi & Routers", "Phones", "T-Shirts", "Frames", "Home Appliance", "Power Banks", "Cables", "Chargers"];
@@ -808,7 +831,7 @@ function render() {
   let featuredProds = prods.filter(p => p.isFeatured === true);
   featuredProds.forEach(p => s.appendChild(createCard(p)));
 
-  // 3. Render Best Sellers separately
+  // 3. Render Top Selling items separately
   let bestSellerProds = prods.filter(p => p.isBestSeller === true);
   bestSellerProds.forEach(p => t.appendChild(createCard(p)));
 }
@@ -853,7 +876,7 @@ function view(id) {
     modal.classList.add('active');
   }
 
-  // AUTO SCROLL TO TOP WITH SMOOTH BEHAVIOR (BEHAVES LIKE RECOMMENDED FOR YOU)
+  // AUTO SCROLL TO TOP WITH SMOOTH BEHAVIOR
   if (modalBody) {
     modalBody.scrollTo({ top: 0, behavior: 'smooth' });
   }
