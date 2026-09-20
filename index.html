@@ -855,9 +855,9 @@ function view(id) {
     modal.classList.add('active');
   }
 
-  // AUTO SCROLL TO TOP WHEN A FAMILIAR PRODUCT OR ITEM IS CLICKED
+  // AUTO SCROLL TO TOP WITH SMOOTH BEHAVIOR (BEHAVES LIKE RECOMMENDED FOR YOU)
   if (modalBody) {
-    modalBody.scrollTop = 0;
+    modalBody.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 
@@ -896,9 +896,9 @@ function viewCustomBanner(title, imgUrl, category = 'Promo Banner') {
     modal.classList.add('active');
   }
 
-  // AUTO SCROLL TO TOP FOR CUSTOM BANNERS
+  // AUTO SCROLL TO TOP FOR CUSTOM BANNERS WITH SMOOTH ANIMATION
   if (modalBody) {
-    modalBody.scrollTop = 0;
+    modalBody.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 
