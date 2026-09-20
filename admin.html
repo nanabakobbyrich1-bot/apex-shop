@@ -34,7 +34,8 @@
   }
   .location-tag svg { width: 16px; height: 16px; fill: #ffffff; }
   
-  .section-title { color: #FFD400; text-align: center; font-size: 18px; font-weight: 800; border-top: 1px solid #2a2a2a; padding-top: 
+  .section-title { color: #FFD400; text-align: center; font-size: 18px; font-weight: 800; border-top: 1px solid #2a2a2a; padding-top: 16px; }
+
   .form-group { margin-bottom: 16px; }
   label { display: block; font-size: 13px; font-weight: 700; color: #cccccc; margin-bottom: 6px; }
   input, select { width: 100%; padding: 12px 14px; background: #2a2a2a; border: 1px solid #3d3d3d; border-radius: 10px; color: #ffffff; font-size: 14px; outline: none; }
@@ -74,34 +75,28 @@
 </head>
 <body>
 
-<!-- TOP BRAND HEADER -->
-<div class="brand-header" style="width:100%; max-width:480px;">
-  <div class="logo-wrapper">
-    <img src="https://i.ibb.co/zV26ZpTv/IMG-4476.jpg" alt="APEX Logo" class="brand-logo">
-  </div>
-  <div class="title-apex">APEX</div>
-  <div class="title-tech">TECH & GADGETS</div>
-  <div class="brand-tagline">YOUR ONLINE SHOPPING DESTINATION</div>
-  
-  <div class="location-tag">
-    <svg viewBox="0 0 24 24">
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5-2.5z"/>
-    </svg>
-    Bubieshie, Accra
-  </div>
-</div>
-
-<!-- LIVE TOUCH SLIDER PROMO BANNERS (SHOWN FIRST) -->
-<div id="bannerDisplayWrapper" class="banner-display-wrapper">
-  <div id="bannerSlider" class="banner-slider"></div>
-  <div id="bannerDots" class="banner-dots"></div>
-</div>
-
 <!-- 1. ADD NEW PRODUCT SECTION -->
 <div class="admin-card">
-  <div class="section-title" id="formSectionTitle" style="border-top:none; padding-top:0;">Add New Product</div>
+  <div class="brand-header">
+    <div class="logo-wrapper">
+      <img src="https://i.ibb.co/zV26ZpTv/IMG-4476.jpg" alt="APEX Logo" class="brand-logo">
+    </div>
+    
+    <div class="title-apex">APEX</div>
+    <div class="title-tech">TECH & GADGETS</div>
+    <div class="brand-tagline">YOUR ONLINE SHOPPING DESTINATION</div>
+    
+    <div class="location-tag">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5-2.5z"/>
+      </svg>
+      Bubieshie, Accra
+    </div>
 
-  <form id="productForm" style="margin-top:20px;">
+    <div class="section-title" id="formSectionTitle">Add New Product</div>
+  </div>
+
+  <form id="productForm">
     <!-- Hidden input to track current edit product ID -->
     <input type="hidden" id="editProductId" value="">
 
@@ -209,7 +204,7 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, updateDoc, serverTimestamp, onSnapshot, doc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, updateDoc, serverTimestamp, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyC8lyzlTLTBSeikS3-IgG6FJA",
@@ -245,11 +240,6 @@
   const bannerSubmitBtn = document.getElementById('bannerSubmitBtn');
   const bannerList = document.getElementById('bannerList');
   const bannerCount = document.getElementById('bannerCount');
-
-  // SLIDER DOM ELEMENTS
-  const bannerDisplayWrapper = document.getElementById('bannerDisplayWrapper');
-  const bannerSlider = document.getElementById('bannerSlider');
-  const bannerDots = document.getElementById('bannerDots');
 
   const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop";
   let loadedProducts = {};
@@ -405,7 +395,7 @@
 
     try {
       const bannerFile = bImageFileInput.files[0];
-      const imageUrl = await processAndCompressImage(bannerFile, 900);
+      const imageUrl = await processAndCompressImage(bannerFile, 900); // Higher resolution for banners
 
       const bannerPayload = {
         title: bTitleInput.value.trim() || "Promo Banner",
@@ -513,31 +503,22 @@
     });
   });
 
-  // REALTIME BANNERS LISTENER & DISPLAY SLIDER (NEWEST FIRST)
-  const bannersQuery = query(collection(db, "banners"), orderBy("createdAt", "desc"));
-  
-  onSnapshot(bannersQuery, (snapshot) => {
+  // REALTIME BANNERS LISTENER
+  onSnapshot(collection(db, "banners"), (snapshot) => {
     bannerList.innerHTML = "";
-    bannerSlider.innerHTML = "";
-    bannerDots.innerHTML = "";
     bannerCount.innerText = `${snapshot.size} banners`;
     loadedBanners = {};
 
     if (snapshot.empty) {
       bannerList.innerHTML = `<div style="color:#888; font-size:13px; text-align:center; padding:10px;">No promo banners uploaded yet.</div>`;
-      bannerDisplayWrapper.style.display = 'none';
       return;
     }
 
-    bannerDisplayWrapper.style.display = 'block';
-
-    let index = 0;
     snapshot.forEach((docSnap) => {
       const data = docSnap.data();
       const id = docSnap.id;
       loadedBanners[id] = data;
 
-      // 1. Populate Active Banners Inventory Row
       const row = document.createElement('div');
       row.className = 'prod-row';
       row.innerHTML = `
@@ -549,39 +530,8 @@
           <button class="delete-btn" data-banner-id="${id}">Delete</button>
         </div>
       `;
+
       bannerList.appendChild(row);
-
-      // 2. Populate Top Slide Carousel
-      const slide = document.createElement('div');
-      slide.className = 'banner-card-item';
-      slide.innerHTML = `
-        <img src="${data.image}" alt="${data.title || 'Promo Banner'}">
-        ${data.title ? `<div class="banner-card-tag">${data.title}</div>` : ''}
-      `;
-      bannerSlider.appendChild(slide);
-
-      // 3. Populate Dot Indicator
-      const dot = document.createElement('div');
-      dot.className = `dot ${index === 0 ? 'active' : ''}`;
-      bannerDots.appendChild(dot);
-
-      index++;
-    });
-
-    // Update active dot indicator on touch scroll
-    bannerSlider.addEventListener('scroll', () => {
-      const scrollPos = bannerSlider.scrollLeft;
-      const width = bannerSlider.offsetWidth;
-      const activeIdx = Math.round(scrollPos / width);
-
-      const dots = bannerDots.querySelectorAll('.dot');
-      dots.forEach((dot, idx) => {
-        if (idx === activeIdx) {
-          dot.classList.add('active');
-        } else {
-          dot.classList.remove('active');
-        }
-      });
     });
 
     // DELETE BANNER
