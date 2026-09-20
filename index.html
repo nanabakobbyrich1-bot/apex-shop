@@ -102,7 +102,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .f{background:#1a1a1a;color:#ccc;padding:8px 16px;border-radius:20px;font-weight:800;font-size:12px;border:1px solid #2a2a2a;white-space:nowrap;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .f.active{background:#FFD400;color:#000;border-color:#FFD400}
 
-/* FEATURED & TRENDING SECTION - UPDATED TO LIGHT YELLOW BACKGROUND */
+/* FEATURED & TRENDING SECTION */
 .blue{
   background: #fffde7;
   padding:14px 0 16px;
@@ -113,7 +113,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .hrow{display:flex;gap:10px;overflow-x:auto;padding:0 15px;scrollbar-width:none}
 .hrow::-webkit-scrollbar{display:none}
 
-/* HORIZONTAL CARDS (FEATURED & TOP SELLING ITEMS) */
+/* HORIZONTAL CARDS */
 .card{background:#18181b;min-width:165px;max-width:165px;border-radius:16px;overflow:hidden;position:relative;flex-shrink:0;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,0.5);-webkit-tap-highlight-color:transparent;border:1px solid #27272a}
 .card img{width:100%;height:120px;object-fit:cover;background:#000;filter:brightness(1.05)}
 .card-body{padding:9px}
@@ -297,7 +297,7 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
 .p-img-container { width: 100%; height: 260px; background: #000; border-radius: 12px; display: flex; justify-content: center; align-items: center; overflow: hidden; margin-bottom: 12px; border: 1px solid #27272a; cursor: pointer; }
 .p-main-img { width: 100%; height: 100%; object-fit: contain; }
 
-/* MARKETPLACE ITEM DETAILS PANEL (DARK) */
+/* MARKETPLACE ITEM DETAILS PANEL */
 .item-panel { background: #18181b; border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #27272a; }
 .item-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #a1a1aa; margin-bottom: 8px; }
 .item-title { font-size: 18px; font-weight: 800; color: #FFD400; margin-bottom: 6px; }
@@ -604,7 +604,6 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
           <span>📍 Greater Accra, Bubieshie</span>
           <span style="background:#27272a; padding:2px 6px; border-radius:4px; color:#FFD400; font-weight:bold">Promoted</span>
         </div>
-        <!-- PRODUCT TITLE IN YELLOW -->
         <h2 id="vname" class="item-title"></h2>
         <div id="vprice" class="item-price"></div>
 
@@ -693,6 +692,8 @@ function updateSliderDots() {
   });
 }
 
+let isSwipingReset = false;
+
 slider.addEventListener('scroll', () => {
   let slides = slider.querySelectorAll('.slide');
   let dots = dwrap.querySelectorAll('.dot');
@@ -700,6 +701,16 @@ slider.addEventListener('scroll', () => {
   
   let width = slider.offsetWidth;
   let activeIdx = Math.round(slider.scrollLeft / width);
+
+  // If user swiped past the last slide, loop smoothly back to first slide
+  let maxScrollLeft = slider.scrollWidth - width;
+  if (slider.scrollLeft >= maxScrollLeft - 5 && !isSwipingReset) {
+    isSwipingReset = true;
+    setTimeout(() => {
+      slider.scrollTo({ left: 0, behavior: 'smooth' });
+      isSwipingReset = false;
+    }, 400);
+  }
   
   slides.forEach((slide, idx) => {
     if (idx === activeIdx) slide.classList.add('active');
@@ -721,14 +732,13 @@ function autoSwipeBanners() {
   let slideWidth = slider.offsetWidth;
   let maxScrollLeft = slider.scrollWidth - slideWidth;
   
-  if (Math.ceil(slider.scrollLeft) >= maxScrollLeft) {
+  if (Math.ceil(slider.scrollLeft) >= maxScrollLeft - 5) {
     slider.scrollTo({ left: 0, behavior: 'smooth' });
   } else {
     slider.scrollBy({ left: slideWidth, behavior: 'smooth' });
   }
 }
 
-// Pause automatic swiping when the user interacts manually
 slider.addEventListener('touchstart', () => clearInterval(autoSlideInterval));
 slider.addEventListener('touchend', () => {
   clearInterval(autoSlideInterval);
@@ -774,7 +784,6 @@ function filtered() {
   return list;
 }
 
-// CREATES HORIZONTAL CARDS
 function createCard(p) {
   let d = document.createElement('div');
   d.className = 'card';
@@ -791,7 +800,6 @@ function createCard(p) {
   return d;
 }
 
-// CREATES GRID CARDS
 function createGridCard(p) {
   let discount = p.old ? Math.round(((p.old - p.price) / p.old) * 100) : (p.dis || 0);
   let card = document.createElement('div');
@@ -822,16 +830,13 @@ function render() {
   s.innerHTML = '';
   t.innerHTML = '';
 
-  // 1. Render Main Grid
   list.forEach(p => {
     g.appendChild(createGridCard(p));
   });
 
-  // 2. Render Featured & Trending separately
   let featuredProds = prods.filter(p => p.isFeatured === true);
   featuredProds.forEach(p => s.appendChild(createCard(p)));
 
-  // 3. Render Top Selling items separately
   let bestSellerProds = prods.filter(p => p.isBestSeller === true);
   bestSellerProds.forEach(p => t.appendChild(createCard(p)));
 }
@@ -854,7 +859,6 @@ function view(id) {
   let defaultText = `Hello APEX Tech, I am interested in: ${p.name}` + (p.price ? ` (GH₵ ${p.price})` : '');
   document.getElementById('waDirectBtn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent(defaultText)}`;
 
-  // Populate Familiar Products: same-category products first, then remaining products
   let famRow = document.getElementById('famRow');
   famRow.innerHTML = '';
   
@@ -876,13 +880,11 @@ function view(id) {
     modal.classList.add('active');
   }
 
-  // AUTO SCROLL TO TOP WITH SMOOTH BEHAVIOR
   if (modalBody) {
     modalBody.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 
-// HANDLER FOR TAPPING SLIDER BANNERS
 function viewCustomBanner(title, imgUrl, category = 'Promo Banner') {
   curP = { name: title, img: imgUrl, cat: category };
 
@@ -895,7 +897,6 @@ function viewCustomBanner(title, imgUrl, category = 'Promo Banner') {
   let defaultText = `Hello APEX Tech, I am interested in your promo: ${title}`;
   document.getElementById('waDirectBtn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent(defaultText)}`;
 
-  // Populate Familiar Products for banner promo
   let famRow = document.getElementById('famRow');
   famRow.innerHTML = '';
   
@@ -917,13 +918,11 @@ function viewCustomBanner(title, imgUrl, category = 'Promo Banner') {
     modal.classList.add('active');
   }
 
-  // AUTO SCROLL TO TOP FOR CUSTOM BANNERS WITH SMOOTH ANIMATION
   if (modalBody) {
     modalBody.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 
-// SWIPE UP / SCROLL MONITOR FOR MODAL BODY TO SHOW FLOATING BACK BUTTON
 const modalBody = document.getElementById('modalBody');
 const floatingBackBtn = document.getElementById('floatingBackBtn');
 
@@ -943,7 +942,6 @@ function scrollToModalTop() {
   }
 }
 
-// DIRECT WHATSAPP REDIRECT FUNCTION
 function sendDirectChat() {
   let inputMsg = document.getElementById('sellerMsg').value.trim();
   let phone = "233249303078";
@@ -1008,7 +1006,6 @@ render();
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // REAL-TIME BANNER LISTENER
   const bannersQuery = query(collection(db, "banners"), orderBy("createdAt", "desc"));
   onSnapshot(bannersQuery, (snapshot) => {
     const sliderContainer = document.getElementById('slider');
@@ -1041,7 +1038,6 @@ render();
     }
   });
 
-  // REAL-TIME PRODUCTS LISTENER
   onSnapshot(collection(db, "products"), (snapshot) => {
     if (snapshot.empty) return;
 
@@ -1070,7 +1066,7 @@ render();
         prods.unshift(fireItem);
       }
     });
-
+I'm
     render();
   });
 </script>
