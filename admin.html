@@ -1,68 +1,555 @@
-<!-- ADD NEW PRODUCT SECTION (PLACED FIRST) -->
-<div class="admin-card">
-  <h2 class="admin-title">Add New Product</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - APEX Tech & Gadgets</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  body { background: #121212; color: #ffffff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
+  .admin-card { background: #1e1e1e; width: 100%; max-width: 480px; padding: 28px 24px; border-radius: 16px; border: 1px solid #2a2a2a; box-shadow: 0 10px 25px rgba(0,0,0,0.5); margin-bottom: 30px; }
   
-  <div class="form-group">
-    <label>Product Name</label>
-    <input type="text" id="pName" placeholder="e.g. Universal 4G Pocket MiFi">
-  </div>
+  .brand-header { text-align: center; margin-bottom: 24px; }
+  
+  .logo-wrapper {
+    width: 160px;
+    height: 100px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 8px;
+    margin: 0 auto 16px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-  <div class="form-group">
-    <label>Category</label>
-    <select id="pCat">
-      <option value="Wifi & Routers">Wifi & Routers</option>
-      <option value="Phones">Phones</option>
-      <option value="Power Banks">Power Banks</option>
-      <option value="Chargers">Chargers</option>
-      <option value="Cables">Cables</option>
-      <option value="Earbuds">Earbuds</option>
-      <option value="Smart Watches">Smart Watches</option>
-    </select>
-  </div>
+  .brand-logo { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+  .title-apex { font-size: 32px; font-weight: 900; color: #FFD400; letter-spacing: 2px; text-transform: uppercase; line-height: 1.1; }
+  .title-tech { font-size: 26px; font-weight: 900; color: #ffffff; letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; line-height: 1.1; }
+  .brand-tagline { font-size: 11px; font-weight: 700; color: #aaaaaa; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 8px; }
 
-  <div class="form-row">
-    <div class="form-group">
-      <label>Price (GH₵)</label>
-      <input type="number" id="pPrice" placeholder="199">
+  .location-tag {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-size: 15px; font-weight: 500; color: #ffffff; margin-top: 8px; margin-bottom: 20px;
+  }
+  .location-tag svg { width: 16px; height: 16px; fill: #ffffff; }
+  
+  .section-title { color: #FFD400; text-align: center; font-size: 18px; font-weight: 800; border-top: 1px solid #2a2a2a; padding-top: 16px; }
+
+  .form-group { margin-bottom: 16px; }
+  label { display: block; font-size: 13px; font-weight: 700; color: #cccccc; margin-bottom: 6px; }
+  input, select { width: 100%; padding: 12px 14px; background: #2a2a2a; border: 1px solid #3d3d3d; border-radius: 10px; color: #ffffff; font-size: 14px; outline: none; }
+  input[type="file"] { padding: 10px; cursor: pointer; }
+  input:focus, select:focus { border-color: #FFD400; }
+  
+  .preview-box { width: 100%; height: 140px; background: #2a2a2a; border: 1px dashed #444; border-radius: 10px; display: none; justify-content: center; align-items: center; margin-top: 8px; overflow: hidden; }
+  .preview-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+  .checkbox-group { display: flex; gap: 15px; margin-top: 10px; margin-bottom: 16px; }
+  .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .checkbox-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #FFD400; cursor: pointer; }
+
+  .button-group { display: flex; gap: 10px; margin-top: 10px; }
+  .publish-btn { flex: 1; padding: 14px; background: #FFD400; color: #000000; border: none; border-radius: 10px; font-size: 15px; font-weight: 900; cursor: pointer; transition: 0.2s; }
+  .publish-btn:hover { background: #e6bf00; }
+  .cancel-btn { display: none; padding: 14px; background: #3d3d3d; color: #ffffff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+  .cancel-btn:hover { background: #4a4a4a; }
+
+  .inventory-card { background: #1e1e1e; width: 100%; max-width: 480px; padding: 20px; border-radius: 16px; border: 1px solid #2a2a2a; margin-bottom: 30px; }
+  .inventory-title { color: #FFD400; font-size: 16px; font-weight: 800; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .item-list { display: flex; flex-direction: column; gap: 10px; }
+  .prod-row { display: flex; align-items: center; background: #2a2a2a; padding: 10px; border-radius: 10px; gap: 10px; }
+  .prod-row img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; background: #fff; flex-shrink: 0; }
+  .banner-row-img { width: 70px !important; height: 40px !important; object-fit: cover; }
+  .prod-info { flex: 1; min-width: 0; }
+  .prod-title { font-size: 13px; font-weight: bold; color: #fff; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .prod-meta { font-size: 11px; color: #aaa; margin-top: 3px; }
+  .badge-tag { font-size: 9px; padding: 2px 5px; border-radius: 4px; background: #FFD400; color: #000; font-weight: 800; margin-left: 4px; display: inline-block; }
+  
+  .prod-actions { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+  .edit-btn { background: #2563eb; color: #fff; border: none; padding: 8px 10px; border-radius: 6px; font-weight: bold; font-size: 11px; cursor: pointer; transition: 0.2s; }
+  .edit-btn:hover { background: #1d4ed8; }
+  .delete-btn { background: #ef4444; color: #fff; border: none; padding: 8px 10px; border-radius: 6px; font-weight: bold; font-size: 11px; cursor: pointer; transition: 0.2s; }
+  .delete-btn:hover { background: #dc2626; }
+</style>
+</head>
+<body>
+
+<!-- 1. ADD NEW PRODUCT SECTION -->
+<div class="admin-card">
+  <div class="brand-header">
+    <div class="logo-wrapper">
+      <img src="https://i.ibb.co/zV26ZpTv/IMG-4476.jpg" alt="APEX Logo" class="brand-logo">
     </div>
-    <div class="form-group">
-      <label>Old Price (GH₵)</label>
-      <input type="number" id="pOldPrice" placeholder="220">
+    
+    <div class="title-apex">APEX</div>
+    <div class="title-tech">TECH & GADGETS</div>
+    <div class="brand-tagline">YOUR ONLINE SHOPPING DESTINATION</div>
+    
+    <div class="location-tag">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5-2.5z"/>
+      </svg>
+      Bubieshie, Accra
     </div>
+
+    <div class="section-title" id="formSectionTitle">Add New Product</div>
   </div>
 
-  <div class="form-group">
-    <label>Product Image</label>
-    <input type="file" id="pImgFile" accept="image/*">
-  </div>
+  <form id="productForm">
+    <!-- Hidden input to track current edit product ID -->
+    <input type="hidden" id="editProductId" value="">
 
-  <button class="btn-primary" onclick="addProduct()">Upload Product</button>
+    <div class="form-group">
+      <label>Product Name</label>
+      <input type="text" id="pName" placeholder="e.g. Universal 4G Pocket MiFi" required>
+    </div>
+
+    <div class="form-group">
+      <label>Price (GHS)</label>
+      <input type="number" id="pPrice" placeholder="e.g. 250" required>
+    </div>
+
+    <div class="form-group">
+      <label>Old Price (GHS) (Optional)</label>
+      <input type="number" id="pOldPrice" placeholder="e.g. 300">
+    </div>
+
+    <div class="form-group">
+      <label>Category</label>
+      <select id="pCategory" required>
+        <option value="Wifi & Routers">Wifi & Routers</option>
+        <option value="Phones">Phones</option>
+        <option value="Power Banks">Power Banks</option>
+        <option value="Chargers">Chargers</option>
+        <option value="Cables">Cables</option>
+        <option value="Earbuds">Earbuds</option>
+        <option value="Smart Watches">Smart Watches</option>
+        <option value="Home Appliance">Home Appliance</option>
+        <option value="Frame">Frame</option>
+        <option value="Others">Others</option>
+      </select>
+    </div>
+
+    <!-- Photo Library Selector -->
+    <div class="form-group">
+      <label>Select Photo from Phone Library</label>
+      <input type="file" id="pImageFile" accept="image/*">
+      <div id="previewBox" class="preview-box">
+        <img id="imgPreview" src="" alt="Preview">
+      </div>
+    </div>
+
+    <div class="checkbox-group">
+      <label class="checkbox-item">
+        <input type="checkbox" id="isFeatured">
+        <span>Featured & Trending</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" id="isBestSeller">
+        <span>Best Seller</span>
+      </label>
+    </div>
+
+    <div class="button-group">
+      <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+      <button type="submit" class="publish-btn" id="submitBtn">Publish Product</button>
+    </div>
+  </form>
 </div>
 
-<!-- MANAGE PROMO BANNERS SECTION (PLACED BELOW PRODUCT) -->
+<!-- LIVE CATALOG SECTION -->
+<div class="inventory-card">
+  <div class="inventory-title">
+    <span>Live Catalog</span>
+    <span id="prodCount" style="font-size:12px; color:#aaa;">0 items</span>
+  </div>
+  <div id="itemList" class="item-list">
+    <div style="color:#888; font-size:13px; text-align:center; padding:10px;">Loading catalog...</div>
+  </div>
+</div>
+
+<!-- 2. MANAGE PROMO BANNERS SECTION -->
 <div class="admin-card">
-  <h2 class="admin-title">Manage Promo Banners</h2>
+  <div class="section-title" style="border-top:none; padding-top:0;">Manage Promo Banners</div>
   
-  <div class="form-group">
-    <label>Banner Title / Promo Tag (Optional)</label>
-    <input type="text" id="bTitle" placeholder="e.g. Mega Weekend Sales 20% OFF">
-  </div>
+  <form id="bannerForm" style="margin-top:20px;">
+    <div class="form-group">
+      <label>Banner Title / Promo Tag (Optional)</label>
+      <input type="text" id="bTitle" placeholder="e.g. Mega Weekend Sales 20% OFF">
+    </div>
 
-  <div class="form-group">
-    <label>Select Banner Image from Phone</label>
-    <input type="file" id="bImgFile" accept="image/*">
-  </div>
+    <div class="form-group">
+      <label>Select Banner Image from Phone</label>
+      <input type="file" id="bImageFile" accept="image/*" required>
+      <div id="bannerPreviewBox" class="preview-box">
+        <img id="bannerImgPreview" src="" alt="Banner Preview">
+      </div>
+    </div>
 
-  <button class="btn-primary" onclick="uploadBanner()">Upload Banner</button>
+    <button type="submit" class="publish-btn" id="bannerSubmitBtn" style="width:100%;">Upload Banner</button>
+  </form>
 </div>
 
 <!-- ACTIVE BANNERS DISPLAY -->
-<div class="admin-card">
-  <div class="card-header">
-    <h2 class="admin-title">Active Banners</h2>
-    <span class="badge-count" id="bannerCount">0 banners</span>
+<div class="inventory-card">
+  <div class="inventory-title">
+    <span>Active Banners</span>
+    <span id="bannerCount" style="font-size:12px; color:#aaa;">0 banners</span>
   </div>
-  <div id="bannerList">
-    <p class="empty-msg">No promo banners uploaded yet.</p>
+  <div id="bannerList" class="item-list">
+    <div style="color:#888; font-size:13px; text-align:center; padding:10px;">Loading banners...</div>
   </div>
 </div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, updateDoc, serverTimestamp, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC8lyzlTLTBSeikS3-IgG6FJA",
+    authDomain: "apex-tech-gadgets.firebaseapp.com",
+    projectId: "apex-tech-gadgets",
+    storageBucket: "apex-tech-gadgets.appspot.com",
+    messagingSenderId: "947500498392",
+    appId: "1:947500498392:web:870cf6123985",
+    measurementId: "G-EB9FXQL07K"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // PRODUCT DOM ELEMENTS
+  const form = document.getElementById('productForm');
+  const editProductIdInput = document.getElementById('editProductId');
+  const submitBtn = document.getElementById('submitBtn');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const formSectionTitle = document.getElementById('formSectionTitle');
+  const pImageFileInput = document.getElementById('pImageFile');
+  const previewBox = document.getElementById('previewBox');
+  const imgPreview = document.getElementById('imgPreview');
+  const itemList = document.getElementById('itemList');
+  const prodCount = document.getElementById('prodCount');
+
+  // BANNER DOM ELEMENTS
+  const bannerForm = document.getElementById('bannerForm');
+  const bTitleInput = document.getElementById('bTitle');
+  const bImageFileInput = document.getElementById('bImageFile');
+  const bannerPreviewBox = document.getElementById('bannerPreviewBox');
+  const bannerImgPreview = document.getElementById('bannerImgPreview');
+  const bannerSubmitBtn = document.getElementById('bannerSubmitBtn');
+  const bannerList = document.getElementById('bannerList');
+  const bannerCount = document.getElementById('bannerCount');
+
+  const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop";
+  let loadedProducts = {};
+  let loadedBanners = {};
+
+  // Photo Preview Logic - Product
+  pImageFileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        imgPreview.src = event.target.result;
+        previewBox.style.display = 'flex';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      if (!editProductIdInput.value || !imgPreview.src) {
+        previewBox.style.display = 'none';
+      }
+    }
+  });
+
+  // Photo Preview Logic - Banner
+  bImageFileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        bannerImgPreview.src = event.target.result;
+        bannerPreviewBox.style.display = 'flex';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      bannerPreviewBox.style.display = 'none';
+    }
+  });
+
+  // Compress & Resize Image
+  function processAndCompressImage(file, maxDimension = 600) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > maxDimension) {
+              height *= maxDimension / width;
+              width = maxDimension;
+            }
+          } else {
+            if (height > maxDimension) {
+              width *= maxDimension / height;
+              height = maxDimension;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          resolve(canvas.toDataURL('image/jpeg', 0.7));
+        };
+      };
+    });
+  }
+
+  // Reset Form to Add Mode
+  function resetFormToAddMode() {
+    form.reset();
+    editProductIdInput.value = "";
+    previewBox.style.display = 'none';
+    imgPreview.src = "";
+    formSectionTitle.innerText = "Add New Product";
+    submitBtn.innerText = "Publish Product";
+    cancelBtn.style.display = 'none';
+  }
+
+  cancelBtn.addEventListener('click', resetFormToAddMode);
+
+  // PRODUCT SUBMISSION
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const editId = editProductIdInput.value;
+    const isEditing = Boolean(editId);
+
+    submitBtn.disabled = true;
+    submitBtn.innerText = isEditing ? "Updating Product..." : "Publishing Product...";
+
+    const name = document.getElementById('pName').value.trim();
+    const price = Number(document.getElementById('pPrice').value);
+    const oldPriceVal = document.getElementById('pOldPrice').value.trim();
+    const oldPrice = oldPriceVal ? Number(oldPriceVal) : 0;
+    const category = document.getElementById('pCategory').value;
+    const isFeatured = document.getElementById('isFeatured').checked;
+    const isBestSeller = document.getElementById('isBestSeller').checked;
+
+    let imageUrl = isEditing ? loadedProducts[editId]?.image || DEFAULT_IMAGE : DEFAULT_IMAGE;
+
+    try {
+      if (pImageFileInput.files.length > 0) {
+        const selectedFile = pImageFileInput.files[0];
+        imageUrl = await processAndCompressImage(selectedFile, 600);
+      }
+
+      const productPayload = {
+        title: name,
+        price: price,
+        oldPrice: oldPrice,
+        category: category,
+        image: imageUrl,
+        isFeatured: isFeatured,
+        isBestSeller: isBestSeller,
+        rating: "4.8",
+        reviews: 42
+      };
+
+      if (isEditing) {
+        await updateDoc(doc(db, "products", editId), productPayload);
+        alert("Product updated successfully!");
+      } else {
+        productPayload.createdAt = serverTimestamp();
+        await addDoc(collection(db, "products"), productPayload);
+        alert("Product published successfully!");
+      }
+
+      resetFormToAddMode();
+    } catch (error) {
+      console.error("Error saving product: ", error);
+      alert("Failed to save product. Please try again.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerText = editProductIdInput.value ? "Update Product" : "Publish Product";
+    }
+  });
+
+  // BANNER SUBMISSION
+  bannerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!bImageFileInput.files.length) {
+      alert("Please select a banner image.");
+      return;
+    }
+
+    bannerSubmitBtn.disabled = true;
+    bannerSubmitBtn.innerText = "Uploading Banner...";
+
+    try {
+      const bannerFile = bImageFileInput.files[0];
+      const imageUrl = await processAndCompressImage(bannerFile, 900); // Higher resolution for banners
+
+      const bannerPayload = {
+        title: bTitleInput.value.trim() || "Promo Banner",
+        image: imageUrl,
+        createdAt: serverTimestamp()
+      };
+
+      await addDoc(collection(db, "banners"), bannerPayload);
+      alert("Banner uploaded successfully!");
+
+      bannerForm.reset();
+      bannerPreviewBox.style.display = 'none';
+      bannerImgPreview.src = "";
+    } catch (error) {
+      console.error("Error uploading banner: ", error);
+      alert("Failed to upload banner.");
+    } finally {
+      bannerSubmitBtn.disabled = false;
+      bannerSubmitBtn.innerText = "Upload Banner";
+    }
+  });
+
+  // REALTIME PRODUCTS LISTENER
+  onSnapshot(collection(db, "products"), (snapshot) => {
+    itemList.innerHTML = "";
+    prodCount.innerText = `${snapshot.size} items`;
+    loadedProducts = {};
+
+    if (snapshot.empty) {
+      itemList.innerHTML = `<div style="color:#888; font-size:13px; text-align:center; padding:10px;">No products added yet.</div>`;
+      return;
+    }
+
+    snapshot.forEach((docSnap) => {
+      const data = docSnap.data();
+      const id = docSnap.id;
+      loadedProducts[id] = data;
+
+      const row = document.createElement('div');
+      row.className = 'prod-row';
+      row.innerHTML = `
+        <img src="${data.image || DEFAULT_IMAGE}" alt="Thumb">
+        <div class="prod-info">
+          <div class="prod-title">${data.title || 'Untitled'}</div>
+          <div class="prod-meta">
+            GHS ${data.price || 0} • ${data.category || 'General'}
+            ${data.isFeatured ? '<span class="badge-tag">Featured</span>' : ''}
+            ${data.isBestSeller ? '<span class="badge-tag">Best Seller</span>' : ''}
+          </div>
+        </div>
+        <div class="prod-actions">
+          <button class="edit-btn" data-id="${id}">Edit</button>
+          <button class="delete-btn" data-id="${id}">Delete</button>
+        </div>
+      `;
+
+      itemList.appendChild(row);
+    });
+
+    // EDIT PRODUCT
+    document.querySelectorAll('#itemList .edit-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const docId = e.target.getAttribute('data-id');
+        const p = loadedProducts[docId];
+        if (!p) return;
+
+        editProductIdInput.value = docId;
+        document.getElementById('pName').value = p.title || '';
+        document.getElementById('pPrice').value = p.price || '';
+        document.getElementById('pOldPrice').value = p.oldPrice || '';
+        document.getElementById('pCategory').value = p.category || 'Wifi & Routers';
+        document.getElementById('isFeatured').checked = Boolean(p.isFeatured);
+        document.getElementById('isBestSeller').checked = Boolean(p.isBestSeller);
+
+        if (p.image) {
+          imgPreview.src = p.image;
+          previewBox.style.display = 'flex';
+        } else {
+          previewBox.style.display = 'none';
+        }
+
+        formSectionTitle.innerText = "Edit Product";
+        submitBtn.innerText = "Update Product";
+        cancelBtn.style.display = 'block';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // DELETE PRODUCT
+    document.querySelectorAll('#itemList .delete-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const docId = e.target.getAttribute('data-id');
+        const itemTitle = loadedProducts[docId]?.title || 'this product';
+        if (confirm(`Are you sure you want to delete "${itemTitle}"?`)) {
+          try {
+            await deleteDoc(doc(db, "products", docId));
+            if (editProductIdInput.value === docId) resetFormToAddMode();
+          } catch (err) {
+            console.error("Error deleting product:", err);
+            alert("Could not delete product.");
+          }
+        }
+      });
+    });
+  });
+
+  // REALTIME BANNERS LISTENER
+  onSnapshot(collection(db, "banners"), (snapshot) => {
+    bannerList.innerHTML = "";
+    bannerCount.innerText = `${snapshot.size} banners`;
+    loadedBanners = {};
+
+    if (snapshot.empty) {
+      bannerList.innerHTML = `<div style="color:#888; font-size:13px; text-align:center; padding:10px;">No promo banners uploaded yet.</div>`;
+      return;
+    }
+
+    snapshot.forEach((docSnap) => {
+      const data = docSnap.data();
+      const id = docSnap.id;
+      loadedBanners[id] = data;
+
+      const row = document.createElement('div');
+      row.className = 'prod-row';
+      row.innerHTML = `
+        <img src="${data.image}" alt="Banner" class="banner-row-img">
+        <div class="prod-info">
+          <div class="prod-title">${data.title || 'Promo Banner'}</div>
+        </div>
+        <div class="prod-actions">
+          <button class="delete-btn" data-banner-id="${id}">Delete</button>
+        </div>
+      `;
+
+      bannerList.appendChild(row);
+    });
+
+    // DELETE BANNER
+    document.querySelectorAll('#bannerList .delete-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const docId = e.target.getAttribute('data-banner-id');
+        if (confirm("Are you sure you want to delete this banner?")) {
+          try {
+            await deleteDoc(doc(db, "banners", docId));
+          } catch (err) {
+            console.error("Error deleting banner:", err);
+            alert("Could not delete banner.");
+          }
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
