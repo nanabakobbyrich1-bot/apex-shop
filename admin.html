@@ -49,19 +49,26 @@
   .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
   .checkbox-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #FFD400; cursor: pointer; }
 
-  .publish-btn { width: 100%; padding: 14px; background: #FFD400; color: #000000; border: none; border-radius: 10px; font-size: 15px; font-weight: 900; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+  .button-group { display: flex; gap: 10px; margin-top: 10px; }
+  .publish-btn { flex: 1; padding: 14px; background: #FFD400; color: #000000; border: none; border-radius: 10px; font-size: 15px; font-weight: 900; cursor: pointer; transition: 0.2s; }
   .publish-btn:hover { background: #e6bf00; }
+  .cancel-btn { display: none; padding: 14px; background: #3d3d3d; color: #ffffff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+  .cancel-btn:hover { background: #4a4a4a; }
 
   .inventory-card { background: #1e1e1e; width: 100%; max-width: 480px; padding: 20px; border-radius: 16px; border: 1px solid #2a2a2a; }
   .inventory-title { color: #FFD400; font-size: 16px; font-weight: 800; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
   .item-list { display: flex; flex-direction: column; gap: 10px; }
-  .prod-row { display: flex; align-items: center; background: #2a2a2a; padding: 10px; border-radius: 10px; gap: 12px; }
-  .prod-row img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; background: #fff; }
-  .prod-info { flex: 1; }
-  .prod-title { font-size: 13px; font-weight: bold; color: #fff; line-height: 1.2; }
+  .prod-row { display: flex; align-items: center; background: #2a2a2a; padding: 10px; border-radius: 10px; gap: 10px; }
+  .prod-row img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; background: #fff; flex-shrink: 0; }
+  .prod-info { flex: 1; min-width: 0; }
+  .prod-title { font-size: 13px; font-weight: bold; color: #fff; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .prod-meta { font-size: 11px; color: #aaa; margin-top: 3px; }
-  .badge-tag { font-size: 9px; padding: 2px 5px; border-radius: 4px; background: #FFD400; color: #000; font-weight: 800; margin-left: 4px; }
-  .delete-btn { background: #ef4444; color: #fff; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; font-size: 11px; cursor: pointer; }
+  .badge-tag { font-size: 9px; padding: 2px 5px; border-radius: 4px; background: #FFD400; color: #000; font-weight: 800; margin-left: 4px; display: inline-block; }
+  
+  .prod-actions { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+  .edit-btn { background: #2563eb; color: #fff; border: none; padding: 8px 10px; border-radius: 6px; font-weight: bold; font-size: 11px; cursor: pointer; transition: 0.2s; }
+  .edit-btn:hover { background: #1d4ed8; }
+  .delete-btn { background: #ef4444; color: #fff; border: none; padding: 8px 10px; border-radius: 6px; font-weight: bold; font-size: 11px; cursor: pointer; transition: 0.2s; }
   .delete-btn:hover { background: #dc2626; }
 </style>
 </head>
@@ -84,10 +91,13 @@
       Bubieshie, Accra
     </div>
 
-    <div class="section-title">Add New Product</div>
+    <div class="section-title" id="formSectionTitle">Add New Product</div>
   </div>
 
   <form id="productForm">
+    <!-- Hidden input to track current edit product ID -->
+    <input type="hidden" id="editProductId" value="">
+
     <div class="form-group">
       <label>Product Name</label>
       <input type="text" id="pName" placeholder="e.g. Universal 4G Pocket MiFi" required>
@@ -114,6 +124,7 @@
         <option value="Earbuds">Earbuds</option>
         <option value="Smart Watches">Smart Watches</option>
         <option value="Home Appliance">Home Appliance</option>
+        <option value="Frame">Frame</option>
         <option value="Others">Others</option>
       </select>
     </div>
@@ -138,7 +149,10 @@
       </label>
     </div>
 
-    <button type="submit" class="publish-btn" id="submitBtn">Publish Product</button>
+    <div class="button-group">
+      <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+      <button type="submit" class="publish-btn" id="submitBtn">Publish Product</button>
+    </div>
   </form>
 </div>
 
@@ -154,7 +168,7 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, updateDoc, serverTimestamp, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyC8lyzlTLTBSeikS3-IgG6FJA",
@@ -170,7 +184,10 @@
   const db = getFirestore(app);
 
   const form = document.getElementById('productForm');
+  const editProductIdInput = document.getElementById('editProductId');
   const submitBtn = document.getElementById('submitBtn');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const formSectionTitle = document.getElementById('formSectionTitle');
   const pImageFileInput = document.getElementById('pImageFile');
   const previewBox = document.getElementById('previewBox');
   const imgPreview = document.getElementById('imgPreview');
@@ -178,6 +195,7 @@
   const prodCount = document.getElementById('prodCount');
 
   const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop";
+  let loadedProducts = {}; // Memory cache for rapid edit fetching
 
   // Photo Preview Logic
   pImageFileInput.addEventListener('change', (e) => {
@@ -190,11 +208,13 @@
       };
       reader.readAsDataURL(file);
     } else {
-      previewBox.style.display = 'none';
+      if (!editProductIdInput.value || !imgPreview.src) {
+        previewBox.style.display = 'none';
+      }
     }
   });
 
-  // Compress & Resize Image to lightweight Base64 string for instant loading
+  // Compress & Resize Image to lightweight Base64 string
   function processAndCompressImage(file) {
     return new Promise((resolve) => {
       const reader = new FileReader();
@@ -204,7 +224,7 @@
         img.src = event.target.result;
         img.onload = () => {
           const canvas = document.createElement('canvas');
-          const maxDim = 600; // max width/height suitable for phone screen
+          const maxDim = 600;
           let width = img.width;
           let height = img.height;
 
@@ -225,17 +245,32 @@
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, width, height);
 
-          // Return optimized JPEG data URL (0.7 quality)
           resolve(canvas.toDataURL('image/jpeg', 0.7));
         };
       };
     });
   }
 
+  // Reset Form to Add Mode
+  function resetFormToAddMode() {
+    form.reset();
+    editProductIdInput.value = "";
+    previewBox.style.display = 'none';
+    imgPreview.src = "";
+    formSectionTitle.innerText = "Add New Product";
+    submitBtn.innerText = "Publish Product";
+    cancelBtn.style.display = 'none';
+  }
+
+  cancelBtn.addEventListener('click', resetFormToAddMode);
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const editId = editProductIdInput.value;
+    const isEditing = Boolean(editId);
+
     submitBtn.disabled = true;
-    submitBtn.innerText = "Publishing Product...";
+    submitBtn.innerText = isEditing ? "Updating Product..." : "Publishing Product...";
 
     const name = document.getElementById('pName').value.trim();
     const price = Number(document.getElementById('pPrice').value);
@@ -245,7 +280,7 @@
     const isFeatured = document.getElementById('isFeatured').checked;
     const isBestSeller = document.getElementById('isBestSeller').checked;
 
-    let imageUrl = DEFAULT_IMAGE;
+    let imageUrl = isEditing ? loadedProducts[editId]?.image || DEFAULT_IMAGE : DEFAULT_IMAGE;
 
     try {
       if (pImageFileInput.files.length > 0) {
@@ -253,7 +288,7 @@
         imageUrl = await processAndCompressImage(selectedFile);
       }
 
-      await addDoc(collection(db, "products"), {
+      const productPayload = {
         title: name,
         price: price,
         oldPrice: oldPrice,
@@ -262,25 +297,37 @@
         isFeatured: isFeatured,
         isBestSeller: isBestSeller,
         rating: "4.8",
-        reviews: 42,
-        createdAt: serverTimestamp()
-      });
+        reviews: 42
+      };
 
-      alert("Product published successfully!");
-      form.reset();
-      previewBox.style.display = 'none';
+      if (isEditing) {
+        await updateDoc(doc(db, "products", editId), productPayload);
+        alert("Product updated successfully!");
+      } else {
+        productPayload.createdAt = serverTimestamp();
+        await addDoc(collection(db, "products"), productPayload);
+        alert("Product published successfully!");
+      }
+
+      resetFormToAddMode();
     } catch (error) {
-      console.error("Error adding product: ", error);
-      alert("Failed to publish product. Please try again.");
+      console.error("Error saving product: ", error);
+      alert("Failed to save product. Please try again.");
     } finally {
       submitBtn.disabled = false;
-      submitBtn.innerText = "Publish Product";
+      if (editProductIdInput.value) {
+        submitBtn.innerText = "Update Product";
+      } else {
+        submitBtn.innerText = "Publish Product";
+      }
     }
   });
 
+  // Listen for Realtime Changes in Firestore
   onSnapshot(collection(db, "products"), (snapshot) => {
     itemList.innerHTML = "";
     prodCount.innerText = `${snapshot.size} items`;
+    loadedProducts = {};
 
     if (snapshot.empty) {
       itemList.innerHTML = `<div style="color:#888; font-size:13px; text-align:center; padding:10px;">No products added yet.</div>`;
@@ -290,6 +337,7 @@
     snapshot.forEach((docSnap) => {
       const data = docSnap.data();
       const id = docSnap.id;
+      loadedProducts[id] = data;
 
       const row = document.createElement('div');
       row.className = 'prod-row';
@@ -303,18 +351,60 @@
             ${data.isBestSeller ? '<span class="badge-tag">Best Seller</span>' : ''}
           </div>
         </div>
-        <button class="delete-btn" data-id="${id}">Delete</button>
+        <div class="prod-actions">
+          <button class="edit-btn" data-id="${id}">Edit</button>
+          <button class="delete-btn" data-id="${id}">Delete</button>
+        </div>
       `;
 
       itemList.appendChild(row);
     });
 
+    // EDIT Event Listener
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const docId = e.target.getAttribute('data-id');
+        const p = loadedProducts[docId];
+        if (!p) return;
+
+        // Populate Form Fields
+        editProductIdInput.value = docId;
+        document.getElementById('pName').value = p.title || '';
+        document.getElementById('pPrice').value = p.price || '';
+        document.getElementById('pOldPrice').value = p.oldPrice || '';
+        document.getElementById('pCategory').value = p.category || 'Wifi & Routers';
+        document.getElementById('isFeatured').checked = Boolean(p.isFeatured);
+        document.getElementById('isBestSeller').checked = Boolean(p.isBestSeller);
+
+        // Preview Existing Image
+        if (p.image) {
+          imgPreview.src = p.image;
+          previewBox.style.display = 'flex';
+        } else {
+          previewBox.style.display = 'none';
+        }
+
+        // Update Form Display
+        formSectionTitle.innerText = "Edit Product";
+        submitBtn.innerText = "Update Product";
+        cancelBtn.style.display = 'block';
+
+        // Scroll gracefully to the form
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // DELETE Event Listener
     document.querySelectorAll('.delete-btn').forEach(btn => {
       btn.addEventListener('click', async (e) => {
         const docId = e.target.getAttribute('data-id');
-        if (confirm("Are you sure you want to delete this product?")) {
+        const itemTitle = loadedProducts[docId]?.title || 'this product';
+        if (confirm(`Are you sure you want to delete "${itemTitle}"?`)) {
           try {
             await deleteDoc(doc(db, "products", docId));
+            if (editProductIdInput.value === docId) {
+              resetFormToAddMode();
+            }
           } catch (err) {
             console.error("Error deleting product:", err);
             alert("Could not delete product.");
