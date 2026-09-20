@@ -100,6 +100,21 @@ header{background:#000;padding:10px 12px;display:flex;justify-content:space-betw
   display: block !important;
 }
 
+/* INDEX BADGE STYLING */
+.index-badge {
+  position: absolute !important;
+  top: 8px !important;
+  left: 8px !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  color: #FFD400 !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  padding: 3px 7px !important;
+  border-radius: 6px !important;
+  z-index: 2 !important;
+  border: 1px solid #27272a !important;
+}
+
 .badge-discount, .badge {
   position: absolute !important;
   top: 8px !important;
@@ -606,7 +621,7 @@ function filtered() {
   return list;
 }
 
-// CREATES HORIZONTAL CARDS (FEATURED & BEST SELLERS) WITH WORKING CLICK TO OPEN MODAL
+// CREATES HORIZONTAL CARDS (FEATURED & BEST SELLERS)
 function createCard(p) {
   let d = document.createElement('div');
   d.className = 'card';
@@ -623,13 +638,15 @@ function createCard(p) {
   return d;
 }
 
-function createGridCard(p) {
+// CREATES GRID CARDS WITH INDEX NUMBERING
+function createGridCard(p, index = 1) {
   let discount = p.old ? Math.round(((p.old - p.price) / p.old) * 100) : (p.dis || 0);
   let card = document.createElement('div');
   card.className = 'gcard';
-  card.onclick = () => view(p.id);
+  card.onclick = () => view(p.id, index);
   card.innerHTML = `
     <div class="card-img-wrapper">
+      <div class="index-badge">#${index}</div>
       ${discount > 0 ? `<div class="badge">-${discount}%</div>` : ''}
       <img src="${p.img}" alt="${p.name}">
     </div>
@@ -637,7 +654,7 @@ function createGridCard(p) {
       <div class="gtitle">${p.name}</div>
       <div class="gprice">GH₵ ${p.price} <span style="font-size:10px; color:#888; text-decoration:line-through;">${p.old ? 'Was GH₵ '+p.old : ''}</span></div>
       <div style="font-size:10px; color:#f59e0b; margin-bottom: 6px;">★ ${p.rate || '4.8'} (${p.rev || '42'})</div>
-      <button class="buy-btn" onclick="event.stopPropagation(); view('${p.id}')">View / Buy</button>
+      <button class="buy-btn" onclick="event.stopPropagation(); view('${p.id}', ${index})">View / Buy</button>
     </div>
   `;
   return card;
@@ -653,9 +670,9 @@ function render() {
   s.innerHTML = '';
   t.innerHTML = '';
 
-  // 1. Render Main Section (All Gadgets or filtered category)
-  list.forEach(p => {
-    g.appendChild(createGridCard(p));
+  // 1. Render Main Section with Index passed
+  list.forEach((p, index) => {
+    g.appendChild(createGridCard(p, index + 1));
   });
 
   // 2. Render Featured & Trending separately
@@ -670,18 +687,20 @@ function render() {
 function search() { render(); }
 
 let curP = null;
-function view(id) {
+let curIndex = 1;
+function view(id, index = 1) {
   let p = prods.find(x => x.id == id);
   if (!p) return;
   curP = p;
+  curIndex = index;
 
   document.getElementById('vimg').src = p.img;
-  document.getElementById('vname').innerText = p.name;
+  document.getElementById('vname').innerText = `#${index} - ${p.name}`;
   document.getElementById('vprice').innerText = 'GH₵ ' + p.price;
   document.getElementById('vcat').innerText = p.cat || 'Gadgets';
   
   let waPhone = "233249303078";
-  let defaultText = `Hello APEX Tech, I am interested in: ${p.name} (GH₵ ${p.price})`;
+  let defaultText = `Hello APEX Tech, I am interested in item #${index}: ${p.name} (GH₵ ${p.price})`;
   document.getElementById('waDirectBtn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent(defaultText)}`;
 
   // Populate Familiar Products Banner inside modal
@@ -700,11 +719,11 @@ function view(id) {
   }
 }
 
-// DIRECT WHATSAPP REDIRECT FUNCTION
+// DIRECT WHATSAPP REDIRECT FUNCTION WITH INDEX REFERENCE
 function sendDirectChat() {
   let inputMsg = document.getElementById('sellerMsg').value.trim();
   let phone = "233249303078";
-  let text = `Hello APEX Tech, regarding *${curP ? curP.name : 'your item'}*:\n` + (inputMsg ? inputMsg : "Hello, I am interested in this item.");
+  let text = `Hello APEX Tech, regarding item #${curIndex} (*${curP ? curP.name : 'your item'}*):\n` + (inputMsg ? inputMsg : "Hello, I am interested in this item.");
   window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
 }
 
