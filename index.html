@@ -240,7 +240,7 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
   fill: none;
 }
 
-.hrow { display: flex; gap: 10px; overflow-x: auto; padding: 0 15px; scrollbar-width: none; scroll-behavior: smooth; }
+.hrow { display: flex; gap: 10px; overflow-x: auto; padding: 0 15px; scrollbar-width: none; scrollbehavior: smooth; }
 .hrow::-webkit-scrollbar { display: none }
 
 /* HORIZONTAL CARDS */
@@ -719,7 +719,7 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
 #menuOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9998;display:none}
 .menu-item{display:flex;align-items:center;gap:12px;padding:14px 0;color:var(--text-primary);text-decoration:none;border-bottom:1px solid var(--bg-card-border);cursor:pointer;font-size:13px;font-weight:bold;-webkit-tap-highlight-color:transparent}
 
-/* FOOTER SECTION STYLES (ADDED FROM IMAGE) */
+/* FOOTER SECTION STYLES */
 .site-footer {
   background-color: var(--footer-bg);
   color: var(--text-primary);
@@ -734,20 +734,31 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
   gap: 12px;
   margin-bottom: 12px;
 }
-.footer-logo-icon {
-  background: var(--accent-yellow);
-  color: #000000;
-  padding: 8px 10px;
-  border-radius: 8px;
+.footer-logo-container {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
-.footer-brand-name {
-  font-size: 26px;
+.footer-logo-img {
+  height: 48px;
+  width: auto;
+  border-radius: 6px;
+  object-fit: contain;
+  background-color: #ffffff;
+}
+.footer-brand-title {
+  font-size: 22px;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--accent-yellow);
   letter-spacing: -0.5px;
+  line-height: 1;
+}
+.footer-brand-subtitle {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 2px;
 }
 .footer-description {
   font-size: 14px;
@@ -911,20 +922,19 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
 <!-- MAIN 2-COLUMN GRID CONTAINER -->
 <div class="grid" id="grid"></div>
 
-<!-- FOOTER SECTION ADDED FROM IMAGE -->
+<!-- FOOTER SECTION UPDATED WITH APEX TECH BRANDING & DELIVERY POLICY -->
 <footer class="site-footer">
   <div class="footer-brand">
-    <div class="footer-logo-icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="9" cy="21" r="1"></circle>
-        <circle cx="20" cy="21" r="1"></circle>
-        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-      </svg>
+    <div class="footer-logo-container">
+      <img src="https://i.ibb.co/0jqm38y8/Black-White-Business-Bio-Link-Your-Story.jpg" alt="APEX Tech & Gadgets Logo" class="footer-logo-img">
     </div>
-    <span class="footer-brand-name">ShopCart</span>
+    <div style="display: flex; flex-direction: column;">
+      <span class="footer-brand-title">APEX</span>
+      <span class="footer-brand-subtitle">Tech & Gadgets</span>
+    </div>
   </div>
   <p class="footer-description">
-    Your one-stop shop for top-quality products at the best prices. Shop smart, live better.
+    Your online shopping destination for high-quality tech, gadgets, and services at the best prices. Shop smart, live better.
   </p>
 
   <div class="footer-section">
@@ -941,7 +951,7 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
     <h3 class="footer-title">Customer Service</h3>
     <ul class="footer-links">
       <li><a href="tel:+233249303078">Contact Us</a></li>
-      <li><a href="#">Shipping Policy</a></li>
+      <li><a href="#">Delivery Policy</a></li>
       <li><a href="#">Return Policy</a></li>
       <li><a href="#">FAQ</a></li>
     </ul>
