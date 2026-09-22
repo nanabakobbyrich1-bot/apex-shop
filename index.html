@@ -190,12 +190,55 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
 /* FEATURED & TRENDING SECTION */
 .blue {
   background: var(--featured-bg);
-  padding: 14px 0 16px;
+  padding: 16px 0;
   margin: 10px 0;
+  border-radius: 16px;
 }
 
-.blue-h { padding: 0 15px 10px; display: flex; justify-content: space-between; color: var(--featured-header); font-weight: 900; font-size: 13px; }
-.hrow { display: flex; gap: 10px; overflow-x: auto; padding: 0 15px; scrollbar-width: none }
+/* IMAGE 2 STYLE HEADERS AND SLIDE ARROW BUTTONS */
+.blue-h { 
+  padding: 0 18px 14px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+}
+.section-title {
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.slide-arrow-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  flex-shrink: 0;
+}
+.slide-arrow-btn:active {
+  transform: scale(0.92);
+}
+.slide-arrow-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke: #ffffff;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.hrow { display: flex; gap: 10px; overflow-x: auto; padding: 0 15px; scrollbar-width: none; scroll-behavior: smooth; }
 .hrow::-webkit-scrollbar { display: none }
 
 /* HORIZONTAL CARDS */
@@ -773,13 +816,23 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
 
 <!-- SPONSORED SHOWCASE -->
 <div class="blue">
-  <div class="blue-h"><span>🔥 Featured & Trending</span><span>Slide →</span></div>
+  <div class="blue-h">
+    <span class="section-title" style="color: var(--featured-header)">🔥 Featured & Trending</span>
+    <button class="slide-arrow-btn" onclick="scrollSection('srow')" aria-label="Next slide">
+      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </button>
+  </div>
   <div class="hrow" id="srow"></div>
 </div>
 
 <!-- TOP SELLING SHOWCASE -->
 <div class="blue" style="background:#006994">
-  <div class="blue-h" style="color:#fff"><span>⭐ Top selling items</span><span>Slide →</span></div>
+  <div class="blue-h">
+    <span class="section-title" style="color:#ffffff">⭐ Top selling items</span>
+    <button class="slide-arrow-btn" onclick="scrollSection('trow')" aria-label="Next slide">
+      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </button>
+  </div>
   <div class="hrow" id="trow"></div>
 </div>
 
@@ -980,6 +1033,14 @@ function toggleTheme() {
 }
 
 applyStoredTheme();
+
+/* HORIZONTAL SCROLL FUNCTION FOR ARROW BUTTONS */
+function scrollSection(rowId) {
+  const row = document.getElementById(rowId);
+  if (row) {
+    row.scrollBy({ left: 200, behavior: 'smooth' });
+  }
+}
 
 let slider = document.getElementById('slider');
 let dwrap = document.getElementById('dots');
