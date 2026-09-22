@@ -197,7 +197,7 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
 .hrow::-webkit-scrollbar { display: none }
 
 /* HORIZONTAL CARDS */
-.card { background: var(--bg-card); min-width: 165px; max-width: 165px; border-radius: 16px; overflow: hidden; position: relative; flex-shrink: 0; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.15); -webkit-tap-highlight-color: transparent; border: 1px solid var(--bg-card-border) }
+.card { background: var(--bg-card); min-width: 165px; max-width: 165px; border-radius: 16px; overflow: hidden; position: relative; flex-shrink: 0; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.15); -webkit-tap-highlight-color: transparent; border: 1px solid var(--bg-card-border); content-visibility: auto; }
 .card img { width: 100%; height: 120px; object-fit: cover; background: #000; filter: brightness(1.05) }
 .card-body { padding: 9px }
 .title { font-size: 11px; font-weight: 700; height: 32px; overflow: hidden; line-height: 1.3; color: var(--text-primary) }
@@ -232,6 +232,7 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
   cursor: pointer !important;
   -webkit-tap-highlight-color: transparent !important;
   transition: transform 0.1s ease;
+  content-visibility: auto;
 }
 
 .grid > div:active, .gcard:active, .product-card:active {
@@ -673,7 +674,6 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
   </div>
 
   <div class="header-right">
-    <!-- LIGHT/DARK THEME TOGGLE BUTTON -->
     <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
       ☀️
     </button>
@@ -707,30 +707,29 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
   <button onclick="search()">Search</button>
 </div>
 
-<!-- MAIN BANNER SLIDER CONTAINER (SWIPEABLE / TOUCH ONLY) -->
+<!-- MAIN BANNER SLIDER CONTAINER -->
 <div class="slider-wrapper">
   <div class="slider" id="slider">
-    <!-- Static Fallback Banners with ORDER NOW -->
     <div class="slide active" onclick="viewCustomBanner('HIGH QUALITY PRINTING SERVICE', 'https://i.ibb.co/DD5HJPW2/IMG-4854.png', 'Services')">
-      <img src="https://i.ibb.co/DD5HJPW2/IMG-4854.png" alt="Printing Service">
+      <img src="https://i.ibb.co/DD5HJPW2/IMG-4854.png" alt="Printing Service" loading="eager">
       <div class="txt">
         <span onclick="event.stopPropagation(); viewCustomBanner('HIGH QUALITY PRINTING SERVICE', 'https://i.ibb.co/DD5HJPW2/IMG-4854.png', 'Services')">ORDER NOW</span>
       </div>
     </div>
     <div class="slide" onclick="viewCustomBanner('PICTURE FRAME SERVICE', 'https://i.ibb.co/DcJm4XG/Black-White-Business-Bio-Link-Your-Story.jpg', 'Frames')">
-      <img src="https://i.ibb.co/DcJm4XG/Black-White-Business-Bio-Link-Your-Story.jpg" alt="Picture Frame Service">
+      <img src="https://i.ibb.co/DcJm4XG/Black-White-Business-Bio-Link-Your-Story.jpg" alt="Picture Frame Service" loading="lazy">
       <div class="txt">
         <span onclick="event.stopPropagation(); viewCustomBanner('PICTURE FRAME SERVICE', 'https://i.ibb.co/DcJm4XG/Black-White-Business-Bio-Link-Your-Story.jpg', 'Frames')">ORDER NOW</span>
       </div>
     </div>
     <div class="slide" onclick="viewCustomBanner('Good Star 5l Rice Cooker', 'https://i.ibb.co/R4grt9Vx/Black-White-Business-Bio-Link-Your-Story.jpg', 'Home Appliance')">
-      <img src="https://i.ibb.co/R4grt9Vx/Black-White-Business-Bio-Link-Your-Story.jpg" alt="Rice Cooker">
+      <img src="https://i.ibb.co/R4grt9Vx/Black-White-Business-Bio-Link-Your-Story.jpg" alt="Rice Cooker" loading="lazy">
       <div class="txt">
         <span onclick="event.stopPropagation(); viewCustomBanner('Good Star 5l Rice Cooker', 'https://i.ibb.co/R4grt9Vx/Black-White-Business-Bio-Link-Your-Story.jpg', 'Home Appliance')">ORDER NOW</span>
       </div>
     </div>
     <div class="slide" onclick="viewCustomBanner('Quality Plain T-Shirts', 'https://i.ibb.co/chWjqXnj/IMG-4902.png', 'T-Shirts')">
-      <img src="https://i.ibb.co/chWjqXnj/IMG-4902.png" alt="Plain T-Shirts">
+      <img src="https://i.ibb.co/chWjqXnj/IMG-4902.png" alt="Plain T-Shirts" loading="lazy">
       <div class="txt">
         <h2>Quality Plain T-Shirts</h2>
         <p>All sizes and colors available</p>
@@ -738,7 +737,7 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
       </div>
     </div>
     <div class="slide" onclick="viewCustomBanner('5KG LPG Cylinders', 'https://i.ibb.co/SXpycY3T/IMG-4589.jpg', 'Home Appliance')">
-      <img src="https://i.ibb.co/SXpycY3T/IMG-4589.jpg" alt="LPG Cylinders">
+      <img src="https://i.ibb.co/SXpycY3T/IMG-4589.jpg" alt="LPG Cylinders" loading="lazy">
       <div class="txt">
         <h2>5KG LPG Cylinders</h2>
         <p>Available in Stock</p>
@@ -752,7 +751,7 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
 <!-- CATEGORY FILTER CHIPS -->
 <div class="filters" id="filters"></div>
 
-<!-- SPONSORED SHOWCASE (FEATURED & TRENDING) -->
+<!-- SPONSORED SHOWCASE -->
 <div class="blue">
   <div class="blue-h"><span>🔥 Featured & Trending</span><span>Slide →</span></div>
   <div class="hrow" id="srow"></div>
@@ -786,9 +785,7 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
       <span>🛒 Shopping Cart</span>
       <span style="cursor:pointer; font-size:18px; color:var(--text-primary)" onclick="toggleCartModal()">✕</span>
     </div>
-    <div class="cart-items-list" id="cartItemsList">
-      <!-- Dynamic cart items list -->
-    </div>
+    <div class="cart-items-list" id="cartItemsList"></div>
     <div class="cart-footer">
       <div class="cart-total-row">
         <span>Total:</span>
@@ -823,7 +820,6 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
 <!-- MODAL POPUP -->
 <div id="modal" class="p-modal-overlay" onclick="closeM(event)">
   <div class="p-modal-card" onclick="event.stopPropagation()">
-    <!-- FIXED HEADER WITH BACK BUTTON -->
     <div class="p-modal-header">
       <button class="p-back-btn" onclick="closeM()" title="Back to Home">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -838,7 +834,6 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
       </div>
     </div>
 
-    <!-- FLOATING BACK-TO-TOP / HOME BUTTON FOR SWIPE UP -->
     <div id="floatingBackBtn" class="floating-back-btn" onclick="scrollToModalTop()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <line x1="12" y1="19" x2="12" y2="5"></line>
@@ -848,12 +843,10 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
     </div>
 
     <div class="p-modal-body" id="modalBody">
-      <!-- IMAGE DISPLAY -->
       <div class="p-img-container" onclick="viewImg(document.getElementById('vimg').src)">
         <img id="vimg" src="" alt="Product" class="p-main-img" />
       </div>
 
-      <!-- MAIN ITEM DETAILS -->
       <div class="item-panel">
         <div class="item-meta">
           <span>📍 Greater Accra, Bubieshie</span>
@@ -862,29 +855,23 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
         <h2 id="vname" class="item-title"></h2>
         <div id="vprice" class="item-price"></div>
 
-        <!-- ACTION BUTTONS -->
         <div class="action-buttons">
-          <a href="tel:+233247440480" class="btn-call">
-            Call Seller
-          </a>
+          <a href="tel:+233247440480" class="btn-call">Call Seller</a>
           <a id="waDirectBtn" href="https://wa.me/233249303078" target="_blank" class="btn-wa">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
             Order via WhatsApp
           </a>
         </div>
         
-        <!-- ADD TO CART BUTTON IN MODAL -->
         <button id="modalAddToCartBtn" onclick="addCurrentToCart()" style="width:100%; margin-top:8px; padding:12px; background:var(--accent-yellow); border:none; border-radius:8px; font-weight:800; cursor:pointer;">🛒 Add to Cart</button>
       </div>
 
-      <!-- CHAT WITH SELLER BOX -->
       <div class="chat-section">
         <div class="chat-title">Chat with the seller</div>
         <input type="text" id="sellerMsg" placeholder="Hello" class="chat-input" />
         <button onclick="sendDirectChat()" class="chat-btn">Start chat</button>
       </div>
 
-      <!-- PRODUCT SPECIFICATIONS -->
       <div class="specs-grid">
         <div class="spec-item">
           <span id="vcat" class="spec-val">Gadgets</span>
@@ -904,13 +891,11 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
         </div>
       </div>
 
-      <!-- FAMILIAR PRODUCTS SECTION -->
       <div class="similar-banner">
         <div class="similar-title">🔥 Familiar Products</div>
         <div class="similar-row" id="famRow"></div>
       </div>
 
-      <!-- SAFETY TIPS SECTION -->
       <div class="safety-tips-card">
         <div class="safety-tips-title">
           <span>🛡️</span> Safety tips
@@ -928,7 +913,6 @@ body{background:var(--bg-primary);color:var(--text-primary);transition:backgroun
   </div>
 </div>
 
-<!-- FULL IMAGE PREVIEW MODAL -->
 <div id="imgModal" onclick="this.style.display='none'" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:20000; justify-content:center; align-items:center;">
   <img id="fullImg" src="" style="max-width:92%; max-height:85%; border-radius:10px; object-fit:contain">
   <div style="position:absolute; top:15px; right:20px; color:#fff; font-size:32px; cursor:pointer">×</div>
@@ -961,7 +945,6 @@ function toggleTheme() {
   }
 }
 
-// Initialize theme state early
 applyStoredTheme();
 
 let slider = document.getElementById('slider');
@@ -998,7 +981,6 @@ slider.addEventListener('scroll', () => {
   });
 });
 
-/* CONTINUOUS AUTOMATIC BANNER SWIPING */
 let autoSlideInterval = setInterval(autoSwipeBanners, 3500);
 
 function autoSwipeBanners() {
@@ -1024,7 +1006,8 @@ updateSliderDots();
 
 let categories = ["All", "Wifi & Routers", "Phones", "T-Shirts", "Frames", "Home Appliance", "Power Banks", "Cables", "Chargers", "Others"];
 
-let prods = [
+// DEFAULT PRODUCTS (FALLBACK)
+let defaultProds = [
   {id:"1", cat:"Wifi & Routers", name:"Universal Mobile WiFi (150Mbps)", price:199, old:220, dis:21, rate:"4.8", rev:42, img:"https://i.ibb.co/Hp2nFkNZ/95b985b7-81b8-430b-6c85-4e0a3781b4e5-F7-FDE882-0-E01-422-C-BE69-C71-B2-CD9-F3-F7.jpg", isFeatured: true, isBestSeller: true},
   {id:"2", cat:"Phones", name:"Nokia C2 copy and paste version", price:250, old:280, dis:19, rate:"4.2", rev:42, img:"https://i.ibb.co/XkvthCty/IMG-0005.jpg", isFeatured: false, isBestSeller: true},
   {id:"3", cat:"Wifi & Routers", name:"Huawei E5576 Unlocked Portable 4G MiFi", price:260, old:320, dis:18, rate:"4.7", rev:31, img:"https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500", isFeatured: true, isBestSeller: false},
@@ -1032,6 +1015,10 @@ let prods = [
   {id:"5", cat:"Chargers", name:"Apple 20W USB-C Power Adapter Fast Charger", price:130, old:170, dis:23, rate:"4.9", rev:140, img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500", isFeatured: false, isBestSeller: true},
   {id:"6", cat:"Wifi & Routers", name:"4G LTE-Advanced Mobile wifi", price:120, old:160, dis:25, rate:"4.8", rev:95, img:"https://i.ibb.co/k2nd6Vs0/ff1bf370-dd99-5794-496e-1b099872b645-D2-CA49-B8-F19-F-463-B-93-F6-EFFF649-E672-F.jpg", isFeatured: true, isBestSeller: false}
 ];
+
+// LOAD FROM LOCAL STORAGE INSTANTLY FOR 0MS LATENCY LOAD
+let cachedProds = localStorage.getItem('apex_cached_products');
+let prods = cachedProds ? JSON.parse(cachedProds) : defaultProds;
 
 let cart = [];
 
@@ -1102,11 +1089,7 @@ function removeFromCart(id) {
 
 function toggleCartModal() {
   let modal = document.getElementById('cartModal');
-  if (modal.style.display === 'flex') {
-    modal.style.display = 'none';
-  } else {
-    modal.style.display = 'flex';
-  }
+  modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
 }
 
 function closeCartOnOverlay(e) {
@@ -1175,7 +1158,7 @@ function createCard(p) {
   d.onclick = () => view(p.id);
   d.innerHTML = `
     <span class="spo">HOT</span>
-    <img src="${p.img}" alt="${p.name}">
+    <img src="${p.img}" alt="${p.name}" loading="lazy" decoding="async">
     <div class="card-body">
       <div class="title">${p.name}</div>
       <div class="price">GH₵ ${p.price}<span class="old">${p.old ? 'GH₵ '+p.old : ''}</span></div>
@@ -1193,7 +1176,7 @@ function createGridCard(p) {
   card.innerHTML = `
     <div class="card-img-wrapper">
       ${discount > 0 ? `<div class="badge">-${discount}%</div>` : ''}
-      <img src="${p.img}" alt="${p.name}">
+      <img src="${p.img}" alt="${p.name}" loading="lazy" decoding="async">
     </div>
     <div class="gbody">
       <div class="gtitle">${p.name}</div>
@@ -1218,15 +1201,19 @@ function render() {
   s.innerHTML = '';
   t.innerHTML = '';
 
-  list.forEach(p => {
-    g.appendChild(createGridCard(p));
-  });
+  let fragGrid = document.createDocumentFragment();
+  list.forEach(p => fragGrid.appendChild(createGridCard(p)));
+  g.appendChild(fragGrid);
 
   let featuredProds = prods.filter(p => p.isFeatured === true);
-  featuredProds.forEach(p => s.appendChild(createCard(p)));
+  let fragSrow = document.createDocumentFragment();
+  featuredProds.forEach(p => fragSrow.appendChild(createCard(p)));
+  s.appendChild(fragSrow);
 
   let bestSellerProds = prods.filter(p => p.isBestSeller === true);
-  bestSellerProds.forEach(p => t.appendChild(createCard(p)));
+  let fragTrow = document.createDocumentFragment();
+  bestSellerProds.forEach(p => fragTrow.appendChild(createCard(p)));
+  t.appendChild(fragTrow);
 }
 
 function search() { render(); }
@@ -1373,10 +1360,11 @@ function viewImg(src) {
   document.getElementById('imgModal').style.display = 'flex';
 }
 
+// RENDER INSTANTLY FROM CACHE / LOCAL DATA ON PAGE OPEN
 render();
 </script>
 
-<!-- FIREBASE INTEGRATION ENGINE -->
+<!-- FIREBASE INTEGRATION ENGINE (WITH AUTOMATIC INSTANT CACHING) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -1397,7 +1385,6 @@ render();
   const bannersQuery = query(collection(db, "banners"), orderBy("createdAt", "desc"));
   onSnapshot(bannersQuery, (snapshot) => {
     const sliderContainer = document.getElementById('slider');
-    
     const dynamicSlides = sliderContainer.querySelectorAll('.dynamic-slide');
     dynamicSlides.forEach(slide => slide.remove());
 
@@ -1409,7 +1396,7 @@ render();
           slideDiv.className = 'slide dynamic-slide' + (idx === 0 ? ' active' : '');
           slideDiv.onclick = () => window.viewCustomBanner(bannerData.title || 'Special Promotion', bannerData.image, bannerData.subtitle || 'Promo');
           slideDiv.innerHTML = `
-            <img src="${bannerData.image}" alt="${bannerData.title || 'Promo Banner'}">
+            <img src="${bannerData.image}" alt="${bannerData.title || 'Promo Banner'}" loading="lazy">
             <div class="txt">
               <h2>${bannerData.title || ''}</h2>
               ${bannerData.subtitle ? `<p>${bannerData.subtitle}</p>` : ''}
@@ -1454,6 +1441,9 @@ render();
         prods.unshift(fireItem);
       }
     });
+
+    // CACHE UPDATED PRODUCTS FOR NEXT IMMEDIATE LOAD
+    localStorage.setItem('apex_cached_products', JSON.stringify(prods));
 
     render();
   });
